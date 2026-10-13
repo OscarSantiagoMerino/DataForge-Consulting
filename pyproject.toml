@@ -1,0 +1,10 @@
+[project]
+name = "finbank-predictive-analytics"
+version = "0.2.0"
+description = "FinBank predictive analytics program (GMAC-FB-2026-01), DataForge Consulting"
+requires-python = ">=3.11"
+dependencies = ["numpy"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
