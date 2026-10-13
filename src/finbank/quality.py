@@ -1,13 +1,6 @@
 """Data quality report and feature dictionary (user story US-05)."""
-import numpy as np
-
 from finbank.schema import COMPLETENESS_THRESHOLD, SCHEMA, Variable
-
-
-def is_missing(column: np.ndarray) -> np.ndarray:
-    if column.dtype == object:
-        return np.array([value is None for value in column], dtype=bool)
-    return np.isnan(column)
+from finbank.validation import is_missing
 
 
 def quality_report(table, schema: tuple[Variable, ...] = SCHEMA,
