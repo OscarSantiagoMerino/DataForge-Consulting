@@ -43,3 +43,7 @@ def test_personal_data_column_is_rejected(sample):
     with pytest.raises(ValueError, match="personal_data_column"):
         assert_valid(sample)
 
+
+def test_missing_column_is_reported(sample):
+    del sample["loan_amount"]
+    assert validate(sample) == [Violation("missing_column", "loan_amount", 0)]
