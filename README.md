@@ -59,6 +59,12 @@ The quality report and the dictionary are written to `reports/` as CSV.
 - Definition of Done: reproducible from this repository, documented, tests green in CI,
   pull request approved by a peer, validated by the business owner, shown in the Sprint Review.
 
+## Documents
+
+- [`docs/XP_LOG.md`](docs/XP_LOG.md): evidence of the four XP practices.
+- [`docs/report/Reporte_Sprints_Corte2.pdf`](docs/report/Reporte_Sprints_Corte2.pdf): sprint report, velocity, burndown, Daily Scrum log, retrospectives and differences with the first term.
+- [`docs/SPRINT_REVIEW_DEMO.md`](docs/SPRINT_REVIEW_DEMO.md): script of the 15 minute Sprint Review.
+
 ## Team
 
 Daniel Felipe Martínez Hernández, Rafael Alejandro Baracaldo Doikov (Product Owner),
