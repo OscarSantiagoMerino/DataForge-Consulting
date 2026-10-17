@@ -1,0 +1,25 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0 -- C:\Users\danie\anaconda3\python.exe
+rootdir: <repo>
+configfile: pyproject.toml
+testpaths: tests
+collecting ... collected 16 items
+
+tests/test_quality.py::test_report_has_one_row_per_candidate_variable PASSED [  6%]
+tests/test_quality.py::test_variables_below_threshold_are_excluded_with_a_reason PASSED [ 12%]
+tests/test_quality.py::test_threshold_is_inclusive PASSED                [ 18%]
+tests/test_quality.py::test_dictionary_holds_the_18_variables_kept PASSED [ 25%]
+tests/test_targets.py::test_targets_at_the_boundaries PASSED             [ 31%]
+tests/test_targets.py::test_unobserved_accounts_stay_missing PASSED      [ 37%]
+tests/test_targets.py::test_negative_days_past_due_are_rejected PASSED   [ 43%]
+tests/test_targets.py::test_default_at_60_implies_default_at_30 PASSED   [ 50%]
+tests/test_validation.py::test_sample_respects_every_rule PASSED         [ 56%]
+tests/test_validation.py::test_bureau_score_outside_range_is_reported PASSED [ 62%]
+tests/test_validation.py::test_missing_values_are_not_range_violations PASSED [ 68%]
+tests/test_validation.py::test_duplicated_and_null_identifiers_are_reported PASSED [ 75%]
+tests/test_validation.py::test_unknown_category_is_reported PASSED       [ 81%]
+tests/test_validation.py::test_numeric_variable_loaded_as_text_is_reported PASSED [ 87%]
+tests/test_validation.py::test_personal_data_column_is_rejected PASSED   [ 93%]
+tests/test_validation.py::test_missing_column_is_reported PASSED         [100%]
+
+============================= 16 passed in 0.11s ==============================

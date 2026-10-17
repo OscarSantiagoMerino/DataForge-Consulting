@@ -1,0 +1,23 @@
+variable,type,completeness,decision,reason
+age,numeric,1.0,keep,
+monthly_income,numeric,0.9722,keep,
+employment_months,numeric,0.94,keep,
+employment_type,categorical,1.0,keep,
+region,categorical,1.0,keep,
+product_type,categorical,1.0,keep,
+loan_amount,numeric,1.0,keep,
+loan_term_months,numeric,1.0,keep,
+interest_rate,numeric,1.0,keep,
+installment_to_income,numeric,1.0,keep,
+bureau_score,numeric,0.9598,keep,
+open_credit_lines,numeric,1.0,keep,
+bureau_inquiries_6m,numeric,1.0,keep,
+prior_delinquencies_24m,numeric,1.0,keep,
+credit_utilization,numeric,0.923,keep,
+months_as_client,numeric,1.0,keep,
+savings_balance,numeric,0.948,keep,
+has_payroll_deposit,numeric,1.0,keep,
+digital_channel_share,numeric,0.5472,exclude,completeness below 80%
+education_level,categorical,0.6532,exclude,completeness below 80%
+dependents,numeric,0.7206,exclude,completeness below 80%
+housing_type,categorical,0.6088,exclude,completeness below 80%
