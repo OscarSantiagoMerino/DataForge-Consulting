@@ -1,0 +1,3 @@
+# Optional dependencies for rebuilding the four-page sprint report.
+reportlab
+pypdf

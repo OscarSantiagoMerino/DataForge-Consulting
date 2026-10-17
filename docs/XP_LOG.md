@@ -1,127 +1,69 @@
-# XP log (Bitácora de prácticas XP)
+# Bitácora XP del Corte 2
 
-Project GMAC-FB-2026-01, FinBank S.A. DataForge Consulting, second term.
+Proyecto GMAC-FB-2026-01. Actualización: 16 de octubre de 2026, hora de Colombia.
 
-The sprint days below belong to the simulated engagement (Sprint 1: 10–21 Aug 2026,
-Sprint 2: 24 Aug–4 Sep 2026). Commits and pull requests carry the real dates on which
-the team did the work.
+La bitácora vincula las prácticas del caso FinBank con el código y GitHub. P1/P2 y los días S1/S2 corresponden al escenario académico. Los commits de implementación se registraron el 13 de octubre; las revisiones e integraciones, el 14 y 15 de octubre de 2026.
 
-## 01. Pair programming
+## 01 Programación en parejas
 
-Rule: anything that encodes a business rule is written by two people, one driving and
-one navigating, and the driver changes from one session to the next. The commit of a
-pairing session ends with a `Co-authored-by:` line for the navigator.
-
-| Session | Sprint day | Driver | Navigator | Item | What the navigator changed | Evidence |
-|---|---|---|---|---|---|---|
-| P1 | S2 D3 | Rafael | Daniel | T-05.6 validation rules | Missing values must not count as range violations; a `cedula` column must fail the run (Ley 1581) | [`ec8dc1a`](https://github.com/OscarSantiagoMerino/DataForge-Consulting/commit/ec8dc1a0171a5771467ff20b4054472fe340ccde) |
-| P2 | S2 D7 | Oscar | Rafael | T-05.4 delinquency targets | Accounts too recent to be observed stay missing instead of counting as good clients | [`831eabc`](https://github.com/OscarSantiagoMerino/DataForge-Consulting/commit/831eabc083275433025180bff0090518d95cd48d) |
-
-Commit message format for a session:
-
-```
-T-05.4 Delinquency targets at 30 and 60 days
-
-Co-authored-by: Rafael Alejandro Baracaldo Doikov <correoalejandro97@gmail.com>
-```
-
-## 02. Test-driven development
-
-Rule: the test that describes the rule is committed first and fails; the code that
-makes it pass is committed after. An item is not Done with a red test.
-
-| Test file | Tests | Rules covered |
-|---|---|---|
-| `tests/test_validation.py` | 8 | Ranges (bureau score 150–950 and the rest of the schema), categories, numeric types, unique and non-null identifier, no personal data columns, missing columns |
-| `tests/test_quality.py` | 4 | One row per candidate variable, exclusion below 80% completeness with a written reason, inclusive threshold, 18 variables in the dictionary |
-| `tests/test_targets.py` | 4 | Boundaries at 29/30 and 59/60 days, unobserved accounts stay missing, negative days rejected, default at 60 implies default at 30 |
-
-Execution report, `pytest -v`, Python 3.11.9:
-
-```
-tests/test_quality.py::test_report_has_one_row_per_candidate_variable PASSED
-tests/test_quality.py::test_variables_below_threshold_are_excluded_with_a_reason PASSED
-tests/test_quality.py::test_threshold_is_inclusive PASSED
-tests/test_quality.py::test_dictionary_holds_the_18_variables_kept PASSED
-tests/test_targets.py::test_targets_at_the_boundaries PASSED
-tests/test_targets.py::test_unobserved_accounts_stay_missing PASSED
-tests/test_targets.py::test_negative_days_past_due_are_rejected PASSED
-tests/test_targets.py::test_default_at_60_implies_default_at_30 PASSED
-tests/test_validation.py::test_sample_respects_every_rule PASSED
-tests/test_validation.py::test_bureau_score_outside_range_is_reported PASSED
-tests/test_validation.py::test_missing_values_are_not_range_violations PASSED
-tests/test_validation.py::test_duplicated_and_null_identifiers_are_reported PASSED
-tests/test_validation.py::test_unknown_category_is_reported PASSED
-tests/test_validation.py::test_numeric_variable_loaded_as_text_is_reported PASSED
-tests/test_validation.py::test_personal_data_column_is_rejected PASSED
-tests/test_validation.py::test_missing_column_is_reported PASSED
-============================= 16 passed in 0.26s ==============================
-```
-
-CI runs on `main` and on every pull request: [GitHub Actions, workflow CI](https://github.com/OscarSantiagoMerino/DataForge-Consulting/actions/workflows/ci.yml).
-
-## 03. Continuous integration and collective ownership
-
-Rule: nothing lives only on a personal computer. One branch per item, a pull request
-into `main`, approval by a member who did not write it, and the CI workflow
-(`.github/workflows/ci.yml`) green before merging. `main` is protected: no direct pushes.
-
-| PR | Branch | Item | Author | Reviewer | Link |
+| Sesión | Día del caso | Conductor declarado | Navegador declarado | Decisión revisada | Commit vigente |
 |---|---|---|---|---|---|
-| 1 | `chore/ci-and-skeleton` | US-04 repository, CI, Definition of Done | Oscar | Daniel | [#1](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/1) |
-| 2 | `feature/t050-sample-and-schema` | T-05.0 extraction layout and anonymized sample | Rafael | Oscar | [#2](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/2) |
-| 3 | `feature/t056-validation-rules` | T-05.6 validation rules, tests first (pairing P1) | Rafael + Daniel | Oscar | [#3](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/3) |
-| 4 | `feature/t051-quality-report` | T-05.1 quality report and T-05.2 feature dictionary | Daniel | Rafael | [#4](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/4) |
-| 5 | `refactor/r01-schema-driven-validation` | R-01, see practice 04 | Oscar | Rafael | [#5](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/5) |
-| 6 | `feature/t054-delinquency-targets` | T-05.4 targets (pairing P2) and pipeline script | Oscar + Rafael | Daniel | [#6](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/6) |
-| 7 | `docs/sprint-report-and-xp-log` | Sprint report, Sprint Review script and this log | Daniel | Oscar | [#7](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/7) |
+| P1 | S2 D3 | Rafael | Daniel | Conservar faltantes; rechazar una columna `cedula` | [211d6c3](https://github.com/OscarSantiagoMerino/DataForge-Consulting/commit/211d6c3668000ff490287b5df8e8ddbe32a5a986) |
+| P2 | S2 D7 | Oscar | Rafael | Conservar NaN en las etiquetas de cuentas sin observación | [b3bb92e](https://github.com/OscarSantiagoMerino/DataForge-Consulting/commit/b3bb92e724dfb272993b3df6a1dfdc214189daaa) |
 
-Each member is author of at least one pull request and reviewer of at least one written
-by someone else, so every module has been read by two people.
+Los commits incluyen `Co-authored-by:`. En P1 figuran Rafael y Daniel; en P2, Rafael. La bitácora describe la rotación de conductor; el historial conserva la coautoría registrada. La consigna admite estos commits como alternativa a fotos o capturas de las sesiones.
 
-## 04. Simple design and refactoring
+## 02 Pruebas y TDD
 
-### R-01. Validation rules read their bounds from the schema
+| Archivo | Pruebas | Cobertura |
+|---|---:|---|
+| `tests/test_validation.py` | 8 | Rangos, nulos, categorías, tipos, identificador, columnas personales y requeridas |
+| `tests/test_quality.py` | 4 | Completitud, exclusión justificada, umbral inclusivo y diccionario |
+| `tests/test_targets.py` | 4 | Fronteras 29/30 y 59/60, faltantes, negativos y coherencia de etiquetas |
 
-**Before** (`docs/refactoring/validation_before.py`, merged in PR 3). The first iteration
-validated the five variables collections asked about first. Each variable had its own
-block, and each block repeated a bound that was already written in `schema.py` for the
-feature dictionary:
+La ejecución actual está en [evidence/tests.txt](evidence/tests.txt). `python scripts/reproduce_tdd.py` reproduce el siguiente caso:
 
-```python
-score = table["bureau_score"]
-if score.dtype == object:
-    violations.append(Violation("not_numeric", "bureau_score", len(score)))
-else:
-    score = score[~np.isnan(score)]
-    if (score < 150).sum() > 0:
-        violations.append(Violation("below_minimum", "bureau_score", int((score < 150).sum())))
-    if (score > 950).sum() > 0:
-        violations.append(Violation("above_maximum", "bureau_score", int((score > 950).sum())))
-# ...the same block again for age, credit_utilization and installment_to_income
-```
-
-Problem found at the Daily Scrum of S2 D5: covering the 22 candidate variables meant 17
-more copies, and a bound changed by the business would have to be edited in two files.
-
-**After** (`src/finbank/validation.py`, PR 5). One function checks any variable, and the
-bounds come from the schema that also feeds the dictionary:
-
-```python
-for variable in schema:
-    if variable.name not in table:
-        violations.append(Violation("missing_column", variable.name, 0))
-    else:
-        violations += _check_variable(table[variable.name], variable)
-```
-
-| | Before | After |
+| Paso | Revisión | Resultado |
 |---|---|---|
-| Lines in the module | 99 | 84 |
-| Variables validated | 5 | 22 |
-| Places where a bound is written | 2 | 1 |
-| Cost of adding a variable | A new block of about 10 lines | One line in `schema.py` |
-| Tests passing | 7 | 8 (the 7 unchanged, plus `test_missing_column_is_reported`) |
+| Rojo | [c90a325](https://github.com/OscarSantiagoMerino/DataForge-Consulting/commit/c90a325) | 1 falla y 11 pasan: la ausencia de `loan_amount` queda sin detectar |
+| Verde/refactor | [d9d2b52](https://github.com/OscarSantiagoMerino/DataForge-Consulting/commit/d9d2b5287d0f9d6974956b28a5255d207884192e) | 12 pasan: se informa la columna ausente |
+| Incremento completo | [PR #8](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/8) | 16 pasan |
 
-Behaviour did not change for the five original variables: the seven tests written for the
-first iteration pass on both versions without being edited.
+Los [registros históricos](evidence/tdd/) se generan en copias temporales y conservan la rama activa.
+
+## 03 Integración continua y propiedad colectiva
+
+El [workflow CI](../.github/workflows/ci.yml) instala Python 3.11 y ejecuta pruebas y pipeline. Se activa en PR y push a main. La [ejecución tras #8](https://github.com/OscarSantiagoMerino/DataForge-Consulting/actions/runs/38844935088) terminó correctamente. La consulta de la rama confirmó su protección.
+
+Los PR #2–#7 se revisaron como cambios encadenados entre ramas. El PR #8 llevó el conjunto a main. Los ocho están integrados.
+
+| PR | Contenido | Cuenta creadora real | Aprobación registrada | Destino original |
+|---|---|---|---|---|
+| [#1](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/1) | Estructura, CI y DoD | OscarSantiagoMerino | Ch0comilo (Daniel) | main |
+| [#2](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/2) | Muestra y esquema | OscarSantiagoMerino | correoalejandro (Rafael) | Rama de #1 |
+| [#3](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/3) | Reglas y pruebas | OscarSantiagoMerino | correoalejandro (Rafael) | Rama de #2 |
+| [#4](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/4) | Calidad y diccionario | OscarSantiagoMerino | correoalejandro (Rafael) | Rama de #3 |
+| [#5](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/5) | Refactor R-01 | OscarSantiagoMerino | correoalejandro (Rafael) | Rama de #4 |
+| [#6](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/6) | Targets y pipeline | OscarSantiagoMerino | correoalejandro (Rafael) | Rama de #5 |
+| [#7](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/7) | Reportes y bitácora | OscarSantiagoMerino | correoalejandro (Rafael) | Rama de #6 |
+| [#8](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/8) | Consolidación del incremento | correoalejandro | OscarSantiagoMerino y Ch0comilo | main |
+
+La revisión de #8 pidió incorporar su integración final a esta bitácora. La tabla registra la actividad de las cuentas; las sesiones documentan la contribución técnica declarada.
+
+Rafael participó en las implementaciones de #3 y #6 y también las aprobó. Para siguientes cambios se establece revisión por un integrante ajeno a la implementación. La revisión del conjunto por Daniel en #8 aporta una lectura adicional.
+
+Los [metadatos consultados](evidence/github_state.json) conservan fechas, ramas y aprobaciones. La aprobación técnica se incorpora al [registro de aceptación](SPRINT_REVIEW_ACCEPTANCE.md) durante la Review.
+
+## 04 Diseño simple y refactorización
+
+R-01 centraliza los límites en `schema.py`. La validación y el diccionario consultan esa fuente compartida.
+
+| Aspecto | Antes | Después |
+|---|---|---|
+| Implementación | [validation_before.py](refactoring/validation_before.py) | [validation.py](../src/finbank/validation.py) |
+| Variables cubiertas | 5 | 22 mediante el esquema |
+| Líneas físicas | 99 | 84 |
+| Lugares donde se mantiene un límite | 2 | 1 |
+| Incorporación de una variable | Nuevo bloque | Entrada en el esquema |
+
+La función recorre `SCHEMA`, comprueba cada columna y llama a `_check_variable`. Las pruebas de reglas previas y de columna faltante protegen el refactor. El beneficio comprobado es reducir duplicación y ampliar las variables cubiertas. El efecto sobre mantenimiento podrá evaluarse con futuros cambios de negocio.
