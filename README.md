@@ -12,7 +12,7 @@ La entrega corresponde a los Sprints 1 y 2 del caso académico. Las cifras de ge
 
 | Producto | Archivo y evidencia | Peso dentro del corte |
 |---|---|---:|
-| A. Reporte de Sprints | [Reporte_Sprints_Corte2.pdf](docs/report/Reporte_Sprints_Corte2.pdf), versión vigente de cuatro páginas | 40 % |
+| A. Reporte de Sprints | [Reporte_Sprints_Corte2.pdf](docs/report/Reporte_Sprints_Corte2.pdf), versión vigente de tres páginas con el diseño de referencia | 40 % |
 | B. Repositorio y prácticas XP | Este repositorio público y la [bitácora XP](docs/XP_LOG.md) | 30 % |
 | C. Sprint Review | [Presentación](docs/review/Presentacion_FinBank_Corte2.pptx), [guion](docs/review/Speech_FinBank_Corte2.pdf) y [demo](docs/SPRINT_REVIEW_DEMO.md) | 30 % |
 
@@ -22,9 +22,9 @@ El corte representa el 30 % de la nota definitiva. La [consigna conservada en te
 
 | Requisito de C2 | Solución implementada | Evidencia | Estado |
 |---|---|---|---|
-| Reporte ejecutivo de 3–4 páginas | Cuatro páginas con cierre de S1 y S2 | [PDF vigente](docs/report/Reporte_Sprints_Corte2.pdf) | Preparado |
+| Reporte ejecutivo de 3–4 páginas | Tres páginas con ocho apartados, cierre de S1/S2 y comparación C1/C2 | [PDF vigente](docs/report/Reporte_Sprints_Corte2.pdf) | Preparado |
 | Backlog priorizado, objetivos y puntos | Ítems, criterios y estados de gestión y técnicos separados | [Backlog C2](docs/SPRINT_BACKLOG.md) | Documentado |
-| Velocidad estimada frente a real | S1: 16/16; S2: 15/20; media: 15,5 puntos | PDF p. 1; [métricas](docs/SPRINT_METRICS.md) | Calculado sobre el escenario |
+| Velocidad estimada frente a real | S1: 16/16; S2: 15/20; media: 15,5 puntos | PDF, sección 3; [métricas](docs/SPRINT_METRICS.md) | Calculado sobre el escenario |
 | Burndown | Curvas reconstruidas con el día de cierre registrado para cada ítem | [CSV diario](docs/evidence/sprint_burndown.csv); [método](docs/SPRINT_METRICS.md) | Conciliado con los Dailies del caso |
 | Daily Scrums | Hecho, siguiente paso e impedimento en los días relevantes | [Bitácora](docs/DAILY_RETROSPECTIVES.md) | Escenario documentado; reuniones reales por acreditar |
 | Retrospectivas Start/Stop/Continue | Actas de S1 y S2, responsables y seguimiento | [Actas](docs/DAILY_RETROSPECTIVES.md#retrospectivas) | Documentadas |
@@ -36,7 +36,7 @@ El corte representa el 30 % de la nota definitiva. La [consigna conservada en te
 | Diseño simple y refactor antes/después | Una función usa el esquema compartido por validación y diccionario | [Antes](docs/refactoring/validation_before.py); [después](src/finbank/validation.py); [XP 04](docs/XP_LOG.md#04-diseño-simple-y-refactorización) | Implementado |
 | Demo de quince minutos | Guion de 900 segundos con 150 de demo y 60 de preguntas | [Guion](docs/review/Speech_editable.md); [ejecución](scripts/demo_review.py) | Preparada; sustentación pendiente |
 | Historias que cumplen DoD | Ejecución, documentación, tests y revisión; aceptación por criterios preparada | [Registro de aceptación](docs/SPRINT_REVIEW_ACCEPTANCE.md) | Cierre técnico verificado; aceptación y Review pendientes |
-| Lecciones y plan de mejora | US-06 priorizada en 13 puntos, dependencia de churn y decisión sobre M4 | PDF p. 4; [acciones](docs/DAILY_RETROSPECTIVES.md#acciones-de-seguimiento) | Propuesta para el próximo Planning |
+| Lecciones y plan de mejora | US-06 priorizada en 13 puntos, dependencia de churn y decisión sobre M4 | PDF, secciones 5, 7 y 8; [acciones](docs/DAILY_RETROSPECTIVES.md#acciones-de-seguimiento) | Propuesta para el próximo Planning |
 
 Los registros Scrum describen el caso del curso. Para acreditar reuniones reales se requieren sus registros originales o la validación del alcance del simulacro por el docente. El equipo completará el registro de aceptación durante la Sprint Review.
 
@@ -104,4 +104,4 @@ python scripts/build_report.py
 python scripts/build_review_notes.py
 ```
 
-El constructor usa `docs/report/report_content.json` y escribe un PDF de cuatro páginas. Sus dependencias se mantienen separadas de las necesarias para ejecutar el incremento.
+El reporte usa la [fuente LaTeX](docs/report/Reporte_Sprints_Corte2.tex) y conserva el diseño del PDF de referencia: tipografía Latin Modern, ocho apartados numerados, tablas con líneas horizontales y tres gráficos de métricas. Requiere una distribución LaTeX con `pdflatex`, `lmodern`, `babel-spanish` y `pgfplots`, como MiKTeX o TeX Live. El constructor comprueba que el resultado tenga tres páginas y que el texto respete los márgenes. El guion usa ReportLab. Estas dependencias se mantienen separadas de las necesarias para ejecutar el incremento.

@@ -2,7 +2,7 @@
 
 ## Archivos preparados
 
-- [x] Reporte vigente de cuatro páginas en docs/report/Reporte_Sprints_Corte2.pdf.
+- [x] Reporte vigente de tres páginas, con estructura y diseño de referencia, en docs/report/Reporte_Sprints_Corte2.pdf.
 - [x] README con requisito, solución, evidencia y estado.
 - [x] Cuatro prácticas XP con referencias actuales y PR #8.
 - [x] Backlog C2 y burndown conciliado con Dailies del caso.

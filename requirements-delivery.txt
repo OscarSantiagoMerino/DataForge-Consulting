@@ -1,3 +1,4 @@
-# Optional dependencies for rebuilding the four-page sprint report.
+# Optional Python dependencies for rebuilding the report and review notes.
+# The three-page report also requires pdflatex, lmodern, babel-spanish and pgfplots.
 reportlab
 pypdf
