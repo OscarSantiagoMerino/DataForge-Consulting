@@ -1,0 +1,7 @@
+id,issue,issue_state,board_column,branch,pr,pr_state,head_sha,ci,approved_by,review_requested,merged_at,merge_sha,issue_url,pr_url
+S6-01,10,OPEN,review,c3/s6/s6-01-piloto,17,OPEN,66b6e12,SUCCESS,,"correoalejandro,Ch0comilo",,,https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/10,https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/17
+S6-02,11,OPEN,review,c3/s6/s6-02-monitoreo,18,OPEN,251595e,SUCCESS,,"Ch0comilo,correoalejandro",,,https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/11,https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/18
+S6-03,12,OPEN,review,c3/s6/s6-03-runbook,19,OPEN,796de91,SUCCESS,,"Ch0comilo,correoalejandro",,,https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/12,https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/19
+S6-04,13,OPEN,blocked,c3/s6/s6-04-transferencia,20,OPEN,8135c0d,SUCCESS,,"correoalejandro,Ch0comilo",,,https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/13,https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/20
+S6-05,14,OPEN,in-progress,,,,,,,,,,https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/14,
+C3-00,15,OPEN,in-progress,c3/s6/c3-00-gitignore-videos,16,OPEN,8668de9,SUCCESS,,"Ch0comilo,correoalejandro",,,https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/15,https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/16
