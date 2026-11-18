@@ -1,0 +1,7 @@
+sprint,weeks,dates_scenario,goal,committed,done,goal_met,label
+S1,1-2,10-21 ago 2026,El proyecto queda gobernado y el equipo puede tocar datos legalmente,16,16,Cumplida,antecedente del escenario (Corte 2)
+S2,3-4,24 ago-4 sep 2026,Base de datos validada para los modelos de mora y churn,20,15,Parcial,antecedente del escenario (Corte 2)
+S3,5-6,7-18 sep 2026,Modelo de mora a 30/60 días validado fuera de tiempo (M3),16,16,Cumplida,reconstrucción del Corte 3
+S4,7-8,21 sep-2 oct 2026,Extracto de churn integrado y modelo de churn construido (M2 y M4),16,13,Parcial,reconstrucción del Corte 3
+S5,9-10,5-16 oct 2026,Churn validado y reglas de decisión aprobadas por Finanzas (M4 y M5),16,16,Cumplida,reconstrucción del Corte 3
+S6,11-12,19-30 oct 2026,Piloto operando en el segmento controlado y paquete de transferencia listo para firma (M6),15,12,Parcial,simulación del Corte 3

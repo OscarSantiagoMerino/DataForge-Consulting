@@ -1,0 +1,21 @@
+day,date_scenario,event_type,item,owner,entry,label
+1,19 oct 2026,Planning,,Equipo,"Sprint Planning: objetivo del sprint y compromiso de 5 historias y 15 puntos (velocidad media S1-S5 = 15,2). WIP máximo 3 en In Progress.",simulado
+1,19 oct 2026,Avance,S6-01,Rafael y Oscar,"Pairing: Rafael conduce y Oscar navega. Modelo de mora y listas sobre la cohorte de desarrollo.",simulado
+1,19 oct 2026,Avance,S6-03,Daniel,Borrador del runbook a partir de los comandos del pipeline.,simulado
+2,20 oct 2026,Avance,S6-01,Rafael y Oscar,Listas con identificador seudonimizado; falta correr en el ambiente de piloto de TI.,simulado
+3,21 oct 2026,Bloqueo,S6-01,Oscar,El ambiente de piloto no tiene la cuenta de servicio. S6-01 pasa a Blocked con la causa escrita.,simulado
+3,21 oct 2026,Cambio de plan,S6-02,Oscar,El Product Owner adelanta el monitoreo (S6-02) para no dejar capacidad ociosa.,simulado
+4,22 oct 2026,Escalación,S6-01,Oscar,El Scrum Master escala al patrocinador dentro de las 24 horas (regla de la retrospectiva de S2). La demo sigue sobre la réplica sintética del repositorio.,simulado
+4,22 oct 2026,Done,S6-03,Daniel,Runbook terminado y revisado por un par: 2 puntos.,simulado
+5,23 oct 2026,Cambio de alcance,US-10,Rafael,Retención pide variables explicativas por cliente en la lista de churn. Entra al Product Backlog como US-10 y no al sprint (riesgo R6).,simulado
+5,23 oct 2026,Avance,S6-05,Daniel,Consolidación del registro de gasto S1-S6.,simulado
+6,26 oct 2026,Desbloqueo,S6-01,Oscar,TI habilita el ambiente de piloto tras 3 días de bloqueo (D3-D5).,simulado
+6,26 oct 2026,Done,S6-02,Oscar,Monitoreo con PSI y disparador de reentrenamiento: 3 puntos.,simulado
+7,27 oct 2026,Avance,S6-01,Rafael,Primera corrida en el segmento controlado; Cobranza revisa la lista.,simulado
+7,27 oct 2026,Avance,S6-04,Rafael,Inicio del paquete de transferencia; WIP en 3 (S6-01 S6-04 S6-05).,simulado
+8,28 oct 2026,Done,S6-01,Rafael y Oscar,Cobranza valida la lista contra su proceso operativo: 5 puntos.,simulado
+8,28 oct 2026,Avance,S6-04,Rafael,Sesiones de capacitación 1 y 2 con analistas de Riesgo y TI.,simulado
+9,29 oct 2026,Done,S6-05,Daniel,"Balance final presentado a Finanzas: desviación de costo -0,12 %: 2 puntos.",simulado
+10,30 oct 2026,Bloqueo,S6-04,Rafael,Auditoría del oficial de protección de datos: el piloto usa la sal de demostración. Exige una sal propia bajo su custodia antes de firmar. S6-04 queda fuera de Done.,simulado
+10,30 oct 2026,Review,,Equipo,Sprint Review con demo del piloto y del monitoreo. Decisión del patrocinador: cierre con transferencia condicionada.,simulado
+10,30 oct 2026,Retrospectiva,,Equipo,Retrospectiva de cierre del proyecto con acciones y responsable.,simulado

@@ -1,0 +1,25 @@
+sprint,id,item,points,owner,business_owner,objective,milestone,dependency,state,done_day,label
+S1,US-04,"Tablero, repositorio y Definition of Done",3,Oscar,Patrocinador,O4,M1,,Done,3,antecedente del escenario (Corte 2)
+S1,US-03,Perfilamiento de la base de clientes sobre la muestra anonimizada,5,Rafael,Riesgo y Analítica,O1,M1,muestra anonimizada (R1),Done,5,antecedente del escenario (Corte 2)
+S1,US-01,Charter aprobado por el patrocinador,3,Daniel,Patrocinador,O5,M1,,Done,7,antecedente del escenario (Corte 2)
+S1,US-02,"Acuerdo de acceso a datos, Ley 1581",5,Daniel,Oficial de protección de datos,O1,M1,firma legal,Done,10,antecedente del escenario (Corte 2)
+S2,T-05.0,"Script de extracción, datos de mora",2,Rafael,Riesgo y Analítica,O1,M2,,Done,3,antecedente del escenario (Corte 2)
+S2,T-05.6,Reglas de validación escritas con pruebas primero,3,Rafael,Riesgo y Analítica,O1,M2,,Done,5,antecedente del escenario (Corte 2)
+S2,T-05.1,Reporte de calidad de datos,4,Daniel,Riesgo y Analítica,O1,M2,,Done,8,antecedente del escenario (Corte 2)
+S2,T-05.4,Variable objetivo de mora a 30 y 60 días,3,Oscar,Cobranza,O1,M3,,Done,8,antecedente del escenario (Corte 2)
+S2,T-05.2,Diccionario de variables v1 validado por negocio,3,Rafael,Cobranza,O1,M2,T-05.1,Done,10,antecedente del escenario (Corte 2)
+S2,T-05.5,Extracto histórico de churn,5,Oscar,TI,O2,M2,credencial de TI,Bloqueado (pasa a S4),,antecedente del escenario (Corte 2)
+S3,T-06.1,Diseño de la validación fuera de tiempo,3,Oscar,Riesgo y Analítica,O1,M3,T-05.4,Done,6,reconstrucción del Corte 3
+S3,US-06,Modelo de mora a 30 y 60 días,13,Rafael,Riesgo y Analítica,O1,M3,T-06.1,Done,10,reconstrucción del Corte 3
+S4,T-05.5,Extracto histórico de churn,5,Oscar,TI,O2,M2,credencial de TI (concedida en S3 D2),Done,4,reconstrucción del Corte 3
+S4,T-08.1,Variables de churn en el diccionario,3,Rafael,Retención,O2,M2,T-05.5,Done,6,reconstrucción del Corte 3
+S4,US-08a,Modelo de churn a 3 meses: construcción,5,Daniel,Retención,O2,M4,T-08.1,Done,9,reconstrucción del Corte 3
+S4,US-08b,Modelo de churn: validación fuera de tiempo y recall al umbral,3,Daniel,Retención,O2,M4,ventana de 3 meses madura en la semana 9,No terminado (pasa a S5),,reconstrucción del Corte 3
+S5,US-08b,Modelo de churn: validación fuera de tiempo y recall al umbral,3,Daniel,Retención,O2,M4,ventana de 3 meses madura en la semana 9,Done,3,reconstrucción del Corte 3
+S5,T-09.1,Calibración de probabilidades,5,Oscar,Riesgo y Analítica,O3,M5,US-06,Done,7,reconstrucción del Corte 3
+S5,US-09,Matriz de costos y umbrales con Finanzas,8,Rafael,Finanzas,O3,M5,T-09.1,Done,9,reconstrucción del Corte 3
+S6,S6-01,Piloto controlado con lista semanal de alerta temprana (incluye US-07),5,Rafael y Oscar,Cobranza,O1 O2 O3 O4,M6,ambiente de piloto de TI,Done,8,simulación del Corte 3
+S6,S6-02,Monitoreo de desempeño y drift,3,Oscar,Riesgo y Analítica,O4,M6,S6-01,Done,6,simulación del Corte 3
+S6,S6-03,Runbook de operación del piloto,2,Daniel,Riesgo y Analítica,O4,M6,S6-01,Done,4,simulación del Corte 3
+S6,S6-04,Paquete de transferencia y capacitación,3,Rafael,Patrocinador,O4,M6,auditoría del oficial de protección de datos,No terminado (firma pendiente),,simulación del Corte 3
+S6,S6-05,Balance final de cronograma y presupuesto,2,Daniel,Finanzas,O5,M6,registro de gasto S1-S6,Done,9,simulación del Corte 3

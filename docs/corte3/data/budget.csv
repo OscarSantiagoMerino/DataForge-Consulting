@@ -1,0 +1,31 @@
+sprint,item,base_cop_m,actual_cop_m,label
+S1,Gestión y gobierno,6.0,6.3,antecedente del escenario (Corte 2)
+S1,Ingeniería de datos,16.5,16.0,antecedente del escenario (Corte 2)
+S1,Modelado predictivo,0.0,0.0,antecedente del escenario (Corte 2)
+S1,Validación y documentación,2.7,2.7,antecedente del escenario (Corte 2)
+S1,"Piloto, capacitación y transferencia",0.0,0.0,antecedente del escenario (Corte 2)
+S2,Gestión y gobierno,4.2,4.6,antecedente del escenario (Corte 2)
+S2,Ingeniería de datos,22.5,20.7,antecedente del escenario (Corte 2)
+S2,Modelado predictivo,2.0,2.0,antecedente del escenario (Corte 2)
+S2,Validación y documentación,2.5,2.5,antecedente del escenario (Corte 2)
+S2,"Piloto, capacitación y transferencia",0.0,0.0,antecedente del escenario (Corte 2)
+S3,Gestión y gobierno,4.2,4.4,reconstrucción del Corte 3
+S3,Ingeniería de datos,3.0,3.0,reconstrucción del Corte 3
+S3,Modelado predictivo,20.0,20.6,reconstrucción del Corte 3
+S3,Validación y documentación,1.0,1.0,reconstrucción del Corte 3
+S3,"Piloto, capacitación y transferencia",0.0,0.0,reconstrucción del Corte 3
+S4,Gestión y gobierno,4.2,4.2,reconstrucción del Corte 3
+S4,Ingeniería de datos,3.0,5.4,reconstrucción del Corte 3
+S4,Modelado predictivo,20.0,19.0,reconstrucción del Corte 3
+S4,Validación y documentación,1.0,1.0,reconstrucción del Corte 3
+S4,"Piloto, capacitación y transferencia",0.0,0.0,reconstrucción del Corte 3
+S5,Gestión y gobierno,4.2,4.2,reconstrucción del Corte 3
+S5,Ingeniería de datos,0.0,0.0,reconstrucción del Corte 3
+S5,Modelado predictivo,12.0,12.7,reconstrucción del Corte 3
+S5,Validación y documentación,12.0,11.0,reconstrucción del Corte 3
+S5,"Piloto, capacitación y transferencia",0.0,0.0,reconstrucción del Corte 3
+S6,Gestión y gobierno,4.2,4.6,simulación del Corte 3
+S6,Ingeniería de datos,0.0,0.0,simulación del Corte 3
+S6,Modelado predictivo,0.0,0.0,simulación del Corte 3
+S6,Validación y documentación,6.0,4.7,simulación del Corte 3
+S6,"Piloto, capacitación y transferencia",18.0,18.4,simulación del Corte 3

@@ -1,0 +1,6 @@
+id,points,owner,start_day,blocked_from,blocked_to,done_day,github_issue
+S6-01,5,Rafael y Oscar,1,3,5,8,10
+S6-02,3,Oscar,3,,,6,11
+S6-03,2,Daniel,1,,,4,12
+S6-04,3,Rafael,7,10,,,13
+S6-05,2,Daniel,5,,,9,14
