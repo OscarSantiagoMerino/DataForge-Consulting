@@ -240,14 +240,13 @@ def figures(m: dict) -> dict[str, Path]:
     for rect, s in zip(bars, sp):
         ax.text(rect.get_x() + rect.get_width() / 2, rect.get_height() + 0.3, str(s["done"]),
                 ha="center", fontsize=9)
-    ax.axhline(m["velocity_avg_s1_s5"], color=COLORS["amber"], ls=":", lw=1.8)
-    ax.text(-0.45, m["velocity_avg_s1_s5"] - 1.3,
-            f"media S1–S5 = {es(m['velocity_avg_s1_s5'])}", ha="left", fontsize=9, color="#8a5a00")
+    ax.axhline(m["velocity_avg_s1_s5"], color=COLORS["amber"], ls=":", lw=1.8,
+               label=f"Media S1–S5 = {es(m['velocity_avg_s1_s5'])}")
     ax.set_xticks(x, [f"{s['sprint']}\n{'C2' if i < 2 else 'C3'}" for i, s in enumerate(sp)])
     ax.set_ylabel("Puntos de historia")
-    ax.set_ylim(0, 23)
+    ax.set_ylim(0, 25)
     ax.set_title("Velocidad por sprint: compromiso frente a terminado")
-    ax.legend(frameon=False, loc="upper left", ncol=2)
+    ax.legend(frameon=False, loc="upper left", ncol=3, fontsize=9)
     save(fig, "velocity")
 
     # 3. Budget cumulative.
