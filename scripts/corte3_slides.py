@@ -522,6 +522,7 @@ def s_qa(s, m, ev):
     rect(s, 0, 0, W, H, NAVY)
     text(s, Inches(0.9), Inches(2.4), Inches(11.5), Inches(1.2), "Preguntas", size=54, color=WHITE, bold=True)
     text(s, Inches(0.9), Inches(3.6), Inches(11.5), Inches(1.6), [
+        ("Sitio: oscarsantiagomerino.github.io/DataForge-Consulting", {"size": 20, "color": WHITE, "bold": True}),
         ("Repositorio: github.com/OscarSantiagoMerino/DataForge-Consulting", {"size": 18, "color": rgb("#D1D5DB")}),
         ("Informe Final, registro de aceptación y evidencia en docs/corte3/", {"size": 18, "color": rgb("#D1D5DB")}),
     ])

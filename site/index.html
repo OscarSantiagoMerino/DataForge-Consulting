@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cierre FinBank · DataForge</title>
+<meta name="description" content="Cierre del Programa de Analítica Predictiva de FinBank (GMAC-FB-2026-01), DataForge Consulting, Corte 3.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#ffffff; --surface:#f6f7f9; --surface2:#eef1f5; --ink:#111827; --muted:#5b6472; --line:#e3e6eb;
+  --navy:#1F3A5F; --teal:#2A9D8F; --amber:#C98516; --red:#C8553D; --gray:#6B7280; --accent-bg:#e8f5f3;
+  --chip-esc:#fdf3e1; --chip-esc-ink:#8a5a00; --chip-pro:#e7f0fb; --chip-pro-ink:#1F3A5F; --chip-real:#fde8e4; --chip-real-ink:#9b3622;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f141b; --surface:#161d27; --surface2:#1d2633; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2a3442;
+    --navy:#8fb3e0; --teal:#4cc1b2; --amber:#e9a23b; --red:#e2765f; --gray:#9aa5b4; --accent-bg:#14302d;
+    --chip-esc:#3a2d12; --chip-esc-ink:#f2c46d; --chip-pro:#1b2c45; --chip-pro-ink:#a9c6ec; --chip-real:#3d1d17; --chip-real-ink:#f3a594;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --surface:#161d27; --surface2:#1d2633; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2a3442;
+  --navy:#8fb3e0; --teal:#4cc1b2; --amber:#e9a23b; --red:#e2765f; --gray:#9aa5b4; --accent-bg:#14302d;
+  --chip-esc:#3a2d12; --chip-esc-ink:#f2c46d; --chip-pro:#1b2c45; --chip-pro-ink:#a9c6ec; --chip-real:#3d1d17; --chip-real-ink:#f3a594;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--teal)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.hero{background:#1F3A5F;color:#fff;padding:48px 0 40px}
+.hero .eyebrow{color:#9fd8cf;font-weight:700;letter-spacing:.08em;font-size:13px;text-transform:uppercase}
+.hero h1{font-size:clamp(28px,4.4vw,46px);line-height:1.12;margin:10px 0 12px}
+.hero p.lead{font-size:clamp(16px,2vw,20px);color:#d6dde8;max-width:820px;margin:0 0 22px}
+.hero .team{color:#c3cbd8;font-size:14px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;background:#2A9D8F;color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.btn.ghost{background:transparent;border:1px solid #6c86a8;color:#fff}
+nav.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
+nav.top a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:14px;padding:6px 10px;border-radius:6px}
+nav.top a:hover{background:var(--surface);color:var(--ink)}
+section{padding:46px 0 10px}
+h2{font-size:clamp(22px,3vw,30px);color:var(--navy);margin:0 0 6px}
+h2 + .sub{color:var(--muted);margin:0 0 22px;max-width:860px}
+h3{font-size:17px;color:var(--navy);margin:0 0 10px}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,1fr)} .g3,.g2{grid-template-columns:1fr}}
+@media (max-width:520px){.g4{grid-template-columns:1fr}}
+.card{background:var(--surface);border-radius:12px;padding:18px 18px 16px;border:1px solid var(--line);min-width:0}
+.kpi{border-left:5px solid var(--navy)}
+.kpi .v{font-size:32px;font-weight:700;line-height:1.1;color:var(--navy)}
+.kpi .l{color:var(--muted);font-size:14px;margin-top:6px}
+.kpi.teal{border-color:var(--teal)} .kpi.teal .v{color:var(--teal)}
+.kpi.amber{border-color:var(--amber)} .kpi.amber .v{color:var(--amber)}
+.kpi.red{border-color:var(--red)} .kpi.red .v{color:var(--red)}
+.decision{background:var(--accent-bg);border:1px solid var(--teal);border-radius:12px;padding:20px 22px;margin-bottom:18px}
+.decision strong{font-size:20px;color:var(--navy)}
+.chip{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+.chip.esc{background:var(--chip-esc);color:var(--chip-esc-ink)}
+.chip.pro{background:var(--chip-pro);color:var(--chip-pro-ink)}
+.chip.real{background:var(--chip-real);color:var(--chip-real-ink)}
+.chip.ok{background:var(--accent-bg);color:var(--teal)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;color:var(--muted);font-weight:600;border-bottom:2px solid var(--line);padding:8px 8px}
+.tbl td{border-bottom:1px solid var(--line);padding:8px 8px;vertical-align:top}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.chart{position:relative;height:300px}
+.chart.tall{height:340px}
+.kanban{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-height:150px}
+.col h4{margin:0;padding:9px 12px;color:#fff;font-size:14px;border-radius:10px 10px 0 0}
+.col .rule{font-size:12px;color:var(--muted);padding:6px 12px 0}
+.ticket{background:var(--bg);border:1px solid var(--line);border-radius:8px;margin:8px;padding:8px 10px;font-size:13px}
+.ticket b{display:block;color:var(--navy)}
+.ticket .meta{color:var(--muted);font-size:12px;margin-top:4px}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:grid;grid-template-columns:52px 120px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.timeline .d{font-weight:700;color:var(--navy)}
+@media (max-width:620px){.timeline li{grid-template-columns:44px 1fr}.timeline .t{grid-column:2}.timeline .e{grid-column:1/3}}
+.t-Bloqueo,.t-Escalación{color:var(--red);font-weight:600}
+.t-Done,.t-Desbloqueo{color:var(--teal);font-weight:600}
+.t-Review,.t-Retrospectiva,.t-Planning{color:var(--navy);font-weight:600}
+.t-Cambio{color:var(--amber);font-weight:600}
+.sim{display:grid;grid-template-columns:320px 1fr;gap:18px}
+@media (max-width:900px){.sim{grid-template-columns:1fr}}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 14px;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px}
+.tab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+input[type=range]{width:100%;accent-color:var(--teal)}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.readout div{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+.readout .v{font-size:22px;font-weight:700;color:var(--navy)}
+.readout .l{font-size:12px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted)}
+.warn{color:var(--red);font-weight:600}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+ul.clean{margin:0;padding-left:18px} ul.clean li{margin:4px 0}
+footer{margin-top:50px;background:var(--surface);border-top:1px solid var(--line);padding:26px 0;font-size:13px;color:var(--muted)}
+.dl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.themebtn{position:absolute;right:16px;top:14px;background:transparent;border:1px solid #6c86a8;color:#fff;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px}
+.hero{position:relative}
+</style>
+</head>
+<body>
+<header class="hero">
+  <button class="themebtn" id="theme" type="button" aria-label="Cambiar tema">◐ Tema</button>
+  <div class="wrap">
+    <div class="eyebrow">DataForge Consulting · FinBank S.A. · GMAC-FB-2026-01 · Corte 3</div>
+    <h1>Cierre del Programa de Analítica Predictiva</h1>
+    <p class="lead">Mora temprana y churn de crédito: qué entregamos en 12 semanas, cuánto costó frente al Charter y qué decisión necesita FinBank.</p>
+    <div class="team">Daniel Felipe Martínez Hernández · Líder de proyecto &nbsp;|&nbsp; Rafael Alejandro Baracaldo Doikov · Product Owner &nbsp;|&nbsp; Oscar Santiago Merino Suárez · Scrum Master</div>
+    <div class="btns">
+      <a class="btn" href="files/Informe_Final_FinBank_GrupoX.pdf">Informe Final (PDF)</a>
+      <a class="btn" href="files/Presentacion_FinBank_GrupoX.pdf">Presentación (PDF)</a>
+      <a class="btn ghost" id="repolink" href="#">Repositorio en GitHub</a>
+    </div>
+  </div>
+</header>
+<nav class="top" aria-label="Secciones"><div class="wrap">
+  <a href="#decision">Decisión</a><a href="#recorrido">Recorrido S1–S6</a><a href="#sprint6">Sprint 6</a>
+  <a href="#tablero">Tablero</a><a href="#piloto">Piloto interactivo</a><a href="#monitoreo">Monitoreo</a>
+  <a href="#balance">Cronograma y presupuesto</a><a href="#retro">Retrospectiva</a><a href="#aceptacion">Aceptación</a><a href="#descargas">Descargas</a>
+</div></nav>
+
+<main class="wrap">
+<section id="decision">
+  <div class="decision">
+    <strong>Recomendamos cerrar con transferencia condicionada.</strong>
+    <div>Los modelos, la regla de decisión, el piloto y el marco de gestión están entregados. Falta un acto que no depende del equipo: la firma del acta, sujeta a la auditoría de protección de datos. <span class="chip esc">Decisión del escenario</span> <span class="chip real">Firma real pendiente</span></div>
+  </div>
+  <div class="grid g4" id="kpis"></div>
+  <p class="note" style="margin-top:14px">Cómo leer las cifras: <span class="chip esc">Escenario</span> hechos simulados del caso académico · <span class="chip pro">Prototipo</span> resultado reproducible del código con datos sintéticos · <span class="chip real">Real</span> actos que solo ocurren con las personas reales y no se simulan.</p>
+</section>
+
+<section id="recorrido">
+  <h2>Recorrido S1–S6</h2>
+  <p class="sub">Seis sprints de dos semanas. S1–S2 son el antecedente del Corte 2, S3–S5 la transición reconstruida y S6 el sprint final. Desde S3 el compromiso no supera la velocidad media.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Velocidad: compromiso frente a terminado</h3><div class="chart"><canvas id="cVel"></canvas></div></div>
+    <div class="card scroll"><h3>Objetivo de cada sprint</h3><table class="tbl" id="tSprints"></table></div>
+  </div>
+</section>
+
+<section id="sprint6">
+  <h2>Sprint 6: el sprint final</h2>
+  <p class="sub" id="s6goal"></p>
+  <div class="card scroll" style="margin-bottom:16px"><table class="tbl" id="tS6"></table></div>
+  <div class="grid g2">
+    <div class="card"><h3>Burndown <span class="chip esc">Escenario</span></h3><div class="chart"><canvas id="cBurn"></canvas></div>
+      <p class="note">Los puntos se descuentan solo el día en que el ítem cumple su Definition of Done. La franja roja marca el bloqueo de S6-01 (D3–D5).</p></div>
+    <div class="card"><h3>Métricas de flujo</h3><div class="grid g2" id="flow"></div>
+      <p class="note" style="margin-top:12px">Velocidad, throughput, tiempo de ciclo y WIP se miden por separado.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Daily Scrum: los días en que cambió el plan <span class="chip esc">Simulado</span></h3><ul class="timeline" id="daily"></ul></div>
+</section>
+
+<section id="tablero">
+  <h2>Tablero del Corte 3 en GitHub</h2>
+  <p class="sub">Issues reales con etiquetas <code>estado:*</code> y milestone «Corte 3 · S6». Estados leídos de la API de GitHub al generar la página (<span id="snap"></span>). Se integra con <i>merge commit</i>, en orden, después de la aprobación de un integrante distinto del autor.</p>
+  <div class="kanban" id="kanban"></div>
+</section>
+
+<section id="piloto">
+  <h2>Piloto interactivo</h2>
+  <p class="sub">Mueva el umbral y vea cómo cambian la lista y el valor. Datos del prototipo del repositorio: cohortes sintéticas con semilla fija y validación fuera de tiempo con una cohorte independiente. <span class="chip pro">Prototipo</span> No es una validación con datos de FinBank.</p>
+  <div class="card">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-model="mora">Mora a 30 días (Cobranza)</button>
+      <button class="tab" role="tab" aria-selected="false" data-model="churn">Churn a 3 meses (Retención)</button>
+    </div>
+    <div class="sim">
+      <div>
+        <label for="cut"><b>Umbral de probabilidad: <span id="cutv"></span></b></label>
+        <input id="cut" type="range" min="0" max="1" step="1">
+        <div class="note" id="cutnote"></div>
+        <div class="readout">
+          <div><div class="v" id="rRecall"></div><div class="l">Recall (fuera de tiempo)</div></div>
+          <div><div class="v" id="rPrec"></div><div class="l">Precisión</div></div>
+          <div><div class="v" id="rBen"></div><div class="l">Beneficio neto, COP M</div></div>
+          <div><div class="v" id="rList"></div><div class="l" id="rListL"></div></div>
+        </div>
+        <p class="note" id="verdict" style="margin-top:12px"></p>
+        <div class="btns"><button class="tab" id="goOp" type="button">Ir al umbral operativo</button><button class="tab" id="goCost" type="button">Ir al máximo beneficio</button></div>
+      </div>
+      <div class="chart tall"><canvas id="cSim"></canvas></div>
+    </div>
+  </div>
+  <div class="grid g3" style="margin-top:16px" id="pilotkpis"></div>
+</section>
+
+<section id="monitoreo">
+  <h2>Monitoreo: avisa antes de que el modelo se degrade</h2>
+  <p class="sub">PSI: estable &lt; 0,10 · vigilar 0,10–0,25 · alerta ≥ 0,25. Hay que reentrenar si el AUC cae más de 0,05 durante 2 semanas seguidas. Seis semanas sintéticas con un cambio inyectado desde la semana 4. <span class="chip pro">Prototipo</span></p>
+  <div class="grid g2">
+    <div class="card"><h3>Estabilidad (PSI)</h3><div class="chart"><canvas id="cPsi"></canvas></div></div>
+    <div class="card"><h3>Desempeño (AUC a 30 días)</h3><div class="chart"><canvas id="cAuc"></canvas></div></div>
+  </div>
+</section>
+
+<section id="balance">
+  <h2>Cronograma y presupuesto frente al Charter</h2>
+  <p class="sub" id="balsub"></p>
+  <div class="grid g2">
+    <div class="card"><h3>Gasto acumulado frente a la base <span class="chip esc">Escenario</span></h3><div class="chart"><canvas id="cBud"></canvas></div></div>
+    <div class="card scroll"><h3>Por rubro (COP millones)</h3><table class="tbl" id="tItems"></table></div>
+  </div>
+  <div class="card scroll" style="margin-top:16px"><h3>Hitos M1–M6</h3><table class="tbl" id="tMs"></table></div>
+</section>
+
+<section id="retro">
+  <h2>Retrospectiva y lecciones</h2>
+  <p class="sub">Acciones con responsable y seguimiento a lo largo del programa.</p>
+  <div class="card scroll"><table class="tbl" id="tRetro"></table></div>
+</section>
+
+<section id="aceptacion">
+  <h2>Registro de aceptación</h2>
+  <p class="sub">Separa lo que se cumple en el escenario de su estado real y de quién puede resolverlo. Ningún acto simulado figura como aceptación real.</p>
+  <div class="filters"><button class="tab" data-f="all" aria-selected="true">Todo</button><button class="tab" data-f="pend" aria-selected="false">Pendientes reales</button><button class="tab" data-f="obj" aria-selected="false">Objetivos O1–O5</button></div>
+  <div class="card scroll"><table class="tbl" id="tAcc"></table></div>
+</section>
+
+<section id="descargas">
+  <h2>Descargas</h2>
+  <div class="card" id="dl"></div>
+</section>
+</main>
+
+<footer><div class="wrap" id="foot"></div></footer>
+
+<script>
+const D = /*__DATA__*/null;
+const nf = (v, d = 1) => Number(v).toLocaleString("es-CO", {minimumFractionDigits: d, maximumFractionDigits: d});
+const pct = (v, d = 2) => nf(v * 100, d) + " %";
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const labelChip = l => l.includes("antecedente") ? '<span class="chip esc">Antecedente</span>'
+  : l.includes("reconstrucción") ? '<span class="chip esc">Reconstrucción C3</span>' : '<span class="chip esc">Simulación C3</span>';
+const charts = [];
+function chart(id, cfg) { const c = new Chart($(id), cfg); charts.push([id, cfg, c]); return c; }
+function baseOpts(extra = {}) {
+  const ink = css("--ink"), line = css("--line");
+  return Object.assign({responsive: true, maintainAspectRatio: false, animation: false,
+    plugins: {legend: {labels: {color: ink, boxWidth: 14}}},
+    scales: {x: {ticks: {color: ink}, grid: {color: line}}, y: {ticks: {color: ink}, grid: {color: line}}}}, extra);
+}
+$("repolink").href = D.meta.repo;
+
+// ---------- KPIs
+const K = D.kpi, P = D.pilot;
+$("kpis").innerHTML = [
+  ["teal", `${K.s6_done}/${K.s6_committed}`, "puntos del Sprint 6 que cumplen la DoD (3 esperan la firma del acta)", "esc"],
+  ["", pct(K.cost_dev), `desviación de costo: COP ${nf(K.actual_total)} M frente a ${nf(K.base_total)} M (límite 5 %, reserva de ${nf(K.reserve)} M intacta)`, "esc"],
+  ["", "Semana 12", "hito final a tiempo; M2 +3 y M4 +1 semanas absorbidos", "esc"],
+  ["amber", nf(P.auc_out_of_time_default_30d, 4), "AUC fuera de tiempo, mora a 30 días (meta del Charter 0,75)", "pro"],
+].map(([c, v, l, t]) => `<div class="card kpi ${c}"><div class="v">${v}</div><div class="l">${l} <span class="chip ${t}">${t === "pro" ? "Prototipo" : "Escenario"}</span></div></div>`).join("");
+
+// ---------- Recorrido
+$("tSprints").innerHTML = "<tr><th>Sprint</th><th>Objetivo</th><th class='n'>Hecho</th><th></th></tr>" + D.sprints.map(s =>
+  `<tr><td><b>${s.sprint}</b><br><span class="note">sem. ${s.weeks}</span></td><td>${esc(s.goal)}</td><td class="n">${s.done}/${s.committed}</td><td>${labelChip(s.label)}</td></tr>`).join("");
+function drawVel() {
+  chart("cVel", {type: "bar", data: {labels: D.sprints.map(s => s.sprint), datasets: [
+    {label: "Compromiso", data: D.sprints.map(s => s.committed), backgroundColor: css("--line")},
+    {label: "Terminado (DoD)", data: D.sprints.map(s => s.done), backgroundColor: css("--teal")},
+    {label: `Media S1–S5 = ${nf(K.velocity_avg)}`, type: "line", data: D.sprints.map(() => K.velocity_avg), borderColor: css("--amber"), borderDash: [5, 4], pointRadius: 0}]},
+    options: baseOpts({scales: {x: {ticks: {color: css("--ink")}, grid: {display: false}}, y: {beginAtZero: true, max: 22, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
+}
+
+// ---------- Sprint 6
+$("s6goal").innerHTML = `<b>Objetivo:</b> ${esc(D.sprints[5].goal)}. <b>Capacidad:</b> velocidad media S1–S5 = ${nf(K.velocity_avg)} → compromiso de ${K.s6_committed} puntos (regla de la retrospectiva de S2).`;
+const issueUrl = n => `${D.meta.repo}/issues/${n}`, prUrl = n => `${D.meta.repo}/pull/${n}`;
+$("tS6").innerHTML = "<tr><th>ID</th><th>Historia</th><th class='n'>Pts</th><th>Responsable</th><th>Dependencia</th><th>GitHub</th><th>Estado (escenario)</th></tr>" + D.s6.map(b =>
+  `<tr><td><b>${b.id}</b></td><td>${esc(b.item)}</td><td class="n">${b.points}</td><td>${esc(b.owner)}</td><td>${esc(b.dependency)}</td>
+   <td><a href="${issueUrl(b.issue)}">#${b.issue}</a>${b.pr ? ` · <a href="${prUrl(b.pr)}">PR #${b.pr}</a>` : ""}</td>
+   <td>${b.state === "Done" ? '<span class="chip ok">Done</span>' : `<span class="chip real">${esc(b.state)}</span>`}</td></tr>`).join("");
+$("flow").innerHTML = [[`${K.s6_done} de ${K.s6_committed}`, "velocidad S6 (pts)"], [K.throughput, "throughput (ítems)"],
+  [nf(K.cycle_avg, 2) + " d", "tiempo de ciclo medio"], [K.blocked_days + " d", "bloqueo de S6-01"], [`${K.wip_max} de 3`, "WIP máximo"], ["1", "cambio de alcance (US-10, fuera del sprint)"]]
+  .map(([v, l]) => `<div class="card kpi"><div class="v" style="font-size:24px">${v}</div><div class="l">${l}</div></div>`).join("");
+const bandPlugin = {id: "band", beforeDatasetsDraw(c, a, o) { if (!o || o.from == null) return; const {ctx, chartArea: ca, scales: {x}} = c;
+  ctx.save(); ctx.fillStyle = o.color; const x0 = x.getPixelForValue(o.from), x1 = x.getPixelForValue(o.to); ctx.fillRect(x0, ca.top, x1 - x0, ca.bottom - ca.top); ctx.restore(); }};
+const vlinePlugin = {id: "vline", afterDatasetsDraw(c, a, o) { if (!o || !o.lines) return; const {ctx, chartArea: ca, scales: {x}} = c;
+  o.lines.forEach(l => { const px = x.getPixelForValue(l.v); ctx.save(); ctx.strokeStyle = l.color; ctx.lineWidth = l.w || 2; ctx.setLineDash(l.dash || []);
+    ctx.beginPath(); ctx.moveTo(px, ca.top); ctx.lineTo(px, ca.bottom); ctx.stroke(); ctx.fillStyle = l.color; ctx.font = "12px Segoe UI, sans-serif"; ctx.fillText(l.label || "", px + 4, ca.top + 12 + (l.dy || 0)); ctx.restore(); }); }};
+function drawBurn() {
+  chart("cBurn", {type: "line", data: {datasets: [
+    {label: "Ideal", data: D.burndown.map(b => ({x: b.day, y: b.ideal})), borderColor: css("--gray"), borderDash: [6, 4], pointRadius: 0},
+    {label: "Observado (escenario)", data: D.burndown.map(b => ({x: b.day, y: b.remaining})), stepped: "after", borderColor: css("--navy"), borderWidth: 3, pointRadius: 3}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink")}}, band: {from: 2.5, to: 5.5, color: "rgba(200,85,61,.12)"},
+      tooltip: {callbacks: {afterLabel: i => { const b = D.burndown[i.dataIndex]; return b.closed ? "Done: " + b.closed.replace("|", ", ") : ""; }}}},
+      scales: {x: {type: "linear", min: 0, max: 10, ticks: {stepSize: 1, color: css("--ink")}, title: {display: true, text: "Día hábil (19–30 oct 2026, escenario)", color: css("--muted")}, grid: {color: css("--line")}},
+               y: {min: 0, max: 16, ticks: {color: css("--ink")}, title: {display: true, text: "Puntos pendientes", color: css("--muted")}, grid: {color: css("--line")}}}}),
+    plugins: [bandPlugin]});
+}
+$("daily").innerHTML = D.daily.map(d => `<li><span class="d">D${d.day}</span><span class="t t-${d.event_type.split(" ")[0]}">${esc(d.event_type)}${d.item ? " · " + esc(d.item) : ""}</span><span class="e">${esc(d.entry)}</span></li>`).join("");
+
+// ---------- Tablero
+$("snap").textContent = D.meta.generated;
+const cols = [["backlog", "Backlog", "#6B7280", "Priorizado por el PO"], ["ready", "Ready", "#2A9D8F", "Cumple la DoR"], ["in-progress", "In Progress", "#C98516", "WIP máx. 3"],
+  ["blocked", "Blocked", "#C8553D", "Causa y dueño escritos; escalar en 24 h"], ["review", "Review", "#1F3A5F", "PR + CI + revisión de un par"], ["done", "Done", "#006B75", "PR fusionado y DoD completa"]];
+const byIssue = {};
+D.github.forEach(g => { (byIssue[g.issue] = byIssue[g.issue] || {id: g.id, col: g.board_column, url: g.issue_url, prs: []}).prs.push(g); });
+$("kanban").innerHTML = cols.map(([k, name, color, rule]) => `<div class="col"><h4 style="background:${color}">${name}</h4><div class="rule">${rule}</div>` +
+  Object.entries(byIssue).filter(([n, v]) => v.col === k).map(([n, v]) => `<div class="ticket"><b><a href="${v.url}">#${n}</a> ${esc(v.id)}</b>` +
+    v.prs.filter(p => p.pr).map(p => `<div class="meta"><a href="${p.pr_url}">PR #${p.pr}</a> · CI ${esc((p.ci || "—").toLowerCase())} · ${p.merge_sha ? "merge " + p.merge_sha : p.approved_by ? "aprobado por " + esc(p.approved_by) : "aprobación pendiente"}</div>`).join("") + "</div>").join("") + "</div>").join("");
+
+// ---------- Piloto interactivo
+const SIM = {
+  mora: {curve: D.delinquency_curve, op: P.cutoff_delinquency_threshold, cost: P.cutoff_delinquency_threshold, listL: "clientes del segmento andino en la lista semanal", target: null,
+    note: `Umbral operativo ${nf(P.cutoff_delinquency_threshold, 2)}: máximo beneficio neto con la matriz de costos del escenario (beneficio por acierto COP 360.000, contacto COP 25.000).`},
+  churn: {curve: D.churn_curve, op: P.cutoff_operating_threshold, cost: P.cutoff_cost_only_threshold, listL: "clientes preferenciales del segmento andino para retención", target: 0.60,
+    note: `Umbral operativo ${nf(P.cutoff_operating_threshold, 2)}: el mayor beneficio entre los umbrales con recall ≥ 0,60 (O2). El máximo beneficio sin restricción está en ${nf(P.cutoff_cost_only_threshold, 2)}.`},
+};
+let model = "mora", simChart = null;
+function idxOf(curve, v) { let best = 0; curve.forEach((c, i) => { if (Math.abs(c.cut - v) < Math.abs(curve[best].cut - v)) best = i; }); return best; }
+function update() {
+  const s = SIM[model], c = s.curve[+$("cut").value];
+  $("cutv").textContent = nf(c.cut, 2);
+  $("rRecall").textContent = nf(c.recall, 3); $("rPrec").textContent = nf(c.precision, 3); $("rBen").textContent = nf(c.benefit, 2);
+  $("rList").textContent = c.listed.toLocaleString("es-CO");
+  $("rListL").textContent = s.listL;
+  const meets = s.target == null ? null : c.recall >= s.target;
+  $("verdict").innerHTML = s.target == null ? "" : meets ? `<span style="color:var(--teal);font-weight:600">Cumple O2 (recall ≥ 0,60).</span>` : `<span class="warn">No cumple O2: el recall queda por debajo de 0,60.</span>`;
+  simChart.options.plugins.vline.lines = [{v: c.cut, color: css("--ink"), label: "umbral " + nf(c.cut, 2), w: 2},
+    {v: s.op, color: css("--teal"), label: "operativo", dash: [4, 3], dy: 16}].concat(s.cost !== s.op ? [{v: s.cost, color: css("--red"), label: "máx. beneficio", dash: [4, 3], dy: 32}] : []);
+  simChart.update();
+}
+function setModel(m) {
+  model = m; document.querySelectorAll(".tabs .tab").forEach(t => t.setAttribute("aria-selected", t.dataset.model === m));
+  const s = SIM[m]; $("cut").max = s.curve.length - 1; $("cut").value = idxOf(s.curve, s.op); $("cutnote").textContent = s.note;
+  if (simChart) simChart.destroy();
+  simChart = new Chart($("cSim"), {type: "line", data: {datasets: [
+    {label: "Recall", data: s.curve.map(c => ({x: c.cut, y: c.recall})), borderColor: css("--navy"), pointRadius: 0, yAxisID: "y"},
+    {label: "Precisión", data: s.curve.map(c => ({x: c.cut, y: c.precision})), borderColor: css("--gray"), borderDash: [4, 3], pointRadius: 0, yAxisID: "y"},
+    {label: "Beneficio neto (COP M)", data: s.curve.map(c => ({x: c.cut, y: c.benefit})), borderColor: css("--amber"), pointRadius: 0, yAxisID: "y2"}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink")}}, vline: {lines: []}},
+      scales: {x: {type: "linear", min: s.curve[0].cut, max: s.curve[s.curve.length - 1].cut, title: {display: true, text: "Umbral de probabilidad", color: css("--muted")}, ticks: {color: css("--ink")}, grid: {color: css("--line")}},
+               y: {min: 0, max: 1, title: {display: true, text: "Recall / precisión", color: css("--muted")}, ticks: {color: css("--ink")}, grid: {color: css("--line")}},
+               y2: {position: "right", title: {display: true, text: "COP millones", color: css("--muted")}, ticks: {color: css("--ink")}, grid: {display: false}}}}),
+    plugins: [vlinePlugin]});
+  update();
+}
+document.querySelectorAll(".tabs .tab").forEach(t => t.addEventListener("click", () => setModel(t.dataset.model)));
+$("cut").addEventListener("input", update);
+$("goOp").addEventListener("click", () => { $("cut").value = idxOf(SIM[model].curve, SIM[model].op); update(); });
+$("goCost").addEventListener("click", () => { $("cut").value = idxOf(SIM[model].curve, SIM[model].cost); update(); });
+$("pilotkpis").innerHTML = [
+  ["teal", nf(P.auc_out_of_time_default_60d, 4), "AUC fuera de tiempo, mora a 60 días"],
+  ["", `${K.ew_flagged} de ${K.ew_total.toLocaleString("es-CO")}`, "clientes del segmento andino en la lista semanal de Cobranza (clave seudonimizada, sin datos personales)"],
+  ["amber", nf(P.recall_at_operating_threshold, 4), `recall de churn al umbral operativo ${nf(P.cutoff_operating_threshold, 2)}. Cumplir O2 cuesta COP ${nf((P.net_benefit_cop_at_cost_only_threshold - P.net_benefit_cop_at_operating_threshold) / 1e6, 2)} M frente al máximo beneficio: lo decide Finanzas`],
+].map(([c, v, l]) => `<div class="card kpi ${c}"><div class="v">${v}</div><div class="l">${l} <span class="chip pro">Prototipo</span></div></div>`).join("");
+
+// ---------- Monitoreo
+function drawMon() {
+  const W = D.monitoring.map(r => "Sem " + r.week);
+  chart("cPsi", {type: "bar", data: {labels: W, datasets: [
+    {label: "PSI de la variable con mayor cambio", data: D.monitoring.map(r => r.psi_top_variable), backgroundColor: css("--line")},
+    {label: "PSI del score", type: "line", data: D.monitoring.map(r => r.psi_score), borderColor: css("--navy"), pointRadius: 4},
+    {label: "Alerta 0,25", type: "line", data: W.map(() => 0.25), borderColor: css("--red"), borderDash: [4, 3], pointRadius: 0},
+    {label: "Vigilar 0,10", type: "line", data: W.map(() => 0.10), borderColor: css("--amber"), borderDash: [4, 3], pointRadius: 0}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink"), boxWidth: 12}}, tooltip: {callbacks: {afterLabel: i => i.datasetIndex === 0 ? D.monitoring[i.dataIndex].top_variable : ""}}}})});
+  chart("cAuc", {type: "line", data: {labels: W, datasets: [
+    {label: "AUC 30 d", data: D.monitoring.map(r => r.auc_30d), borderColor: css("--navy"), pointRadius: D.monitoring.map(r => r.retraining_flag ? 8 : 4),
+     pointBackgroundColor: D.monitoring.map(r => r.retraining_flag ? css("--red") : css("--navy"))},
+    {label: "Base − 0,05", data: W.map(() => D.monitoring[0].auc_baseline - 0.05), borderColor: css("--red"), borderDash: [4, 3], pointRadius: 0}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink")}}, tooltip: {callbacks: {afterLabel: i => D.monitoring[i.dataIndex].retraining_flag ? "Reentrenar" : ""}}},
+      scales: {x: {ticks: {color: css("--ink")}, grid: {color: css("--line")}}, y: {min: 0.55, max: 0.85, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
+}
+
+// ---------- Balance
+$("balsub").innerHTML = `Desviación acumulada = (gasto acum. − base acum.) / base acum. Al cierre de S2: COP ${nf(K.s2_actual)} M frente a ${nf(K.s2_base)} M (dato histórico del Corte 2). Pronóstico al iniciar S6: ${nf(K.eac_s6)} M. Cierre: ${nf(K.actual_total)} M frente a ${nf(K.base_total)} M (${pct(K.cost_dev)}). La reserva de COP ${nf(K.reserve)} M no se asigna a ningún sprint y no se liberó.`;
+function drawBud() {
+  const L = ["Inicio"].concat(D.budget_sprint.map(b => b.sprint));
+  const base = [0].concat(D.budget_sprint.map(b => b.cum_base)), act = [0].concat(D.budget_sprint.map(b => b.cum_actual));
+  chart("cBud", {type: "line", data: {labels: L, datasets: [
+    {label: "Tolerancia +5 %", data: base.map(v => v * 1.05), borderColor: "transparent", backgroundColor: "rgba(42,157,143,.13)", fill: "+1", pointRadius: 0},
+    {label: "Tolerancia −5 %", data: base.map(v => v * 0.95), borderColor: "transparent", pointRadius: 0},
+    {label: "Base aprobada acumulada", data: base, borderColor: css("--gray"), borderDash: [6, 4], pointRadius: 2},
+    {label: "Gasto acumulado", data: act, borderColor: css("--navy"), borderWidth: 3, pointRadius: 4},
+    {label: `Autorizado ${nf(K.authorized, 0)} M (con reserva)`, data: L.map(() => K.authorized), borderColor: css("--red"), pointRadius: 0, borderWidth: 1.5}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink"), boxWidth: 12, filter: i => !i.text.startsWith("Tolerancia −")}}},
+      scales: {x: {ticks: {color: css("--ink")}, grid: {color: css("--line")}}, y: {min: 0, max: 200, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
+}
+$("tItems").innerHTML = "<tr><th>Rubro</th><th class='n'>Base</th><th class='n'>Gasto</th><th class='n'>Desv.</th></tr>" + D.budget_item.map(b =>
+  `<tr><td>${esc(b.item)}</td><td class="n">${nf(b.base)}</td><td class="n">${nf(b.actual)}</td><td class="n">${pct(b.deviation, 1)}</td></tr>`).join("") +
+  `<tr><td>Reserva de contingencia</td><td class="n">${nf(K.reserve)}</td><td class="n">0,0</td><td class="n">no liberada</td></tr>` +
+  `<tr><td><b>Total sin reserva</b></td><td class="n"><b>${nf(K.base_total)}</b></td><td class="n"><b>${nf(K.actual_total)}</b></td><td class="n"><b>${pct(K.cost_dev)}</b></td></tr>`;
+$("tMs").innerHTML = "<tr><th>Hito</th><th>Nombre</th><th class='n'>Base</th><th class='n'>Escenario</th><th class='n'>Desv.</th><th>Condición</th><th>Evidencia</th></tr>" + D.milestones.map(m =>
+  `<tr><td><b>${m.id}</b></td><td>${esc(m.milestone)}</td><td class="n">sem ${m.base_week}</td><td class="n">sem ${m.scenario_week}</td>
+   <td class="n">${m.deviation > 0 ? `<span class="chip real">+${m.deviation}</span>` : '<span class="chip ok">0</span>'}</td><td>${esc(m.condition)}</td><td class="note">${esc(m.evidence)}</td></tr>`).join("");
+
+// ---------- Retro
+$("tRetro").innerHTML = "<tr><th>De</th><th>Acción</th><th>Resp.</th><th>Seguimiento</th><th>Estado</th></tr>" + D.retro.map(r =>
+  `<tr><td>${r.sprint}</td><td>${esc(r.action)}</td><td>${esc(r.owner)}</td><td>${esc(r.follow_up)}</td><td>${esc(r.state)}</td></tr>`).join("");
+
+// ---------- Aceptación
+function drawAcc(f) {
+  const rows = D.acceptance.filter(a => f === "all" || (f === "obj" && a.scope === "Objetivo") || (f === "pend" && /pendiente|falta/i.test(a.real_state)));
+  $("tAcc").innerHTML = "<tr><th>Ítem</th><th>Criterio</th><th>Escenario / prototipo</th><th>Estado real</th><th>Quién lo resuelve</th></tr>" + rows.map(a =>
+    `<tr><td><b>${esc(a.item)}</b></td><td>${esc(a.criterion)}</td><td>${esc(a.scenario_state)}</td><td>${/pendiente|falta/i.test(a.real_state) ? '<span class="chip real">' + esc(a.real_state) + "</span>" : esc(a.real_state)}</td><td>${esc(a.who_resolves)}</td></tr>`).join("");
+}
+document.querySelectorAll(".filters .tab").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".filters .tab").forEach(x => x.setAttribute("aria-selected", x === b)); drawAcc(b.dataset.f); }));
+drawAcc("all");
+
+// ---------- Descargas y pie
+const desc = {"Informe_Final_FinBank_GrupoX.pdf": "Informe Final de Gestión (PDF)", "Presentacion_FinBank_GrupoX.pdf": "Presentación de sustentación (PDF)",
+  "Presentacion_FinBank_GrupoX.pptx": "Presentación editable con notas del orador (PPTX)", "Guion_Sustentacion.md": "Guion por integrante, demo y preguntas (Markdown)"};
+$("dl").innerHTML = D.downloads.map(f => `<div class="dl"><span>${desc[f] || f}</span><a class="btn" href="files/${f}" download>Descargar</a></div>`).join("") +
+  `<div class="dl"><span>Código, pruebas, datos de evidencia y fuentes editables</span><a class="btn" href="${D.meta.repo}">GitHub</a></div>`;
+$("foot").innerHTML = `DataForge Consulting · Proyecto académico GMAC (Escuela Colombiana de Ingeniería Julio Garavito), Corte 3 · FinBank S.A. es el cliente del caso de estudio.<br>
+  Página generada con <code>scripts/build_site.py</code> desde los CSV de <code>docs/corte3/data</code> y el código del repositorio (commit ${esc(D.meta.sha)}, ${esc(D.meta.generated)}).
+  Las métricas de los modelos son del prototipo con datos sintéticos. Ningún acto simulado (Review, firmas, aprobación de Finanzas) es una aceptación real.`;
+
+// ---------- Charts and theme
+function drawAll() { charts.forEach(([, , c]) => c.destroy()); charts.length = 0; drawVel(); drawBurn(); drawMon(); drawBud(); setModel(model); }
+function applyTheme(t) { if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); drawAll(); }
+let saved = null; try { saved = localStorage.getItem("c3-theme"); } catch (e) {}
+if (saved) document.documentElement.setAttribute("data-theme", saved);
+$("theme").addEventListener("click", () => {
+  const dark = document.documentElement.getAttribute("data-theme") ? document.documentElement.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = dark ? "light" : "dark"; try { localStorage.setItem("c3-theme", next); } catch (e) {} applyTheme(next);
+});
+drawAll();
+</script>
+</body>
+</html>

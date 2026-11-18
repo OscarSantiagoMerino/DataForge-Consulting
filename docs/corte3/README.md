@@ -14,6 +14,7 @@ Proyecto GMAC-FB-2026-01 · DataForge Consulting · Entrega académica: 18-nov-2
 | Runbook del piloto (S6-03) | [RUNBOOK.md](RUNBOOK.md) | — |
 | Paquete de transferencia (S6-04) | [TRANSFERENCIA.md](TRANSFERENCIA.md) | — |
 | Tablero reproducible | [TABLERO.md](TABLERO.md) | `python scripts/github_snapshot.py` |
+| **Sitio web desplegado (C3-01)** | https://oscarsantiagomerino.github.io/DataForge-Consulting/ | [site/index.html](../../site/index.html) y `python scripts/build_site.py --deploy` |
 
 ## Evidencia reproducible
 
