@@ -55,7 +55,8 @@ El informe requiere `pdflatex`. La exportación del PPTX a PDF usa PowerPoint en
 | S6-02 | [#11](https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/11) | [#18](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/18) | `c3/s6/s6-02-monitoreo` |
 | S6-03 | [#12](https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/12) | [#19](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/19) | `c3/s6/s6-03-runbook` |
 | S6-04 | [#13](https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/13) | [#20](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/20) | `c3/s6/s6-04-transferencia` |
-| S6-05 | [#14](https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/14) | ver [TABLERO.md](TABLERO.md) | `c3/s6/s6-05-cierre` |
+| S6-05 | [#14](https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/14) | [#21](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/21) | `c3/s6/s6-05-cierre` |
+| C3-01 | [#22](https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/22) | [#23](https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/23) | `c3/s6/c3-01-sitio-web` |
 
 Los PR forman una cadena: cada rama contiene a la anterior. Se integran **en orden** con *Create a merge commit*, después de la aprobación de un integrante distinto del autor. El estado vigente (CI, aprobación, merge) está en [TABLERO.md](TABLERO.md).
 
