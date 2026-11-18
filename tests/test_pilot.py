@@ -67,3 +67,8 @@ def test_two_runs_give_identical_outputs(pilot):
     assert again.metrics == pilot.metrics
     assert again.early_warning == pilot.early_warning
     assert again.churn_list == pilot.churn_list
+
+
+def test_metric_names_are_unique(pilot):
+    names = [row["metric"] for row in pilot.metrics]
+    assert len(names) == len(set(names))
