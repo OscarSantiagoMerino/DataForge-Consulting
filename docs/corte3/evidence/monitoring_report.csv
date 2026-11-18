@@ -1,0 +1,7 @@
+week,clients,psi_score,psi_score_status,top_variable,psi_top_variable,psi_top_variable_status,auc_30d,auc_baseline,auc_drop,retraining_flag
+1,3000,0.0023,estable,interest_rate,0.009,estable,0.769,0.7941,0.0251,False
+2,3000,0.0025,estable,monthly_income,0.0094,estable,0.7954,0.7941,-0.0013,False
+3,3000,0.0026,estable,monthly_income,0.0136,estable,0.7724,0.7941,0.0217,False
+4,3000,0.2429,vigilar,bureau_score,0.3955,alerta,0.6656,0.7941,0.1285,False
+5,3000,0.2162,vigilar,bureau_score,0.4049,alerta,0.6483,0.7941,0.1458,True
+6,3000,0.2272,vigilar,bureau_score,0.4067,alerta,0.6487,0.7941,0.1454,True

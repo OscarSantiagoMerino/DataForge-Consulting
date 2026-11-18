@@ -1,0 +1,13 @@
+model,metric,value,target,meets_target,sample,event_rate
+delinquency,auc_out_of_time_default_30d,0.7959,0.75,True,4691,0.0565
+delinquency,auc_out_of_time_default_60d,0.7884,0.75,True,4691,0.0264
+churn,auc_out_of_time_churn_3m,0.7673,,,4000,0.1008
+churn,cutoff_operating_threshold,0.13,,,4000,0.1008
+churn,recall_at_operating_threshold,0.6203,0.6,True,4000,0.1008
+churn,precision_at_operating_threshold,0.2232,,,4000,0.1008
+churn,net_benefit_cop_at_operating_threshold,11550000,,,4000,0.1008
+churn,cutoff_cost_only_threshold,0.21,,,4000,0.1008
+churn,recall_at_cost_only_threshold,0.4094,0.6,False,4000,0.1008
+churn,precision_at_cost_only_threshold,0.3102,,,4000,0.1008
+churn,net_benefit_cop_at_cost_only_threshold,20055000,,,4000,0.1008
+delinquency,cutoff_delinquency_threshold,0.09,,,4681,0.0585

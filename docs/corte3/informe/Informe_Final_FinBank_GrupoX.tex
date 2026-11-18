@@ -1,0 +1,339 @@
+% Informe Final de Gestión · FinBank · Corte 3
+% Fuente editable. Se compila con: python scripts/build_corte3.py
+% Las tablas y cifras vienen de generated/ (producidas desde docs/corte3/data y el código).
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[spanish,es-noshorthands,es-tabla]{babel}
+\usepackage[a4paper,margin=2.1cm,headheight=14pt]{geometry}
+\usepackage{booktabs,tabularx,array,graphicx,xcolor,fancyhdr,titlesec,enumitem,caption,microtype}
+\usepackage[hyphens]{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{tcolorbox}
+\usepackage{amsmath}
+
+\definecolor{navy}{HTML}{1F3A5F}
+\definecolor{teal}{HTML}{2A9D8F}
+\definecolor{amber}{HTML}{E9A23B}
+\definecolor{rojo}{HTML}{C8553D}
+\definecolor{gris}{HTML}{6B7280}
+\hypersetup{colorlinks=true,linkcolor=navy,urlcolor=teal}
+
+\input{generated/macros.tex}
+\newcommand{\repo}{\href{https://github.com/OscarSantiagoMerino/DataForge-Consulting}{OscarSantiagoMerino/DataForge-Consulting}}
+\newcommand{\rot}[1]{\textsf{\scriptsize\color{gris}[#1]}}
+
+\titleformat{\section}{\large\bfseries\color{navy}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{navy}}{\thesubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.2em}{0.5em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.3em}
+\setlist{nosep,leftmargin=1.3em}
+\captionsetup{font=small,labelfont={bf,color=navy}}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.15}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small\color{gris}Informe Final de Gestión · FinBank S.A.}
+\rhead{\small\color{gris}DataForge Consulting · GMAC-FB-2026-01}
+\cfoot{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\begin{document}
+
+% ------------------------------------------------------------------ portada
+\begin{titlepage}
+\color{navy}
+\vspace*{1.2cm}
+{\large DataForge Consulting}\\[0.3em]
+{\color{gris}\rule{\linewidth}{0.6pt}}\\[1.5cm]
+{\fontsize{30}{36}\selectfont\bfseries Informe Final de Gestión}\\[0.6cm]
+{\Large Programa de Analítica Predictiva:\\ mora temprana y churn de crédito}\\[1.2cm]
+\color{black}
+\begin{tabular}{@{}ll}
+Cliente & FinBank S.A., Vicepresidencia de Riesgo y Analítica \\
+Código del proyecto & GMAC-FB-2026-01 \\
+Cierre del escenario & Sprint 6, semanas 11--12 (19--30 de octubre de 2026) \\
+Entrega académica & 18 de noviembre de 2026 · Sustentación: 20 de noviembre de 2026 \\
+Grupo & Grupo X (número por confirmar) \\
+\end{tabular}
+
+\vspace{1.2cm}
+\begin{tabular}{@{}lll}
+\textbf{Integrante} & \textbf{Rol en el Charter} & \textbf{Rol Scrum (Corte 2 y 3)} \\
+\midrule
+Daniel Felipe Martínez Hernández & Líder de proyecto & Developer; reporte formal al patrocinador \\
+Rafael Alejandro Baracaldo Doikov & Analista de negocio & Product Owner y Developer \\
+Oscar Santiago Merino Suárez & Facilitador Scrum & Scrum Master y Developer \\
+\end{tabular}
+
+\vfill
+\begin{tcolorbox}[colback=navy!4,colframe=navy!40,boxrule=0.4pt,arc=1mm,left=2mm,right=2mm]
+\small\textbf{Cómo leer las cifras.} Cada dato lleva su origen.
+\rot{Base} línea base del Charter.
+\rot{Antecedente} escenario de los Cortes 1 y 2 (S1--S2).
+\rot{Reconstrucción C3} transición S3--S5 reconstruida en este corte.
+\rot{Simulación C3} hechos simulados del Sprint 6.
+\rot{Verificable} resultado técnico del repositorio, que cualquiera puede reproducir.
+Los actos de aceptación reales (firma del patrocinador, Finanzas, oficial de protección de datos, aprobaciones en GitHub) se registran aparte y \textbf{no} se simulan.
+\end{tcolorbox}
+\vspace{0.4cm}
+{\small Escuela Colombiana de Ingeniería Julio Garavito · Gestión de Métodos Ágiles y Clásicos (GMAC) · Corte 3}
+\end{titlepage}
+
+% ------------------------------------------------------------------ 1
+\section{Resumen ejecutivo}
+
+\textbf{La decisión que pedimos a FinBank es cerrar el programa con transferencia condicionada.} En doce semanas y dentro del sobre autorizado, DataForge entregó los dos modelos que el Charter compromete (mora a 30/60 días y churn a tres meses), una regla de decisión con su matriz de costos, un piloto operando sobre un segmento controlado, un plan de monitoreo con disparador de reentrenamiento y el marco de gestión (tablero, backlog, Definition of Done y runbook) para que FinBank lo opere sin el consultor. Falta un acto que no depende del equipo: la firma del acta de entrega, condicionada a que el oficial de protección de datos cierre un hallazgo sobre la sal de seudonimización.
+
+\begin{itemize}
+\item \textbf{Alcance.} \PuntosTotal{} puntos terminados en seis sprints, con velocidad media de \VelMedia{} puntos en S1--S5. El Sprint 6 comprometió \SseisComp{} puntos y cerró \SseisDone{}. Los \SseisPend{} restantes son S6-04, que espera la firma del acta. \rot{Simulación C3}
+\item \textbf{Costo.} Se gastaron COP \GastoTotal{} millones frente a una base de \BaseTotal{} millones, con una desviación de \DesvCosto{}, dentro del límite del 5\,\% (O5). La reserva de COP \Reserva{} millones no se liberó. \rot{Simulación C3}
+\item \textbf{Cronograma.} El hito final se alcanzó en la semana 12. M2 llegó 3 semanas tarde y M4, 1 semana, ambos por la dependencia del extracto de churn. \rot{Reconstrucción C3}
+\item \textbf{Modelos.} Sobre datos sintéticos, el prototipo del repositorio obtiene un AUC fuera de tiempo de \AUCtreinta{} (30 días) y un recall de churn de \RecallOp{} al umbral operativo, por encima de las metas del Charter (0,75 y 0,60). \rot{Verificable} La validación con datos de FinBank queda pendiente.
+\item \textbf{Decisión abierta para Finanzas.} El umbral de máximo beneficio en churn (\CorteCosto) da un recall de \RecallCosto{} e incumple O2. Cumplir O2 con el umbral \CorteOp{} reduce el beneficio neto en COP \BenefDif{} millones en la cohorte sintética. Proponemos priorizar O2 y que Finanzas ratifique la regla.
+\end{itemize}
+
+% ------------------------------------------------------------------ 2
+\section{Problema, alcance y objetivos}
+
+FinBank administra una cartera de COP 420.000 millones con 125.000 clientes. Registra la mora cuando el pago ya se perdió y la cancelación cuando el cliente ya se fue. El Charter estima la exposición en COP 58.800 millones por mora temprana sin alerta y en COP 18.200 millones por churn no anticipado del segmento preferencial, unos COP 77.000 millones en total, cerca del 18\,\% de la cartera \rot{Base}. El diagnóstico concluyó que el obstáculo no son los datos ni los analistas: falta una forma definida de planear, controlar y cerrar proyectos analíticos.
+
+El alcance incluye la gestión del proyecto, el diagnóstico de datos, los dos modelos, el análisis de umbrales y un piloto controlado con monitoreo y capacitación. Quedan fuera la infraestructura de core bancario o CRM, la ejecución de campañas de retención, otros productos y la migración de historia anterior a 36 meses. La línea base es fija: 12 semanas, seis sprints de dos semanas, COP 180.000.000 autorizados (169,2 millones por rubros y 10,8 de reserva) y una desviación máxima del 5\,\% \rot{Base}.
+
+\begin{table}[h]
+\caption{Trazabilidad de los objetivos del Charter al cierre}\label{tab:obj}
+\input{generated/tab_objectives.tex}
+\end{table}
+
+% ------------------------------------------------------------------ 3
+\section{Trayectoria del programa: S1 a S6}
+
+\begin{table}[h]
+\caption{Cierre de los seis sprints (compromiso y puntos que cumplen la DoD)}\label{tab:sprints}
+\input{generated/tab_sprints.tex}
+\end{table}
+
+\textbf{S1--S2, antecedente.} S1 cerró 16 de 16 puntos: Charter, acuerdo de acceso bajo la Ley 1581, perfilamiento sobre la muestra anonimizada y tablero con DoD. S2 comprometió 20 puntos y cerró 15. El extracto de churn (T-05.5, 5 puntos) dependía de una credencial del área de TI que no llegó. El equipo lo pasó a Blocked el día 6, el Scrum Master escaló al día siguiente y el Product Owner adelantó la variable objetivo de mora. Al cierre de S2 el gasto era COP \GastoSdos{} millones frente a \BaseSdos{} planeados (\DesvSdos) y M2 no cerró porque el diccionario no tenía variables de churn \rot{Antecedente}.
+
+\textbf{S3--S5, reconstrucción.} El pronóstico del Corte 2 fijó S3 en 16 puntos como máximo. La retrospectiva de S2 añadió una Definition of Ready: ningún ítem con una dependencia externa sin conceder entra al sprint. La credencial llegó el día 2 de S3, \emph{después} de la Planning, así que T-05.5 no entró en S3. El sprint se dedicó al modelo de mora (US-06, 13 puntos) y al diseño de la validación fuera de tiempo, y M3 cerró en la semana 6. En S4 se integró el extracto, se añadieron las variables de churn al diccionario (M2 cerró en la semana 7) y se construyó el modelo de churn. Su validación (US-08b) necesitaba que madurara la ventana de tres meses, lo que ocurrió en la semana 9, y pasó a S5: M4 se desplazó una semana. \textbf{Ningún trabajo de churn se dio por terminado antes de tener el extracto.} S5 cerró la validación de churn, la calibración y la matriz de costos con Finanzas (M5, semana 10) \rot{Reconstrucción C3}.
+
+\begin{table}[h]
+\caption{Backlog de S3--S5 y su vínculo con objetivos e hitos}\label{tab:trace}
+\input{generated/tab_trace.tex}
+\end{table}
+
+% ------------------------------------------------------------------ 4
+\section{Sprint 6: el sprint final}
+
+\textbf{Objetivo.} \emph{El piloto opera en el segmento controlado y el paquete de transferencia queda listo para la firma del patrocinador (M6).}
+
+\textbf{Capacidad razonada.} La velocidad media de S1--S5 fue \VelMedia{} puntos. Siguiendo la regla de la retrospectiva de S2 (no comprometer más que la velocidad media), el equipo comprometió 15 puntos. Las dependencias externas conocidas (ambiente de piloto de TI y auditoría del oficial de protección de datos) se registraron en la Planning. El compromiso se publicó en GitHub como issues \#10--\#14 antes de empezar el trabajo técnico.
+
+\begin{table}[h]
+\caption{Sprint Backlog de S6 (cada historia tiene criterios Dado/Cuando/Entonces y DoD en su issue)}\label{tab:s6}
+\input{generated/tab_backlog_s6.tex}
+\end{table}
+
+\textbf{Definition of Done.} Reproducible desde el repositorio, documentada, pruebas en verde en CI, PR aprobado por un integrante distinto del autor, validada por el responsable de negocio y demostrada en la Sprint Review.
+
+\subsection{Daily Scrum: los días en que cambió el plan}
+\input{generated/tab_daily.tex}
+
+\subsection{Sprint Review y aceptación por criterio}
+En la Review del día 10 \rot{Simulación C3} se demostraron el piloto (lista semanal de alerta y lista de churn) y el monitoreo. El patrocinador aceptó S6-01, S6-02, S6-03 y S6-05. S6-04 quedó fuera de Done por el hallazgo de la auditoría de protección de datos. La tabla \ref{tab:acc6} separa lo que se cumple en el escenario de la evidencia técnica que lo respalda. El registro completo, con el estado real de cada criterio y quién puede resolverlo, está en el Anexo A.
+
+\begin{table}[h]
+\caption{Aceptación de las historias de S6 por criterio}\label{tab:acc6}
+\input{generated/tab_acceptance_s6.tex}
+\end{table}
+
+% ------------------------------------------------------------------ 5
+\section{Evidencias del tablero y de GitHub}
+
+\textbf{Tablero.} El token de GitHub de la cuenta no tiene el permiso de \emph{Projects}, así que el tablero del Corte 3 se lleva con etiquetas \texttt{estado:*} sobre las issues (Backlog, Ready, In Progress, Blocked, Review, Done), el milestone \emph{Corte 3 · S6} y una vista reproducible (\texttt{docs/corte3/TABLERO.md}) que genera \texttt{scripts/github\_snapshot.py} desde la API. Reglas: Ready exige la DoR; In Progress tiene WIP máximo de 3; Blocked exige la causa y el responsable en un comentario y escalación en 24 horas; Review empieza al abrir el PR con CI; Done exige el PR fusionado y la DoD completa. El Trello del Corte 1 es el antecedente histórico.
+
+\textbf{Flujo en GitHub} \rot{Verificable}. Cada historia tiene una issue, una rama \texttt{c3/s6/<id>-<tema>} y un PR con alcance, pruebas y criterios. Los PR forman una cadena y deben integrarse en orden con \emph{merge commit}, la regla del Corte 2. El CI corre las pruebas, el pipeline, el piloto y el monitoreo en cada push. La aprobación de cada PR corresponde a un integrante distinto del autor, y las revisiones ya se pidieron. Al generar este informe ningún PR del Corte 3 tenía aprobación ni merge, como muestra la tabla. Esos estados se actualizan con \texttt{github\_snapshot.py} y no se dan por hechos.
+
+\begin{table}[h]
+\caption{Bitácora de GitHub del Corte 3 (leída de la API al generar el informe)}\label{tab:gh}
+\input{generated/tab_github.tex}
+\end{table}
+
+El PR \#9 del Corte 2 sigue abierto y sin aprobación. Se conserva como antecedente. La cadena del Corte 3 parte de \texttt{main} y no modifica los archivos de ese PR (\texttt{README.md} y los documentos de \texttt{docs/}), salvo dos líneas añadidas al final de \texttt{ci.yml} que no se solapan con su cambio.
+
+% ------------------------------------------------------------------ 6
+\section{Velocidad, burndown y métricas de flujo}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.49\linewidth]{../figures/velocity.png}\hfill
+\includegraphics[width=0.49\linewidth]{../figures/burndown_s6.png}
+\caption{Velocidad S1--S6 y burndown de S6. Los puntos se descuentan solo el día en que el ítem cumple su DoD en el escenario.}\label{fig:vel}
+\end{figure}
+
+La curva de S6 sigue plana hasta el día 4: S6-01 estuvo bloqueada del día 3 al 5 y el Product Owner adelantó S6-02 para no dejar capacidad ociosa. Del día 6 al 9 se recupera, pero cierra con \SseisPend{} puntos pendientes, que corresponden a S6-04. A diferencia de S2, el faltante no viene de comprometer de más: viene de un acto externo (la auditoría) que llegó el último día. La retrospectiva lo convierte en una acción concreta.
+
+\begin{table}[h]
+\caption{Métricas de S6. Velocidad, throughput, tiempo de ciclo y WIP se reportan por separado}\label{tab:flow}
+\input{generated/tab_flow.tex}
+\end{table}
+
+\input{generated/tab_burndown.tex}
+
+% ------------------------------------------------------------------ 7
+\section{Análisis de impedimentos}
+
+\begin{table}[h]
+\caption{Impedimentos del programa}\label{tab:imp}
+\footnotesize
+\begin{tabularx}{\linewidth}{l l X X X}
+\toprule
+\textbf{Sprint} & \textbf{Días} & \textbf{Causa} & \textbf{Respuesta} & \textbf{Efecto y lección} \\
+\midrule
+S2--S3 & 9 hábiles & Credencial de TI para el extracto de churn (R1 materializado en parte) & Blocked el día 6; escalación al patrocinador el día 7; reordenación del sprint. No se liberaron los COP 4,2 M de la reserva porque la credencial llegó antes de cumplirse 10 días de bloqueo. & M2 +3 semanas, M4 +1 semana. Nació la Definition of Ready. \\
+S6 & 3 (D3--D5) & El ambiente de piloto de TI no tenía cuenta de servicio & Blocked con causa; escalación en 24 horas (D4); el Product Owner adelantó S6-02; la demo siguió sobre la réplica sintética & Sin efecto en el hito. Lección: la cuenta de servicio entra en la DoR. \\
+S6 & D10 & La auditoría de protección de datos encontró la sal de demostración en el piloto & Hallazgo registrado; S6-04 fuera de Done; cierre condicionado sin costo adicional & 3 puntos pendientes. Lección: auditar al inicio del sprint final. \\
+S6 & D5 & Retención pide variables explicativas por cliente (cambio de alcance) & Entró al Product Backlog como US-10 y no al sprint (R6) & El objetivo del sprint quedó protegido. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+En los tres impedimentos la causa estuvo fuera del equipo, y la respuesta siguió las reglas que el propio equipo había escrito: hacerlo visible el mismo día, escalarlo en menos de 24 horas y reordenar con el Product Owner. Con la Definition of Ready, el bloqueo de S2 no volvió a contaminar un compromiso. El hallazgo de S6 muestra el límite de esas reglas: un acto de cumplimiento que llega el último día no se puede reordenar.
+
+% ------------------------------------------------------------------ 8
+\section{Balance final de cronograma y presupuesto frente al Charter}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.78\linewidth]{../figures/milestones.png}\\[0.4em]
+\includegraphics[width=0.66\linewidth]{../figures/budget_cumulative.png}
+\caption{Hitos M1--M6 (semana base y semana del escenario) y gasto acumulado frente a la base del Charter}
+\end{figure}
+
+\begin{table}[h]
+\caption{Registro de hitos}\label{tab:ms}
+\input{generated/tab_milestones.tex}
+\end{table}
+
+\textbf{Cronograma.} La desviación del hito final es de 0 semanas (0\,\% de 12 semanas). Los retrasos de M2 (+3) y M4 (+1) se absorbieron sin mover M3, M5 ni M6. M6 está \emph{condicionado}: la fecha se cumple, pero la aceptación real sigue pendiente.
+
+\textbf{Presupuesto.} La desviación acumulada se calcula como $(\text{gasto acumulado} - \text{base acumulada}) / \text{base acumulada}$. La base del sprint $k$ es la planeación por rubro del Charter, y la reserva no se asigna a ningún sprint. Al cierre de S5 la desviación era \DesvScinco{} y el pronóstico al inicio de S6 (gasto real S1--S5 más la base de S6) era COP \EACSseis{} millones. El cierre real fue COP \GastoTotal{} millones (\DesvCosto). Por rubro, Gestión y gobierno superó su base un 4,8\,\% por las escalaciones y la auditoría, y Validación y documentación quedó por debajo. La compensación entre rubros no requiere liberar la reserva, pero el patrocinador debe conocerla. Del sobre autorizado quedan COP \NoEjecutado{} millones sin ejecutar, incluida la reserva completa.
+
+\begin{table}[h]
+\caption{Base y gasto por sprint (COP millones)}
+\input{generated/tab_budget_sprint.tex}
+\vspace{0.6em}
+\caption{Base y gasto por rubro del Charter}
+\input{generated/tab_budget_item.tex}
+\end{table}
+
+% ------------------------------------------------------------------ 9
+\section{Resultados técnicos del piloto}
+
+Los resultados de esta sección los produce el código del repositorio (commit \texttt{\SHA}) con datos sintéticos y semillas fijas \rot{Verificable}. Prueban que el método funciona de punta a punta. \textbf{No son una validación con datos de FinBank.} La validación fuera de tiempo usa una cohorte sintética independiente (\MuestraOOT{} clientes con observación, tasa de mora a 30 días de \TasaMora) que hace las veces de cohorte posterior.
+
+\begin{table}[h]
+\caption{Métricas del prototipo (\texttt{pilot\_metrics.csv})}\label{tab:pilot}
+\input{generated/tab_pilot.tex}
+\end{table}
+
+En el segmento controlado (región andina), la lista semanal de alerta temprana marca \EWFlag{} de \EWTotal{} clientes de crédito para contacto de Cobranza (umbral \CorteMora), y la lista de churn propone \ChurnFlag{} de \ChurnTotal{} clientes preferenciales para una oferta de retención. Ambas listas usan un identificador seudonimizado (SHA-256 con sal), sin columnas personales.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.49\linewidth]{../figures/churn_tradeoff.png}\hfill
+\includegraphics[width=0.49\linewidth]{../figures/monitoring.png}
+\caption{Izquierda: el umbral de máximo beneficio (\CorteCosto) incumple O2; el umbral operativo (\CorteOp) lo cumple a cambio de COP \BenefDif{} M de beneficio neto. Derecha: el monitoreo detecta el cambio inyectado en la semana \SemAlerta{} (PSI de bureau\_score \PSIbureau) y marca reentrenamiento en la semana \SemReentreno{} (AUC \AUCsemReentreno{} frente a la base \AUCbase).}
+\end{figure}
+
+% ------------------------------------------------------------------ 10
+\section{Retrospectiva, lecciones y acciones}
+
+\begin{table}[h]
+\caption{Acciones de mejora con responsable y seguimiento (S1--S6)}\label{tab:retro}
+\input{generated/tab_retro.tex}
+\end{table}
+
+\textbf{Liderazgo y coordinación.}
+\begin{itemize}
+\item \textbf{Comprometer lo que se ha demostrado.} El exceso de compromiso de S2 (20 frente a 16) no se repitió. Desde S3 el compromiso se ató a la velocidad media y la variación entre sprints bajó.
+\item \textbf{Escalar no es fallar.} Las dos escalaciones se hicieron en menos de 24 horas y protegieron el hito. El patrocinador conoció el problema antes de que se convirtiera en desviación.
+\item \textbf{Separar el Done técnico de la aceptación del negocio.} El tablero de GitHub mide integración. El registro de aceptación mide lo que el cliente firmó. Mezclarlos habría mostrado un 100\,\% falso.
+\item \textbf{El cumplimiento también tiene calendario.} La auditoría de protección de datos debió pedirse en la Planning de S6. Es la principal lección para el próximo proyecto.
+\item \textbf{Roles.} El líder concentró la relación con el patrocinador y el presupuesto, el Product Owner las decisiones de orden y alcance, y el Scrum Master los impedimentos y las reglas del tablero. Separar los roles evitó que una sola persona decidiera alcance y plazo a la vez.
+\end{itemize}
+
+% ------------------------------------------------------------------ 11
+\section{Decisión de cierre y transferencia}
+
+\begin{tcolorbox}[colback=teal!6,colframe=teal!60,boxrule=0.5pt,arc=1mm]
+\textbf{Decisión del patrocinador en la Review de S6} \rot{Simulación C3}: \textbf{cierre con transferencia condicionada.} Se aceptan los entregables de M3--M5 y el piloto. La firma del acta (O4) queda sujeta a que el oficial de protección de datos cierre el hallazgo de la sal en 5 días hábiles, sin costo adicional y sin liberar la reserva. No hay extensión de plazo: el Charter exige una nueva autorización para cualquier extensión.
+\end{tcolorbox}
+
+\textbf{Lo que queda pendiente y quién puede resolverlo} (actos reales, no simulados):
+\begin{enumerate}
+\item Firma del acta de entrega: el patrocinador, después de la auditoría del oficial de protección de datos.
+\item Aprobación de la regla de decisión de churn (prioridad de O2 sobre O3): Finanzas.
+\item Validación de O1 y O2 con el extracto real de FinBank: VP de Riesgo y TI, siguiendo la sección 6 del runbook.
+\item Aprobación e integración de los PR \#16--\#21: Daniel Martínez o Rafael Baracaldo, cada uno en los PR que no escribió.
+\item Sustentación académica del 20 de noviembre de 2026: el equipo. Este informe no la da por realizada.
+\end{enumerate}
+
+\textbf{Paquete de transferencia}: \path{docs/corte3/TRANSFERENCIA.md} (inventario, capacitación, DoR y DoD, auditoría y acta) y \path{docs/corte3/RUNBOOK.md} (operación semanal, controles y acciones por caso).
+
+% ------------------------------------------------------------------ 12
+\section{Discrepancias y limitaciones}
+\begin{itemize}
+\item \textbf{Fecha del Charter.} El Charter tiene fecha de emisión de septiembre de 2026, pero la cronología simulada sitúa S1 entre el 10 y el 21 de agosto. Se conserva la cronología de los Cortes 1 y 2 y se registra la diferencia.
+\item \textbf{Dos calendarios.} Las fechas del escenario (agosto a octubre de 2026, 12 semanas) no coinciden con las académicas: trabajo técnico en GitHub en octubre y noviembre, entrega el 18 de noviembre y sustentación el 20. Los commits llevan la fecha real.
+\item \textbf{Roles.} El Charter nombra a Rafael como analista de negocio y a Oscar como facilitador Scrum. Desde el Corte 2, en Scrum, son Product Owner y Scrum Master. Daniel conserva el reporte formal al patrocinador.
+\item \textbf{Datos sintéticos.} Las métricas de los modelos son del prototipo. El enunciado prohíbe inventar AUC o recall, así que no se reporta ninguna cifra de modelo que no produzca el código.
+\item \textbf{Consigna.} El sitio oficial del Corte 3 incrusta la consigna en un recurso de Canva que no se pudo descargar en esta preparación. Los requisitos se tomaron de la comprobación previa (dos PDF para el 18 de noviembre y sustentación formal el 20) y de la clase grabada del 6 de noviembre (30 minutos de presentación y 5 de preguntas). El equipo debe contrastarlos con la consigna completa.
+\item \textbf{Número de grupo.} No está confirmado, así que se usa el marcador \emph{GrupoX} en los nombres de archivo.
+\end{itemize}
+
+% ------------------------------------------------------------------ anexos
+\clearpage
+\appendix
+\section*{Anexo A. Registro de aceptación}
+\addcontentsline{toc}{section}{Anexo A}
+\input{generated/tab_acceptance.tex}
+
+\section*{Anexo B. Reproducción}
+Desde una copia limpia del repositorio (\repo), en la rama \texttt{\Rama} (commit \texttt{\SHA}, generado el \Generado, Python \PyVer):
+\begin{verbatim}
+pip install -r requirements.txt -r requirements-corte3.txt
+pytest -v                                  # pruebas
+python scripts/run_pipeline.py             # incremento del Corte 2
+python scripts/run_pilot.py                # piloto S6-01
+python scripts/run_monitoring.py           # monitoreo S6-02
+python scripts/github_snapshot.py          # tablero y bitácora desde GitHub
+python scripts/build_corte3.py             # figuras, informe, PPTX, PDF y guion
+\end{verbatim}
+Resultado registrado en esta compilación: \textbf{\Tests{} pruebas en verde}. Las salidas completas están en \texttt{docs/corte3/evidence/}.
+
+\begin{table}[h]
+\caption{Detalle del monitoreo semanal (\texttt{monitoring\_report.csv})}
+\input{generated/tab_monitoring.tex}
+\end{table}
+
+\section*{Anexo C. Índice de evidencias}
+\small
+\begin{tabularx}{\linewidth}{l X}
+\toprule
+\textbf{Evidencia} & \textbf{Ubicación} \\
+\midrule
+Datos fuente de tablas y gráficas & \texttt{docs/corte3/data/*.csv} (backlog, sprints, dailies, ítems de S6, hitos, presupuesto, aceptación, retro, bitácora GitHub) \\
+Salidas de ejecución & \texttt{docs/corte3/evidence/} (pruebas, pipeline, piloto, monitoreo) \\
+Tablero reproducible & \texttt{docs/corte3/TABLERO.md}; issues \href{https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues?q=label\%3AC3}{label:C3} \\
+Pull requests del Corte 3 & \href{https://github.com/OscarSantiagoMerino/DataForge-Consulting/pulls?q=label\%3AC3}{PR con label:C3} \\
+Runbook y transferencia & \texttt{docs/corte3/RUNBOOK.md}, \texttt{docs/corte3/TRANSFERENCIA.md} \\
+Presentación y guion & \texttt{docs/corte3/Presentacion\_FinBank\_GrupoX.pdf/.pptx}, \texttt{docs/corte3/Guion\_Sustentacion.md} \\
+Índice navegable & \texttt{docs/corte3/README.md} \\
+\bottomrule
+\end{tabularx}
+
+\end{document}

@@ -1,0 +1,6 @@
+# Extra dependencies to rebuild the Corte 3 deliverables (scripts/build_corte3.py).
+# The report also needs pdflatex (MiKTeX or TeX Live). The PDF export of the deck
+# uses PowerPoint on Windows; elsewhere run with --skip-pdf-export and export the PPTX by hand.
+matplotlib
+python-pptx
+pymupdf
