@@ -128,7 +128,7 @@ def run_pilot(n_clients: int = 5000, n_preferential: int = 4000,
             {"model": "churn", "metric": f"net_benefit_cop_at_{label}", "value": round(benefit),
              "target": "", "meets_target": "", "sample": len(pc_oot), "event_rate": churn_rate},
         ]
-    metrics.append({"model": "delinquency", "metric": "cutoff_operating_threshold",
+    metrics.append({"model": "delinquency", "metric": "cutoff_delinquency_threshold",
                     "value": threshold, "target": "", "meets_target": "",
                     "sample": len(y_dev), "event_rate": round(float(y_dev.mean()), 4)})
 
