@@ -5,3 +5,16 @@ reports/
 *.aux
 *.log
 *.out
+
+# Corte 3: videos and meeting recordings stay outside the repository
+*.mp4
+*.m4v
+*.mov
+*.avi
+*.mkv
+*.webm
+*.wmv
+*.flv
+*.mpeg
+*.mpg
+*.3gp
