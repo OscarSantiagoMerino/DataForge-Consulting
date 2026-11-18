@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cierre FinBank · DataForge</title>
+<meta name="description" content="Cierre del Programa de Analítica Predictiva de FinBank (GMAC-FB-2026-01), DataForge Consulting, Corte 3.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#ffffff; --surface:#f6f7f9; --surface2:#eef1f5; --ink:#111827; --muted:#5b6472; --line:#e3e6eb;
+  --navy:#1F3A5F; --teal:#2A9D8F; --amber:#C98516; --red:#C8553D; --gray:#6B7280; --accent-bg:#e8f5f3;
+  --chip-esc:#fdf3e1; --chip-esc-ink:#8a5a00; --chip-pro:#e7f0fb; --chip-pro-ink:#1F3A5F; --chip-real:#fde8e4; --chip-real-ink:#9b3622;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f141b; --surface:#161d27; --surface2:#1d2633; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2a3442;
+    --navy:#8fb3e0; --teal:#4cc1b2; --amber:#e9a23b; --red:#e2765f; --gray:#9aa5b4; --accent-bg:#14302d;
+    --chip-esc:#3a2d12; --chip-esc-ink:#f2c46d; --chip-pro:#1b2c45; --chip-pro-ink:#a9c6ec; --chip-real:#3d1d17; --chip-real-ink:#f3a594;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f141b; --surface:#161d27; --surface2:#1d2633; --ink:#e7ebf0; --muted:#9aa5b4; --line:#2a3442;
+  --navy:#8fb3e0; --teal:#4cc1b2; --amber:#e9a23b; --red:#e2765f; --gray:#9aa5b4; --accent-bg:#14302d;
+  --chip-esc:#3a2d12; --chip-esc-ink:#f2c46d; --chip-pro:#1b2c45; --chip-pro-ink:#a9c6ec; --chip-real:#3d1d17; --chip-real-ink:#f3a594;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--teal)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+header.hero{background:#1F3A5F;color:#fff;padding:48px 0 40px}
+.hero .eyebrow{color:#9fd8cf;font-weight:700;letter-spacing:.08em;font-size:13px;text-transform:uppercase}
+.hero h1{font-size:clamp(28px,4.4vw,46px);line-height:1.12;margin:10px 0 12px}
+.hero p.lead{font-size:clamp(16px,2vw,20px);color:#d6dde8;max-width:820px;margin:0 0 22px}
+.hero .team{color:#c3cbd8;font-size:14px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 6px}
+.btn{display:inline-block;padding:9px 16px;border-radius:8px;background:#2A9D8F;color:#fff;text-decoration:none;font-weight:600;font-size:14px}
+.btn.ghost{background:transparent;border:1px solid #6c86a8;color:#fff}
+nav.top{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px;scrollbar-width:none}
+nav.top a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:14px;padding:6px 10px;border-radius:6px}
+nav.top a:hover{background:var(--surface);color:var(--ink)}
+section{padding:46px 0 10px}
+h2{font-size:clamp(22px,3vw,30px);color:var(--navy);margin:0 0 6px}
+h2 + .sub{color:var(--muted);margin:0 0 22px;max-width:860px}
+h3{font-size:17px;color:var(--navy);margin:0 0 10px}
+.grid{display:grid;gap:16px}
+.g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+@media (max-width:900px){.g4{grid-template-columns:repeat(2,1fr)} .g3,.g2{grid-template-columns:1fr}}
+@media (max-width:520px){.g4{grid-template-columns:1fr}}
+.card{background:var(--surface);border-radius:12px;padding:18px 18px 16px;border:1px solid var(--line);min-width:0}
+.kpi{border-left:5px solid var(--navy)}
+.kpi .v{font-size:32px;font-weight:700;line-height:1.1;color:var(--navy)}
+.kpi .l{color:var(--muted);font-size:14px;margin-top:6px}
+.kpi.teal{border-color:var(--teal)} .kpi.teal .v{color:var(--teal)}
+.kpi.amber{border-color:var(--amber)} .kpi.amber .v{color:var(--amber)}
+.kpi.red{border-color:var(--red)} .kpi.red .v{color:var(--red)}
+.decision{background:var(--accent-bg);border:1px solid var(--teal);border-radius:12px;padding:20px 22px;margin-bottom:18px}
+.decision strong{font-size:20px;color:var(--navy)}
+.chip{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;vertical-align:middle;white-space:nowrap}
+.chip.esc{background:var(--chip-esc);color:var(--chip-esc-ink)}
+.chip.pro{background:var(--chip-pro);color:var(--chip-pro-ink)}
+.chip.real{background:var(--chip-real);color:var(--chip-real-ink)}
+.chip.ok{background:var(--accent-bg);color:var(--teal)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;color:var(--muted);font-weight:600;border-bottom:2px solid var(--line);padding:8px 8px}
+.tbl td{border-bottom:1px solid var(--line);padding:8px 8px;vertical-align:top}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}
+.chart{position:relative;height:300px}
+.chart.tall{height:340px}
+.kanban{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:10px;overflow-x:auto;padding-bottom:6px}
+.col{background:var(--surface);border:1px solid var(--line);border-radius:10px;min-height:150px}
+.col h4{margin:0;padding:9px 12px;color:#fff;font-size:14px;border-radius:10px 10px 0 0}
+.col .rule{font-size:12px;color:var(--muted);padding:6px 12px 0}
+.ticket{background:var(--bg);border:1px solid var(--line);border-radius:8px;margin:8px;padding:8px 10px;font-size:13px}
+.ticket b{display:block;color:var(--navy)}
+.ticket .meta{color:var(--muted);font-size:12px;margin-top:4px}
+.timeline{list-style:none;margin:0;padding:0}
+.timeline li{display:grid;grid-template-columns:52px 120px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.timeline .d{font-weight:700;color:var(--navy)}
+@media (max-width:620px){.timeline li{grid-template-columns:44px 1fr}.timeline .t{grid-column:2}.timeline .e{grid-column:1/3}}
+.t-Bloqueo,.t-Escalación{color:var(--red);font-weight:600}
+.t-Done,.t-Desbloqueo{color:var(--teal);font-weight:600}
+.t-Review,.t-Retrospectiva,.t-Planning{color:var(--navy);font-weight:600}
+.t-Cambio{color:var(--amber);font-weight:600}
+.sim{display:grid;grid-template-columns:320px 1fr;gap:18px}
+@media (max-width:900px){.sim{grid-template-columns:1fr}}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tab{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 14px;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px}
+.tab[aria-selected="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+input[type=range]{width:100%;accent-color:var(--teal)}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.readout div{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+.readout .v{font-size:22px;font-weight:700;color:var(--navy)}
+.readout .l{font-size:12px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted)}
+.warn{color:var(--red);font-weight:600}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+ul.clean{margin:0;padding-left:18px} ul.clean li{margin:4px 0}
+footer{margin-top:50px;background:var(--surface);border-top:1px solid var(--line);padding:26px 0;font-size:13px;color:var(--muted)}
+.dl{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.themebtn{position:absolute;right:16px;top:14px;background:transparent;border:1px solid #6c86a8;color:#fff;border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px}
+.hero{position:relative}
+</style>
+</head>
+<body>
+<header class="hero">
+  <button class="themebtn" id="theme" type="button" aria-label="Cambiar tema">◐ Tema</button>
+  <div class="wrap">
+    <div class="eyebrow">DataForge Consulting · FinBank S.A. · GMAC-FB-2026-01 · Corte 3</div>
+    <h1>Cierre del Programa de Analítica Predictiva</h1>
+    <p class="lead">Mora temprana y churn de crédito: qué entregamos en 12 semanas, cuánto costó frente al Charter y qué decisión necesita FinBank.</p>
+    <div class="team">Daniel Felipe Martínez Hernández · Líder de proyecto &nbsp;|&nbsp; Rafael Alejandro Baracaldo Doikov · Product Owner &nbsp;|&nbsp; Oscar Santiago Merino Suárez · Scrum Master</div>
+    <div class="btns">
+      <a class="btn" href="files/Informe_Final_FinBank_GrupoX.pdf">Informe Final (PDF)</a>
+      <a class="btn" href="files/Presentacion_FinBank_GrupoX.pdf">Presentación (PDF)</a>
+      <a class="btn ghost" id="repolink" href="#">Repositorio en GitHub</a>
+    </div>
+  </div>
+</header>
+<nav class="top" aria-label="Secciones"><div class="wrap">
+  <a href="#decision">Decisión</a><a href="#recorrido">Recorrido S1–S6</a><a href="#sprint6">Sprint 6</a>
+  <a href="#tablero">Tablero</a><a href="#piloto">Piloto interactivo</a><a href="#monitoreo">Monitoreo</a>
+  <a href="#balance">Cronograma y presupuesto</a><a href="#retro">Retrospectiva</a><a href="#aceptacion">Aceptación</a><a href="#descargas">Descargas</a>
+</div></nav>
+
+<main class="wrap">
+<section id="decision">
+  <div class="decision">
+    <strong>Recomendamos cerrar con transferencia condicionada.</strong>
+    <div>Los modelos, la regla de decisión, el piloto y el marco de gestión están entregados. Falta un acto que no depende del equipo: la firma del acta, sujeta a la auditoría de protección de datos. <span class="chip esc">Decisión del escenario</span> <span class="chip real">Firma real pendiente</span></div>
+  </div>
+  <div class="grid g4" id="kpis"></div>
+  <p class="note" style="margin-top:14px">Cómo leer las cifras: <span class="chip esc">Escenario</span> hechos simulados del caso académico · <span class="chip pro">Prototipo</span> resultado reproducible del código con datos sintéticos · <span class="chip real">Real</span> actos que solo ocurren con las personas reales y no se simulan.</p>
+</section>
+
+<section id="recorrido">
+  <h2>Recorrido S1–S6</h2>
+  <p class="sub">Seis sprints de dos semanas. S1–S2 son el antecedente del Corte 2, S3–S5 la transición reconstruida y S6 el sprint final. Desde S3 el compromiso no supera la velocidad media.</p>
+  <div class="grid g2">
+    <div class="card"><h3>Velocidad: compromiso frente a terminado</h3><div class="chart"><canvas id="cVel"></canvas></div></div>
+    <div class="card scroll"><h3>Objetivo de cada sprint</h3><table class="tbl" id="tSprints"></table></div>
+  </div>
+</section>
+
+<section id="sprint6">
+  <h2>Sprint 6: el sprint final</h2>
+  <p class="sub" id="s6goal"></p>
+  <div class="card scroll" style="margin-bottom:16px"><table class="tbl" id="tS6"></table></div>
+  <div class="grid g2">
+    <div class="card"><h3>Burndown <span class="chip esc">Escenario</span></h3><div class="chart"><canvas id="cBurn"></canvas></div>
+      <p class="note">Los puntos se descuentan solo el día en que el ítem cumple su Definition of Done. La franja roja marca el bloqueo de S6-01 (D3–D5).</p></div>
+    <div class="card"><h3>Métricas de flujo</h3><div class="grid g2" id="flow"></div>
+      <p class="note" style="margin-top:12px">Velocidad, throughput, tiempo de ciclo y WIP se miden por separado.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h3>Daily Scrum: los días en que cambió el plan <span class="chip esc">Simulado</span></h3><ul class="timeline" id="daily"></ul></div>
+</section>
+
+<section id="tablero">
+  <h2>Tablero del Corte 3 en GitHub</h2>
+  <p class="sub">Issues reales con etiquetas <code>estado:*</code> y milestone «Corte 3 · S6». Estados leídos de la API de GitHub al generar la página (<span id="snap"></span>). Se integra con <i>merge commit</i>, en orden, después de la aprobación de un integrante distinto del autor.</p>
+  <div class="kanban" id="kanban"></div>
+</section>
+
+<section id="piloto">
+  <h2>Piloto interactivo</h2>
+  <p class="sub">Mueva el umbral y vea cómo cambian la lista y el valor. Datos del prototipo del repositorio: cohortes sintéticas con semilla fija y validación fuera de tiempo con una cohorte independiente. <span class="chip pro">Prototipo</span> No es una validación con datos de FinBank.</p>
+  <div class="card">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-model="mora">Mora a 30 días (Cobranza)</button>
+      <button class="tab" role="tab" aria-selected="false" data-model="churn">Churn a 3 meses (Retención)</button>
+    </div>
+    <div class="sim">
+      <div>
+        <label for="cut"><b>Umbral de probabilidad: <span id="cutv"></span></b></label>
+        <input id="cut" type="range" min="0" max="1" step="1">
+        <div class="note" id="cutnote"></div>
+        <div class="readout">
+          <div><div class="v" id="rRecall"></div><div class="l">Recall (fuera de tiempo)</div></div>
+          <div><div class="v" id="rPrec"></div><div class="l">Precisión</div></div>
+          <div><div class="v" id="rBen"></div><div class="l">Beneficio neto, COP M</div></div>
+          <div><div class="v" id="rList"></div><div class="l" id="rListL"></div></div>
+        </div>
+        <p class="note" id="verdict" style="margin-top:12px"></p>
+        <div class="btns"><button class="tab" id="goOp" type="button">Ir al umbral operativo</button><button class="tab" id="goCost" type="button">Ir al máximo beneficio</button></div>
+      </div>
+      <div class="chart tall"><canvas id="cSim"></canvas></div>
+    </div>
+  </div>
+  <div class="grid g3" style="margin-top:16px" id="pilotkpis"></div>
+</section>
+
+<section id="monitoreo">
+  <h2>Monitoreo: avisa antes de que el modelo se degrade</h2>
+  <p class="sub">PSI: estable &lt; 0,10 · vigilar 0,10–0,25 · alerta ≥ 0,25. Hay que reentrenar si el AUC cae más de 0,05 durante 2 semanas seguidas. Seis semanas sintéticas con un cambio inyectado desde la semana 4. <span class="chip pro">Prototipo</span></p>
+  <div class="grid g2">
+    <div class="card"><h3>Estabilidad (PSI)</h3><div class="chart"><canvas id="cPsi"></canvas></div></div>
+    <div class="card"><h3>Desempeño (AUC a 30 días)</h3><div class="chart"><canvas id="cAuc"></canvas></div></div>
+  </div>
+</section>
+
+<section id="balance">
+  <h2>Cronograma y presupuesto frente al Charter</h2>
+  <p class="sub" id="balsub"></p>
+  <div class="grid g2">
+    <div class="card"><h3>Gasto acumulado frente a la base <span class="chip esc">Escenario</span></h3><div class="chart"><canvas id="cBud"></canvas></div></div>
+    <div class="card scroll"><h3>Por rubro (COP millones)</h3><table class="tbl" id="tItems"></table></div>
+  </div>
+  <div class="card scroll" style="margin-top:16px"><h3>Hitos M1–M6</h3><table class="tbl" id="tMs"></table></div>
+</section>
+
+<section id="retro">
+  <h2>Retrospectiva y lecciones</h2>
+  <p class="sub">Acciones con responsable y seguimiento a lo largo del programa.</p>
+  <div class="card scroll"><table class="tbl" id="tRetro"></table></div>
+</section>
+
+<section id="aceptacion">
+  <h2>Registro de aceptación</h2>
+  <p class="sub">Separa lo que se cumple en el escenario de su estado real y de quién puede resolverlo. Ningún acto simulado figura como aceptación real.</p>
+  <div class="filters"><button class="tab" data-f="all" aria-selected="true">Todo</button><button class="tab" data-f="pend" aria-selected="false">Pendientes reales</button><button class="tab" data-f="obj" aria-selected="false">Objetivos O1–O5</button></div>
+  <div class="card scroll"><table class="tbl" id="tAcc"></table></div>
+</section>
+
+<section id="descargas">
+  <h2>Descargas</h2>
+  <div class="card" id="dl"></div>
+</section>
+</main>
+
+<footer><div class="wrap" id="foot"></div></footer>
+
+<script>
+const D = {"meta": {"generated": "2026-11-18 12:19 UTC", "sha": "29e625c", "repo": "https://github.com/OscarSantiagoMerino/DataForge-Consulting"}, "kpi": {"s6_done": 12, "s6_committed": 15, "points_total": 88, "velocity_avg": 15.2, "cost_dev": -0.001182033096926647, "actual_total": 169.0, "base_total": 169.2, "reserve": 10.8, "authorized": 180.0, "s2_actual": 54.8, "s2_base": 56.4, "eac_s6": 169.5, "throughput": 4, "cycle_avg": 5.25, "blocked_days": 3, "wip_max": 3, "ew_flagged": 250, "ew_total": 1356, "churn_flagged": 319, "churn_total": 1062, "oot_sample": 4691, "oot_rate": 0.0565}, "pilot": {"auc_out_of_time_default_30d": 0.7959, "auc_out_of_time_default_60d": 0.7884, "auc_out_of_time_churn_3m": 0.7673, "cutoff_operating_threshold": 0.13, "recall_at_operating_threshold": 0.6203, "precision_at_operating_threshold": 0.2232, "net_benefit_cop_at_operating_threshold": 11550000, "cutoff_cost_only_threshold": 0.21, "recall_at_cost_only_threshold": 0.4094, "precision_at_cost_only_threshold": 0.3102, "net_benefit_cop_at_cost_only_threshold": 20055000, "cutoff_delinquency_threshold": 0.09}, "sprints": [{"sprint": "S1", "weeks": "1-2", "dates_scenario": "10-21 ago 2026", "goal": "El proyecto queda gobernado y el equipo puede tocar datos legalmente", "committed": 16, "done": 16, "goal_met": "Cumplida", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "weeks": "3-4", "dates_scenario": "24 ago-4 sep 2026", "goal": "Base de datos validada para los modelos de mora y churn", "committed": 20, "done": 15, "goal_met": "Parcial", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S3", "weeks": "5-6", "dates_scenario": "7-18 sep 2026", "goal": "Modelo de mora a 30/60 días validado fuera de tiempo (M3)", "committed": 16, "done": 16, "goal_met": "Cumplida", "label": "reconstrucción del Corte 3"}, {"sprint": "S4", "weeks": "7-8", "dates_scenario": "21 sep-2 oct 2026", "goal": "Extracto de churn integrado y modelo de churn construido (M2 y M4)", "committed": 16, "done": 13, "goal_met": "Parcial", "label": "reconstrucción del Corte 3"}, {"sprint": "S5", "weeks": "9-10", "dates_scenario": "5-16 oct 2026", "goal": "Churn validado y reglas de decisión aprobadas por Finanzas (M4 y M5)", "committed": 16, "done": 16, "goal_met": "Cumplida", "label": "reconstrucción del Corte 3"}, {"sprint": "S6", "weeks": "11-12", "dates_scenario": "19-30 oct 2026", "goal": "Piloto operando en el segmento controlado y paquete de transferencia listo para firma (M6)", "committed": 15, "done": 12, "goal_met": "Parcial", "label": "simulación del Corte 3"}], "backlog": [{"sprint": "S1", "id": "US-04", "item": "Tablero, repositorio y Definition of Done", "points": "3", "owner": "Oscar", "business_owner": "Patrocinador", "objective": "O4", "milestone": "M1", "dependency": "", "state": "Done", "done_day": "3", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S1", "id": "US-03", "item": "Perfilamiento de la base de clientes sobre la muestra anonimizada", "points": "5", "owner": "Rafael", "business_owner": "Riesgo y Analítica", "objective": "O1", "milestone": "M1", "dependency": "muestra anonimizada (R1)", "state": "Done", "done_day": "5", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S1", "id": "US-01", "item": "Charter aprobado por el patrocinador", "points": "3", "owner": "Daniel", "business_owner": "Patrocinador", "objective": "O5", "milestone": "M1", "dependency": "", "state": "Done", "done_day": "7", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S1", "id": "US-02", "item": "Acuerdo de acceso a datos, Ley 1581", "points": "5", "owner": "Daniel", "business_owner": "Oficial de protección de datos", "objective": "O1", "milestone": "M1", "dependency": "firma legal", "state": "Done", "done_day": "10", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "id": "T-05.0", "item": "Script de extracción, datos de mora", "points": "2", "owner": "Rafael", "business_owner": "Riesgo y Analítica", "objective": "O1", "milestone": "M2", "dependency": "", "state": "Done", "done_day": "3", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "id": "T-05.6", "item": "Reglas de validación escritas con pruebas primero", "points": "3", "owner": "Rafael", "business_owner": "Riesgo y Analítica", "objective": "O1", "milestone": "M2", "dependency": "", "state": "Done", "done_day": "5", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "id": "T-05.1", "item": "Reporte de calidad de datos", "points": "4", "owner": "Daniel", "business_owner": "Riesgo y Analítica", "objective": "O1", "milestone": "M2", "dependency": "", "state": "Done", "done_day": "8", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "id": "T-05.4", "item": "Variable objetivo de mora a 30 y 60 días", "points": "3", "owner": "Oscar", "business_owner": "Cobranza", "objective": "O1", "milestone": "M3", "dependency": "", "state": "Done", "done_day": "8", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "id": "T-05.2", "item": "Diccionario de variables v1 validado por negocio", "points": "3", "owner": "Rafael", "business_owner": "Cobranza", "objective": "O1", "milestone": "M2", "dependency": "T-05.1", "state": "Done", "done_day": "10", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "id": "T-05.5", "item": "Extracto histórico de churn", "points": "5", "owner": "Oscar", "business_owner": "TI", "objective": "O2", "milestone": "M2", "dependency": "credencial de TI", "state": "Bloqueado (pasa a S4)", "done_day": "", "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S3", "id": "T-06.1", "item": "Diseño de la validación fuera de tiempo", "points": "3", "owner": "Oscar", "business_owner": "Riesgo y Analítica", "objective": "O1", "milestone": "M3", "dependency": "T-05.4", "state": "Done", "done_day": "6", "label": "reconstrucción del Corte 3"}, {"sprint": "S3", "id": "US-06", "item": "Modelo de mora a 30 y 60 días", "points": "13", "owner": "Rafael", "business_owner": "Riesgo y Analítica", "objective": "O1", "milestone": "M3", "dependency": "T-06.1", "state": "Done", "done_day": "10", "label": "reconstrucción del Corte 3"}, {"sprint": "S4", "id": "T-05.5", "item": "Extracto histórico de churn", "points": "5", "owner": "Oscar", "business_owner": "TI", "objective": "O2", "milestone": "M2", "dependency": "credencial de TI (concedida en S3 D2)", "state": "Done", "done_day": "4", "label": "reconstrucción del Corte 3"}, {"sprint": "S4", "id": "T-08.1", "item": "Variables de churn en el diccionario", "points": "3", "owner": "Rafael", "business_owner": "Retención", "objective": "O2", "milestone": "M2", "dependency": "T-05.5", "state": "Done", "done_day": "6", "label": "reconstrucción del Corte 3"}, {"sprint": "S4", "id": "US-08a", "item": "Modelo de churn a 3 meses: construcción", "points": "5", "owner": "Daniel", "business_owner": "Retención", "objective": "O2", "milestone": "M4", "dependency": "T-08.1", "state": "Done", "done_day": "9", "label": "reconstrucción del Corte 3"}, {"sprint": "S4", "id": "US-08b", "item": "Modelo de churn: validación fuera de tiempo y recall al umbral", "points": "3", "owner": "Daniel", "business_owner": "Retención", "objective": "O2", "milestone": "M4", "dependency": "ventana de 3 meses madura en la semana 9", "state": "No terminado (pasa a S5)", "done_day": "", "label": "reconstrucción del Corte 3"}, {"sprint": "S5", "id": "US-08b", "item": "Modelo de churn: validación fuera de tiempo y recall al umbral", "points": "3", "owner": "Daniel", "business_owner": "Retención", "objective": "O2", "milestone": "M4", "dependency": "ventana de 3 meses madura en la semana 9", "state": "Done", "done_day": "3", "label": "reconstrucción del Corte 3"}, {"sprint": "S5", "id": "T-09.1", "item": "Calibración de probabilidades", "points": "5", "owner": "Oscar", "business_owner": "Riesgo y Analítica", "objective": "O3", "milestone": "M5", "dependency": "US-06", "state": "Done", "done_day": "7", "label": "reconstrucción del Corte 3"}, {"sprint": "S5", "id": "US-09", "item": "Matriz de costos y umbrales con Finanzas", "points": "8", "owner": "Rafael", "business_owner": "Finanzas", "objective": "O3", "milestone": "M5", "dependency": "T-09.1", "state": "Done", "done_day": "9", "label": "reconstrucción del Corte 3"}, {"sprint": "S6", "id": "S6-01", "item": "Piloto controlado con lista semanal de alerta temprana (incluye US-07)", "points": "5", "owner": "Rafael y Oscar", "business_owner": "Cobranza", "objective": "O1 O2 O3 O4", "milestone": "M6", "dependency": "ambiente de piloto de TI", "state": "Done", "done_day": "8", "label": "simulación del Corte 3"}, {"sprint": "S6", "id": "S6-02", "item": "Monitoreo de desempeño y drift", "points": "3", "owner": "Oscar", "business_owner": "Riesgo y Analítica", "objective": "O4", "milestone": "M6", "dependency": "S6-01", "state": "Done", "done_day": "6", "label": "simulación del Corte 3"}, {"sprint": "S6", "id": "S6-03", "item": "Runbook de operación del piloto", "points": "2", "owner": "Daniel", "business_owner": "Riesgo y Analítica", "objective": "O4", "milestone": "M6", "dependency": "S6-01", "state": "Done", "done_day": "4", "label": "simulación del Corte 3"}, {"sprint": "S6", "id": "S6-04", "item": "Paquete de transferencia y capacitación", "points": "3", "owner": "Rafael", "business_owner": "Patrocinador", "objective": "O4", "milestone": "M6", "dependency": "auditoría del oficial de protección de datos", "state": "No terminado (firma pendiente)", "done_day": "", "label": "simulación del Corte 3"}, {"sprint": "S6", "id": "S6-05", "item": "Balance final de cronograma y presupuesto", "points": "2", "owner": "Daniel", "business_owner": "Finanzas", "objective": "O5", "milestone": "M6", "dependency": "registro de gasto S1-S6", "state": "Done", "done_day": "9", "label": "simulación del Corte 3"}], "s6": [{"sprint": "S6", "id": "S6-01", "item": "Piloto controlado con lista semanal de alerta temprana (incluye US-07)", "points": "5", "owner": "Rafael y Oscar", "business_owner": "Cobranza", "objective": "O1 O2 O3 O4", "milestone": "M6", "dependency": "ambiente de piloto de TI", "state": "Done", "done_day": "8", "label": "simulación del Corte 3", "issue": 10, "pr": "17"}, {"sprint": "S6", "id": "S6-02", "item": "Monitoreo de desempeño y drift", "points": "3", "owner": "Oscar", "business_owner": "Riesgo y Analítica", "objective": "O4", "milestone": "M6", "dependency": "S6-01", "state": "Done", "done_day": "6", "label": "simulación del Corte 3", "issue": 11, "pr": "18"}, {"sprint": "S6", "id": "S6-03", "item": "Runbook de operación del piloto", "points": "2", "owner": "Daniel", "business_owner": "Riesgo y Analítica", "objective": "O4", "milestone": "M6", "dependency": "S6-01", "state": "Done", "done_day": "4", "label": "simulación del Corte 3", "issue": 12, "pr": "19"}, {"sprint": "S6", "id": "S6-04", "item": "Paquete de transferencia y capacitación", "points": "3", "owner": "Rafael", "business_owner": "Patrocinador", "objective": "O4", "milestone": "M6", "dependency": "auditoría del oficial de protección de datos", "state": "No terminado (firma pendiente)", "done_day": "", "label": "simulación del Corte 3", "issue": 13, "pr": "20"}, {"sprint": "S6", "id": "S6-05", "item": "Balance final de cronograma y presupuesto", "points": "2", "owner": "Daniel", "business_owner": "Finanzas", "objective": "O5", "milestone": "M6", "dependency": "registro de gasto S1-S6", "state": "Done", "done_day": "9", "label": "simulación del Corte 3", "issue": 14, "pr": "21"}], "burndown": [{"day": 0, "remaining": 15, "ideal": 15.0, "closed": "", "wip": 0, "blocked": 0}, {"day": 1, "remaining": 15, "ideal": 13.5, "closed": "", "wip": 2, "blocked": 0}, {"day": 2, "remaining": 15, "ideal": 12.0, "closed": "", "wip": 2, "blocked": 0}, {"day": 3, "remaining": 15, "ideal": 10.5, "closed": "", "wip": 2, "blocked": 1}, {"day": 4, "remaining": 13, "ideal": 9.0, "closed": "S6-03", "wip": 1, "blocked": 1}, {"day": 5, "remaining": 13, "ideal": 7.5, "closed": "", "wip": 2, "blocked": 1}, {"day": 6, "remaining": 10, "ideal": 6.0, "closed": "S6-02", "wip": 2, "blocked": 0}, {"day": 7, "remaining": 10, "ideal": 4.5, "closed": "", "wip": 3, "blocked": 0}, {"day": 8, "remaining": 5, "ideal": 3.0, "closed": "S6-01", "wip": 2, "blocked": 0}, {"day": 9, "remaining": 3, "ideal": 1.5, "closed": "S6-05", "wip": 1, "blocked": 0}, {"day": 10, "remaining": 3, "ideal": 0.0, "closed": "", "wip": 0, "blocked": 1}], "daily": [{"day": "1", "date_scenario": "19 oct 2026", "event_type": "Planning", "item": "", "owner": "Equipo", "entry": "Sprint Planning: objetivo del sprint y compromiso de 5 historias y 15 puntos (velocidad media S1-S5 = 15,2). WIP máximo 3 en In Progress.", "label": "simulado"}, {"day": "1", "date_scenario": "19 oct 2026", "event_type": "Avance", "item": "S6-01", "owner": "Rafael y Oscar", "entry": "Pairing: Rafael conduce y Oscar navega. Modelo de mora y listas sobre la cohorte de desarrollo.", "label": "simulado"}, {"day": "1", "date_scenario": "19 oct 2026", "event_type": "Avance", "item": "S6-03", "owner": "Daniel", "entry": "Borrador del runbook a partir de los comandos del pipeline.", "label": "simulado"}, {"day": "2", "date_scenario": "20 oct 2026", "event_type": "Avance", "item": "S6-01", "owner": "Rafael y Oscar", "entry": "Listas con identificador seudonimizado; falta correr en el ambiente de piloto de TI.", "label": "simulado"}, {"day": "3", "date_scenario": "21 oct 2026", "event_type": "Bloqueo", "item": "S6-01", "owner": "Oscar", "entry": "El ambiente de piloto no tiene la cuenta de servicio. S6-01 pasa a Blocked con la causa escrita.", "label": "simulado"}, {"day": "3", "date_scenario": "21 oct 2026", "event_type": "Cambio de plan", "item": "S6-02", "owner": "Oscar", "entry": "El Product Owner adelanta el monitoreo (S6-02) para no dejar capacidad ociosa.", "label": "simulado"}, {"day": "4", "date_scenario": "22 oct 2026", "event_type": "Escalación", "item": "S6-01", "owner": "Oscar", "entry": "El Scrum Master escala al patrocinador dentro de las 24 horas (regla de la retrospectiva de S2). La demo sigue sobre la réplica sintética del repositorio.", "label": "simulado"}, {"day": "4", "date_scenario": "22 oct 2026", "event_type": "Done", "item": "S6-03", "owner": "Daniel", "entry": "Runbook terminado y revisado por un par: 2 puntos.", "label": "simulado"}, {"day": "5", "date_scenario": "23 oct 2026", "event_type": "Cambio de alcance", "item": "US-10", "owner": "Rafael", "entry": "Retención pide variables explicativas por cliente en la lista de churn. Entra al Product Backlog como US-10 y no al sprint (riesgo R6).", "label": "simulado"}, {"day": "5", "date_scenario": "23 oct 2026", "event_type": "Avance", "item": "S6-05", "owner": "Daniel", "entry": "Consolidación del registro de gasto S1-S6.", "label": "simulado"}, {"day": "6", "date_scenario": "26 oct 2026", "event_type": "Desbloqueo", "item": "S6-01", "owner": "Oscar", "entry": "TI habilita el ambiente de piloto tras 3 días de bloqueo (D3-D5).", "label": "simulado"}, {"day": "6", "date_scenario": "26 oct 2026", "event_type": "Done", "item": "S6-02", "owner": "Oscar", "entry": "Monitoreo con PSI y disparador de reentrenamiento: 3 puntos.", "label": "simulado"}, {"day": "7", "date_scenario": "27 oct 2026", "event_type": "Avance", "item": "S6-01", "owner": "Rafael", "entry": "Primera corrida en el segmento controlado; Cobranza revisa la lista.", "label": "simulado"}, {"day": "7", "date_scenario": "27 oct 2026", "event_type": "Avance", "item": "S6-04", "owner": "Rafael", "entry": "Inicio del paquete de transferencia; WIP en 3 (S6-01 S6-04 S6-05).", "label": "simulado"}, {"day": "8", "date_scenario": "28 oct 2026", "event_type": "Done", "item": "S6-01", "owner": "Rafael y Oscar", "entry": "Cobranza valida la lista contra su proceso operativo: 5 puntos.", "label": "simulado"}, {"day": "8", "date_scenario": "28 oct 2026", "event_type": "Avance", "item": "S6-04", "owner": "Rafael", "entry": "Sesiones de capacitación 1 y 2 con analistas de Riesgo y TI.", "label": "simulado"}, {"day": "9", "date_scenario": "29 oct 2026", "event_type": "Done", "item": "S6-05", "owner": "Daniel", "entry": "Balance final presentado a Finanzas: desviación de costo -0,12 %: 2 puntos.", "label": "simulado"}, {"day": "10", "date_scenario": "30 oct 2026", "event_type": "Bloqueo", "item": "S6-04", "owner": "Rafael", "entry": "Auditoría del oficial de protección de datos: el piloto usa la sal de demostración. Exige una sal propia bajo su custodia antes de firmar. S6-04 queda fuera de Done.", "label": "simulado"}, {"day": "10", "date_scenario": "30 oct 2026", "event_type": "Review", "item": "", "owner": "Equipo", "entry": "Sprint Review con demo del piloto y del monitoreo. Decisión del patrocinador: cierre con transferencia condicionada.", "label": "simulado"}, {"day": "10", "date_scenario": "30 oct 2026", "event_type": "Retrospectiva", "item": "", "owner": "Equipo", "entry": "Retrospectiva de cierre del proyecto con acciones y responsable.", "label": "simulado"}], "milestones": [{"id": "M1", "milestone": "Charter aprobado y acceso concedido", "objective": "O5", "base_week": 2, "scenario_week": 2, "condition": "Cumplido", "evidence": "US-01 y US-02 (S1); acuerdo Ley 1581", "label": "antecedente del escenario (Corte 2)", "deviation": 0}, {"id": "M2", "milestone": "Diccionario de variables aceptado", "objective": "O1 O2", "base_week": 4, "scenario_week": 7, "condition": "Cumplido con retraso", "evidence": "T-05.2 (S2) y T-08.1 (S4): faltaban las variables de churn por el bloqueo de T-05.5", "label": "reconstrucción del Corte 3", "deviation": 3}, {"id": "M3", "milestone": "Línea base de mora validada", "objective": "O1", "base_week": 6, "scenario_week": 6, "condition": "Cumplido en el escenario; validación con datos reales pendiente", "evidence": "AUC fuera de tiempo del prototipo 0,7959 (30 d) y 0,7884 (60 d), PR #17", "label": "reconstrucción del Corte 3", "deviation": 0}, {"id": "M4", "milestone": "Modelo de churn validado", "objective": "O2", "base_week": 8, "scenario_week": 9, "condition": "Cumplido con retraso en el escenario; validación con datos reales pendiente", "evidence": "Recall del prototipo 0,6203 al umbral 0,13, PR #17", "label": "reconstrucción del Corte 3", "deviation": 1}, {"id": "M5", "milestone": "Reglas de decisión aprobadas", "objective": "O3", "base_week": 10, "scenario_week": 10, "condition": "Aprobación de Finanzas en el escenario; aprobación real pendiente", "evidence": "Matriz de costos y umbrales en src/finbank/pilot.py", "label": "reconstrucción del Corte 3", "deviation": 0}, {"id": "M6", "milestone": "Aceptación final", "objective": "O4 O5", "base_week": 12, "scenario_week": 12, "condition": "Condicionada: firma del acta pendiente de la auditoría de protección de datos", "evidence": "TRANSFERENCIA.md, PR #20", "label": "simulación del Corte 3", "deviation": 0}], "budget_sprint": [{"sprint": "S1", "base": 25.2, "actual": 25.0, "cum_base": 25.2, "cum_actual": 25.0, "deviation": -0.007936507936507908, "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S2", "base": 31.2, "actual": 29.8, "cum_base": 56.4, "cum_actual": 54.8, "deviation": -0.028368794326241162, "label": "antecedente del escenario (Corte 2)"}, {"sprint": "S3", "base": 28.2, "actual": 29.0, "cum_base": 84.6, "cum_actual": 83.8, "deviation": -0.009456264775413678, "label": "reconstrucción del Corte 3"}, {"sprint": "S4", "base": 28.2, "actual": 29.6, "cum_base": 112.8, "cum_actual": 113.4, "deviation": 0.005319148936170288, "label": "reconstrucción del Corte 3"}, {"sprint": "S5", "base": 28.2, "actual": 27.9, "cum_base": 141.0, "cum_actual": 141.3, "deviation": 0.002127659574468166, "label": "reconstrucción del Corte 3"}, {"sprint": "S6", "base": 28.2, "actual": 27.7, "cum_base": 169.2, "cum_actual": 169.0, "deviation": -0.001182033096926647, "label": "simulación del Corte 3"}], "budget_item": [{"item": "Gestión y gobierno", "base": 27.0, "actual": 28.3, "deviation": 0.048148148148148176}, {"item": "Ingeniería de datos", "base": 45.0, "actual": 45.1, "deviation": 0.002222222222222254}, {"item": "Modelado predictivo", "base": 54.0, "actual": 54.3, "deviation": 0.005555555555555503}, {"item": "Validación y documentación", "base": 25.2, "actual": 22.9, "deviation": -0.0912698412698413}, {"item": "Piloto, capacitación y transferencia", "base": 18.0, "actual": 18.4, "deviation": 0.022222222222222143}], "acceptance": [{"scope": "Historia", "item": "S6-01", "criterion": "Lista semanal seudonimizada sin columnas personales", "scenario_state": "Cumple (S6 D8)", "technical_evidence": "test_lists_carry_no_personal_data_and_only_pseudonymous_keys; PR #17", "real_state": "Integración en main pendiente de aprobación del PR", "who_resolves": "Revisor del PR (Daniel o Rafael)"}, {"scope": "Historia", "item": "S6-01", "criterion": "Métricas rotuladas como prototipo sintético", "scenario_state": "Cumple", "technical_evidence": "pilot_metrics.csv; PR #17", "real_state": "Validación con datos de FinBank pendiente", "who_resolves": "VP de Riesgo y TI con el extracto real"}, {"scope": "Historia", "item": "S6-01", "criterion": "Dos corridas idénticas", "scenario_state": "Cumple", "technical_evidence": "test_two_runs_give_identical_outputs; hashes de run_pilot.py", "real_state": "Verificado en CI", "who_resolves": "—"}, {"scope": "Historia", "item": "S6-01", "criterion": "Validación de Cobranza contra el proceso operativo", "scenario_state": "Cumple (escenario S6 D8)", "technical_evidence": "—", "real_state": "Pendiente: no hubo sesión real con Cobranza", "who_resolves": "Gerencia de Cobranza"}, {"scope": "Historia", "item": "S6-02", "criterion": "Bandas de PSI estable / vigilar / alerta", "scenario_state": "Cumple (S6 D6)", "technical_evidence": "test_psi_status_bands; PR #18", "real_state": "Integración en main pendiente de aprobación del PR", "who_resolves": "Revisor del PR"}, {"scope": "Historia", "item": "S6-02", "criterion": "Reentrenamiento tras 2 semanas con caída > 0,05", "scenario_state": "Cumple", "technical_evidence": "test_two_consecutive_drops_trigger_retraining; PR #18", "real_state": "Integración en main pendiente de aprobación del PR", "who_resolves": "Revisor del PR"}, {"scope": "Historia", "item": "S6-02", "criterion": "Detección del cambio inyectado", "scenario_state": "Cumple", "technical_evidence": "monitoring_report.csv: alerta semana 4 y marca semana 5", "real_state": "Verificado en ejecución local y CI", "who_resolves": "—"}, {"scope": "Historia", "item": "S6-03", "criterion": "Runbook ejecutable en copia limpia", "scenario_state": "Cumple (S6 D4)", "technical_evidence": "Clon limpio: 43 pruebas y 6 salidas; PR #19", "real_state": "Falta ejecución por un analista de FinBank", "who_resolves": "Analista de Riesgo en la capacitación real"}, {"scope": "Historia", "item": "S6-03", "criterion": "Acción, rol y plazo por caso", "scenario_state": "Cumple", "technical_evidence": "RUNBOOK.md sección 5", "real_state": "Integración en main pendiente de aprobación del PR", "who_resolves": "Revisor del PR"}, {"scope": "Historia", "item": "S6-04", "criterion": "Inventario con ubicación y responsable", "scenario_state": "Cumple", "technical_evidence": "TRANSFERENCIA.md sección 1; PR #20", "real_state": "Integración en main pendiente de aprobación del PR", "who_resolves": "Revisor del PR"}, {"scope": "Historia", "item": "S6-04", "criterion": "Capacitación con registro de asistentes", "scenario_state": "Cumple (escenario S6 D8)", "technical_evidence": "Plan en TRANSFERENCIA.md sección 2", "real_state": "Pendiente: la sesión real no ocurrió", "who_resolves": "VP de Riesgo (convoca) y equipo DataForge"}, {"scope": "Historia", "item": "S6-04", "criterion": "Acta firmable tras la auditoría de protección de datos", "scenario_state": "No cumple: hallazgo de la sal (S6 D10)", "technical_evidence": "TRANSFERENCIA.md secciones 4 y 5", "real_state": "Pendiente", "who_resolves": "Oficial de protección de datos y luego el patrocinador"}, {"scope": "Historia", "item": "S6-05", "criterion": "Base aprobada, gasto, pronóstico y reserva separados", "scenario_state": "Cumple (S6 D9)", "technical_evidence": "budget.csv; informe sección 8", "real_state": "Integración en main pendiente de aprobación del PR", "who_resolves": "Revisor del PR"}, {"scope": "Historia", "item": "S6-05", "criterion": "Hitos M1-M6 con desviación y evidencia", "scenario_state": "Cumple", "technical_evidence": "milestones.csv", "real_state": "Integración en main pendiente de aprobación del PR", "who_resolves": "Revisor del PR"}, {"scope": "Objetivo", "item": "O1", "criterion": "AUC ≥ 0,75 fuera de tiempo", "scenario_state": "Cumple en el prototipo: 0,7959 (30 d), 0,7884 (60 d)", "technical_evidence": "pilot_metrics.csv", "real_state": "Pendiente con datos reales", "who_resolves": "VP de Riesgo con el extracto real"}, {"scope": "Objetivo", "item": "O2", "criterion": "Recall ≥ 0,60 al umbral operativo", "scenario_state": "Cumple en el prototipo: 0,6203 al umbral 0,13", "technical_evidence": "pilot_metrics.csv", "real_state": "Pendiente con datos reales", "who_resolves": "VP de Riesgo y Retención"}, {"scope": "Objetivo", "item": "O3", "criterion": "Matriz de costos y umbral aprobados por Finanzas", "scenario_state": "Aprobado en el escenario (Review S5)", "technical_evidence": "CostMatrix en pilot.py; trade-off COP 11,55 M frente a 20,06 M", "real_state": "Pendiente: aprobación real de Finanzas", "who_resolves": "Finanzas"}, {"scope": "Objetivo", "item": "O4", "criterion": "Aceptación del paquete de transferencia por el patrocinador", "scenario_state": "Condicionada (Review S6)", "technical_evidence": "TRANSFERENCIA.md", "real_state": "Pendiente: firma real", "who_resolves": "Patrocinador"}, {"scope": "Objetivo", "item": "O5", "criterion": "Desviación de costo y cronograma ≤ 5 %", "scenario_state": "Cumple: costo -0,12 %, hito final en la semana 12", "technical_evidence": "budget.csv; milestones.csv", "real_state": "Cifras del escenario; sin registro contable real", "who_resolves": "Patrocinador y Finanzas"}, {"scope": "Académico", "item": "C3-00", "criterion": "Dos PDF y sustentación", "scenario_state": "PDF generados en docs/corte3", "technical_evidence": "build_corte3.py", "real_state": "Entrega 18-nov-2026 y sustentación 20-nov-2026 pendientes", "who_resolves": "Equipo DataForge por el canal académico"}], "retro": [{"sprint": "S1", "action": "La DoD exige pruebas en verde y PR aprobado por un par; repositorio con CI", "owner": "Oscar", "follow_up": "S2 D1", "state": "Hecha"}, {"sprint": "S1", "action": "Al menos dos sesiones de pairing por sprint registradas en la bitácora XP", "owner": "Rafael", "follow_up": "S2", "state": "Hecha"}, {"sprint": "S2", "action": "Compromiso de S3 limitado a 16 puntos", "owner": "Rafael", "follow_up": "Planning S3", "state": "Hecha"}, {"sprint": "S2", "action": "Definition of Ready: ninguna dependencia externa sin conceder entra al sprint", "owner": "Oscar", "follow_up": "Planning S3", "state": "Hecha: dejó T-05.5 fuera de S3"}, {"sprint": "S2", "action": "El Scrum Master escala impedimentos en menos de 24 horas", "owner": "Oscar", "follow_up": "S3-S6", "state": "Hecha: escalación en S6 D4"}, {"sprint": "S4", "action": "Las historias con ventana de observación se dividen por madurez del dato (US-08a y US-08b)", "owner": "Rafael", "follow_up": "Planning S5", "state": "Hecha"}, {"sprint": "S6", "action": "Pedir la auditoría de protección de datos al inicio del sprint final y no en la Review", "owner": "Daniel", "follow_up": "Próximo proyecto", "state": "Abierta (lección)"}, {"sprint": "S6", "action": "Incluir la cuenta de servicio del ambiente de piloto en la Definition of Ready", "owner": "Oscar", "follow_up": "Próximo proyecto", "state": "Abierta (lección)"}, {"sprint": "S6", "action": "Separar en el tablero el Done del escenario y la aceptación real del negocio", "owner": "Rafael", "follow_up": "Transferencia a FinBank", "state": "Aplicada en el registro de aceptación"}], "github": [{"id": "S6-01", "issue": "10", "issue_state": "OPEN", "board_column": "review", "branch": "c3/s6/s6-01-piloto", "pr": "17", "pr_state": "OPEN", "head_sha": "e515d14", "ci": "SUCCESS", "approved_by": "", "review_requested": "correoalejandro,Ch0comilo", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/10", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/17"}, {"id": "S6-02", "issue": "11", "issue_state": "OPEN", "board_column": "review", "branch": "c3/s6/s6-02-monitoreo", "pr": "18", "pr_state": "OPEN", "head_sha": "ba60171", "ci": "SUCCESS", "approved_by": "", "review_requested": "Ch0comilo,correoalejandro", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/11", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/18"}, {"id": "S6-03", "issue": "12", "issue_state": "OPEN", "board_column": "review", "branch": "c3/s6/s6-03-runbook", "pr": "19", "pr_state": "OPEN", "head_sha": "1ecdf54", "ci": "SUCCESS", "approved_by": "", "review_requested": "Ch0comilo,correoalejandro", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/12", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/19"}, {"id": "S6-04", "issue": "13", "issue_state": "OPEN", "board_column": "blocked", "branch": "c3/s6/s6-04-transferencia", "pr": "20", "pr_state": "OPEN", "head_sha": "d873b15", "ci": "SUCCESS", "approved_by": "", "review_requested": "correoalejandro,Ch0comilo", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/13", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/20"}, {"id": "S6-05", "issue": "14", "issue_state": "OPEN", "board_column": "review", "branch": "c3/s6/s6-05-cierre", "pr": "21", "pr_state": "OPEN", "head_sha": "1cf1ae6", "ci": "SUCCESS", "approved_by": "", "review_requested": "Ch0comilo,correoalejandro", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/14", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/21"}, {"id": "C3-00", "issue": "15", "issue_state": "OPEN", "board_column": "review", "branch": "c3/s6/c3-00-gitignore-videos", "pr": "16", "pr_state": "OPEN", "head_sha": "8668de9", "ci": "SUCCESS", "approved_by": "", "review_requested": "Ch0comilo,correoalejandro", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/15", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/16"}, {"id": "C3-00", "issue": "15", "issue_state": "OPEN", "board_column": "review", "branch": "c3/s6/s6-05-cierre", "pr": "21", "pr_state": "OPEN", "head_sha": "1cf1ae6", "ci": "SUCCESS", "approved_by": "", "review_requested": "Ch0comilo,correoalejandro", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/15", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/21"}, {"id": "C3-01", "issue": "22", "issue_state": "OPEN", "board_column": "review", "branch": "c3/s6/c3-01-sitio-web", "pr": "23", "pr_state": "OPEN", "head_sha": "cccb266", "ci": "SUCCESS", "approved_by": "", "review_requested": "Ch0comilo,correoalejandro", "merged_at": "", "merge_sha": "", "issue_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues/22", "pr_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/23"}], "monitoring": [{"week": 1, "clients": 3000, "psi_score": 0.0023, "psi_score_status": "estable", "top_variable": "interest_rate", "psi_top_variable": 0.009, "psi_top_variable_status": "estable", "auc_30d": 0.769, "auc_baseline": 0.7941, "auc_drop": 0.0251, "retraining_flag": false}, {"week": 2, "clients": 3000, "psi_score": 0.0025, "psi_score_status": "estable", "top_variable": "monthly_income", "psi_top_variable": 0.0094, "psi_top_variable_status": "estable", "auc_30d": 0.7954, "auc_baseline": 0.7941, "auc_drop": -0.0013, "retraining_flag": false}, {"week": 3, "clients": 3000, "psi_score": 0.0026, "psi_score_status": "estable", "top_variable": "monthly_income", "psi_top_variable": 0.0136, "psi_top_variable_status": "estable", "auc_30d": 0.7724, "auc_baseline": 0.7941, "auc_drop": 0.0217, "retraining_flag": false}, {"week": 4, "clients": 3000, "psi_score": 0.2429, "psi_score_status": "vigilar", "top_variable": "bureau_score", "psi_top_variable": 0.3955, "psi_top_variable_status": "alerta", "auc_30d": 0.6656, "auc_baseline": 0.7941, "auc_drop": 0.1285, "retraining_flag": false}, {"week": 5, "clients": 3000, "psi_score": 0.2162, "psi_score_status": "vigilar", "top_variable": "bureau_score", "psi_top_variable": 0.4049, "psi_top_variable_status": "alerta", "auc_30d": 0.6483, "auc_baseline": 0.7941, "auc_drop": 0.1458, "retraining_flag": true}, {"week": 6, "clients": 3000, "psi_score": 0.2272, "psi_score_status": "vigilar", "top_variable": "bureau_score", "psi_top_variable": 0.4067, "psi_top_variable_status": "alerta", "auc_30d": 0.6487, "auc_baseline": 0.7941, "auc_drop": 0.1454, "retraining_flag": true}], "churn_curve": [{"cut": 0.04, "recall": 0.9529, "precision": 0.1281, "benefit": -58.86, "listed": 806}, {"cut": 0.05, "recall": 0.9231, "precision": 0.1387, "benefit": -43.74, "listed": 727}, {"cut": 0.06, "recall": 0.8933, "precision": 0.1497, "benefit": -30.9, "listed": 667}, {"cut": 0.07, "recall": 0.8337, "precision": 0.1564, "benefit": -23.1, "listed": 603}, {"cut": 0.08, "recall": 0.7965, "precision": 0.1673, "benefit": -14.025, "listed": 548}, {"cut": 0.09, "recall": 0.7692, "precision": 0.1799, "benefit": -5.73, "listed": 492}, {"cut": 0.1, "recall": 0.7469, "precision": 0.1941, "benefit": 1.755, "listed": 447}, {"cut": 0.11, "recall": 0.7146, "precision": 0.2063, "benefit": 6.96, "listed": 392}, {"cut": 0.12, "recall": 0.6824, "precision": 0.2184, "benefit": 11.085, "listed": 358}, {"cut": 0.13, "recall": 0.6203, "precision": 0.2232, "benefit": 11.55, "listed": 319}, {"cut": 0.14, "recall": 0.5955, "precision": 0.2393, "benefit": 15.42, "listed": 284}, {"cut": 0.15, "recall": 0.5732, "precision": 0.2505, "benefit": 17.445, "listed": 260}, {"cut": 0.16, "recall": 0.5459, "precision": 0.2597, "benefit": 18.48, "listed": 235}, {"cut": 0.17, "recall": 0.5236, "precision": 0.2737, "benefit": 20.205, "listed": 217}, {"cut": 0.18, "recall": 0.4988, "precision": 0.2871, "benefit": 21.315, "listed": 200}, {"cut": 0.19, "recall": 0.4715, "precision": 0.296, "benefit": 21.33, "listed": 182}, {"cut": 0.2, "recall": 0.4392, "precision": 0.301, "benefit": 20.475, "listed": 163}, {"cut": 0.21, "recall": 0.4094, "precision": 0.3102, "benefit": 20.055, "listed": 156}, {"cut": 0.22, "recall": 0.3846, "precision": 0.317, "benefit": 19.485, "listed": 143}, {"cut": 0.23, "recall": 0.3598, "precision": 0.3295, "benefit": 19.275, "listed": 133}, {"cut": 0.24, "recall": 0.3325, "precision": 0.335, "benefit": 18.21, "listed": 124}, {"cut": 0.25, "recall": 0.3102, "precision": 0.3425, "benefit": 17.475, "listed": 116}, {"cut": 0.26, "recall": 0.2854, "precision": 0.3443, "benefit": 16.185, "listed": 108}, {"cut": 0.27, "recall": 0.273, "precision": 0.3548, "benefit": 16.05, "listed": 103}, {"cut": 0.28, "recall": 0.2481, "precision": 0.365, "benefit": 15.06, "listed": 95}, {"cut": 0.29, "recall": 0.2283, "precision": 0.368, "benefit": 13.98, "listed": 84}, {"cut": 0.3, "recall": 0.2109, "precision": 0.3864, "benefit": 13.575, "listed": 80}, {"cut": 0.31, "recall": 0.1985, "precision": 0.4, "benefit": 13.2, "listed": 74}, {"cut": 0.32, "recall": 0.1836, "precision": 0.4327, "benefit": 13.05, "listed": 61}, {"cut": 0.33, "recall": 0.1737, "precision": 0.4375, "benefit": 12.45, "listed": 54}, {"cut": 0.34, "recall": 0.1613, "precision": 0.4514, "benefit": 11.835, "listed": 51}, {"cut": 0.35, "recall": 0.1414, "precision": 0.4419, "benefit": 10.215, "listed": 44}, {"cut": 0.36, "recall": 0.1241, "precision": 0.4464, "benefit": 9.03, "listed": 37}, {"cut": 0.37, "recall": 0.1067, "precision": 0.4257, "benefit": 7.485, "listed": 36}, {"cut": 0.38, "recall": 0.1042, "precision": 0.4516, "benefit": 7.65, "listed": 32}, {"cut": 0.39, "recall": 0.0918, "precision": 0.4405, "benefit": 6.615, "listed": 28}, {"cut": 0.4, "recall": 0.0769, "precision": 0.4247, "benefit": 5.385, "listed": 25}], "delinquency_curve": [{"cut": 0.02, "recall": 0.9321, "precision": 0.0796, "benefit": 11.345, "listed": 882}, {"cut": 0.03, "recall": 0.8792, "precision": 0.0946, "benefit": 22.33, "listed": 677}, {"cut": 0.04, "recall": 0.8, "precision": 0.1063, "benefit": 26.47, "listed": 553}, {"cut": 0.05, "recall": 0.7547, "precision": 0.1235, "benefit": 31.5, "listed": 461}, {"cut": 0.06, "recall": 0.7208, "precision": 0.139, "benefit": 34.41, "listed": 385}, {"cut": 0.07, "recall": 0.6679, "precision": 0.1476, "benefit": 33.745, "listed": 336}, {"cut": 0.08, "recall": 0.6377, "precision": 0.1639, "benefit": 35.065, "listed": 289}, {"cut": 0.09, "recall": 0.6151, "precision": 0.1842, "benefit": 36.555, "listed": 250}, {"cut": 0.1, "recall": 0.5849, "precision": 0.2013, "benefit": 36.55, "listed": 215}, {"cut": 0.11, "recall": 0.5472, "precision": 0.2148, "benefit": 35.325, "listed": 189}, {"cut": 0.12, "recall": 0.4943, "precision": 0.2162, "benefit": 32.01, "listed": 171}, {"cut": 0.13, "recall": 0.4528, "precision": 0.226, "benefit": 29.925, "listed": 153}, {"cut": 0.14, "recall": 0.4113, "precision": 0.2319, "benefit": 27.49, "listed": 139}, {"cut": 0.15, "recall": 0.3849, "precision": 0.2345, "benefit": 25.845, "listed": 128}, {"cut": 0.16, "recall": 0.3585, "precision": 0.2474, "benefit": 24.6, "listed": 118}, {"cut": 0.17, "recall": 0.3321, "precision": 0.2536, "benefit": 23.005, "listed": 109}, {"cut": 0.18, "recall": 0.3245, "precision": 0.2739, "benefit": 23.11, "listed": 98}, {"cut": 0.19, "recall": 0.2943, "precision": 0.2766, "benefit": 21.03, "listed": 85}, {"cut": 0.2, "recall": 0.2642, "precision": 0.2767, "benefit": 18.875, "listed": 77}, {"cut": 0.21, "recall": 0.2453, "precision": 0.2766, "benefit": 17.525, "listed": 73}, {"cut": 0.22, "recall": 0.2302, "precision": 0.2798, "benefit": 16.51, "listed": 68}, {"cut": 0.23, "recall": 0.2151, "precision": 0.2969, "benefit": 15.72, "listed": 57}, {"cut": 0.24, "recall": 0.2113, "precision": 0.32, "benefit": 15.785, "listed": 48}, {"cut": 0.25, "recall": 0.2038, "precision": 0.3273, "benefit": 15.315, "listed": 45}, {"cut": 0.26, "recall": 0.1962, "precision": 0.3514, "benefit": 15.02, "listed": 40}, {"cut": 0.27, "recall": 0.1849, "precision": 0.3603, "benefit": 14.24, "listed": 37}, {"cut": 0.28, "recall": 0.1849, "precision": 0.3889, "benefit": 14.49, "listed": 35}, {"cut": 0.29, "recall": 0.1774, "precision": 0.4052, "benefit": 14.02, "listed": 32}, {"cut": 0.3, "recall": 0.1623, "precision": 0.3945, "benefit": 12.755, "listed": 30}, {"cut": 0.31, "recall": 0.1472, "precision": 0.4149, "benefit": 11.69, "listed": 25}, {"cut": 0.32, "recall": 0.1358, "precision": 0.4186, "benefit": 10.81, "listed": 24}, {"cut": 0.33, "recall": 0.1283, "precision": 0.425, "benefit": 10.24, "listed": 22}, {"cut": 0.34, "recall": 0.1208, "precision": 0.4211, "benefit": 9.62, "listed": 22}, {"cut": 0.35, "recall": 0.1132, "precision": 0.4412, "benefit": 9.1, "listed": 20}, {"cut": 0.36, "recall": 0.0943, "precision": 0.4237, "benefit": 7.525, "listed": 17}, {"cut": 0.37, "recall": 0.0868, "precision": 0.4259, "benefit": 6.93, "listed": 15}, {"cut": 0.38, "recall": 0.0792, "precision": 0.4286, "benefit": 6.335, "listed": 12}, {"cut": 0.39, "recall": 0.0604, "precision": 0.3902, "benefit": 4.735, "listed": 10}, {"cut": 0.4, "recall": 0.0566, "precision": 0.3947, "benefit": 4.45, "listed": 10}], "downloads": ["Informe_Final_FinBank_GrupoX.pdf", "Presentacion_FinBank_GrupoX.pdf", "Presentacion_FinBank_GrupoX.pptx", "Guion_Sustentacion.md"]};
+const nf = (v, d = 1) => Number(v).toLocaleString("es-CO", {minimumFractionDigits: d, maximumFractionDigits: d});
+const pct = (v, d = 2) => nf(v * 100, d) + " %";
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const labelChip = l => l.includes("antecedente") ? '<span class="chip esc">Antecedente</span>'
+  : l.includes("reconstrucción") ? '<span class="chip esc">Reconstrucción C3</span>' : '<span class="chip esc">Simulación C3</span>';
+const charts = [];
+function chart(id, cfg) { const c = new Chart($(id), cfg); charts.push([id, cfg, c]); return c; }
+function baseOpts(extra = {}) {
+  const ink = css("--ink"), line = css("--line");
+  return Object.assign({responsive: true, maintainAspectRatio: false, animation: false,
+    plugins: {legend: {labels: {color: ink, boxWidth: 14}}},
+    scales: {x: {ticks: {color: ink}, grid: {color: line}}, y: {ticks: {color: ink}, grid: {color: line}}}}, extra);
+}
+$("repolink").href = D.meta.repo;
+
+// ---------- KPIs
+const K = D.kpi, P = D.pilot;
+$("kpis").innerHTML = [
+  ["teal", `${K.s6_done}/${K.s6_committed}`, "puntos del Sprint 6 que cumplen la DoD (3 esperan la firma del acta)", "esc"],
+  ["", pct(K.cost_dev), `desviación de costo: COP ${nf(K.actual_total)} M frente a ${nf(K.base_total)} M (límite 5 %, reserva de ${nf(K.reserve)} M intacta)`, "esc"],
+  ["", "Semana 12", "hito final a tiempo; M2 +3 y M4 +1 semanas absorbidos", "esc"],
+  ["amber", nf(P.auc_out_of_time_default_30d, 4), "AUC fuera de tiempo, mora a 30 días (meta del Charter 0,75)", "pro"],
+].map(([c, v, l, t]) => `<div class="card kpi ${c}"><div class="v">${v}</div><div class="l">${l} <span class="chip ${t}">${t === "pro" ? "Prototipo" : "Escenario"}</span></div></div>`).join("");
+
+// ---------- Recorrido
+$("tSprints").innerHTML = "<tr><th>Sprint</th><th>Objetivo</th><th class='n'>Hecho</th><th></th></tr>" + D.sprints.map(s =>
+  `<tr><td><b>${s.sprint}</b><br><span class="note">sem. ${s.weeks}</span></td><td>${esc(s.goal)}</td><td class="n">${s.done}/${s.committed}</td><td>${labelChip(s.label)}</td></tr>`).join("");
+function drawVel() {
+  chart("cVel", {type: "bar", data: {labels: D.sprints.map(s => s.sprint), datasets: [
+    {label: "Compromiso", data: D.sprints.map(s => s.committed), backgroundColor: css("--line")},
+    {label: "Terminado (DoD)", data: D.sprints.map(s => s.done), backgroundColor: css("--teal")},
+    {label: `Media S1–S5 = ${nf(K.velocity_avg)}`, type: "line", data: D.sprints.map(() => K.velocity_avg), borderColor: css("--amber"), borderDash: [5, 4], pointRadius: 0}]},
+    options: baseOpts({scales: {x: {ticks: {color: css("--ink")}, grid: {display: false}}, y: {beginAtZero: true, max: 22, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
+}
+
+// ---------- Sprint 6
+$("s6goal").innerHTML = `<b>Objetivo:</b> ${esc(D.sprints[5].goal)}. <b>Capacidad:</b> velocidad media S1–S5 = ${nf(K.velocity_avg)} → compromiso de ${K.s6_committed} puntos (regla de la retrospectiva de S2).`;
+const issueUrl = n => `${D.meta.repo}/issues/${n}`, prUrl = n => `${D.meta.repo}/pull/${n}`;
+$("tS6").innerHTML = "<tr><th>ID</th><th>Historia</th><th class='n'>Pts</th><th>Responsable</th><th>Dependencia</th><th>GitHub</th><th>Estado (escenario)</th></tr>" + D.s6.map(b =>
+  `<tr><td><b>${b.id}</b></td><td>${esc(b.item)}</td><td class="n">${b.points}</td><td>${esc(b.owner)}</td><td>${esc(b.dependency)}</td>
+   <td><a href="${issueUrl(b.issue)}">#${b.issue}</a>${b.pr ? ` · <a href="${prUrl(b.pr)}">PR #${b.pr}</a>` : ""}</td>
+   <td>${b.state === "Done" ? '<span class="chip ok">Done</span>' : `<span class="chip real">${esc(b.state)}</span>`}</td></tr>`).join("");
+$("flow").innerHTML = [[`${K.s6_done} de ${K.s6_committed}`, "velocidad S6 (pts)"], [K.throughput, "throughput (ítems)"],
+  [nf(K.cycle_avg, 2) + " d", "tiempo de ciclo medio"], [K.blocked_days + " d", "bloqueo de S6-01"], [`${K.wip_max} de 3`, "WIP máximo"], ["1", "cambio de alcance (US-10, fuera del sprint)"]]
+  .map(([v, l]) => `<div class="card kpi"><div class="v" style="font-size:24px">${v}</div><div class="l">${l}</div></div>`).join("");
+const bandPlugin = {id: "band", beforeDatasetsDraw(c, a, o) { if (!o || o.from == null) return; const {ctx, chartArea: ca, scales: {x}} = c;
+  ctx.save(); ctx.fillStyle = o.color; const x0 = x.getPixelForValue(o.from), x1 = x.getPixelForValue(o.to); ctx.fillRect(x0, ca.top, x1 - x0, ca.bottom - ca.top); ctx.restore(); }};
+const vlinePlugin = {id: "vline", afterDatasetsDraw(c, a, o) { if (!o || !o.lines) return; const {ctx, chartArea: ca, scales: {x}} = c;
+  o.lines.forEach(l => { const px = x.getPixelForValue(l.v); ctx.save(); ctx.strokeStyle = l.color; ctx.lineWidth = l.w || 2; ctx.setLineDash(l.dash || []);
+    ctx.beginPath(); ctx.moveTo(px, ca.top); ctx.lineTo(px, ca.bottom); ctx.stroke(); ctx.fillStyle = l.color; ctx.font = "12px Segoe UI, sans-serif"; ctx.fillText(l.label || "", px + 4, ca.top + 12 + (l.dy || 0)); ctx.restore(); }); }};
+function drawBurn() {
+  chart("cBurn", {type: "line", data: {datasets: [
+    {label: "Ideal", data: D.burndown.map(b => ({x: b.day, y: b.ideal})), borderColor: css("--gray"), borderDash: [6, 4], pointRadius: 0},
+    {label: "Observado (escenario)", data: D.burndown.map(b => ({x: b.day, y: b.remaining})), stepped: "after", borderColor: css("--navy"), borderWidth: 3, pointRadius: 3}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink")}}, band: {from: 2.5, to: 5.5, color: "rgba(200,85,61,.12)"},
+      tooltip: {callbacks: {afterLabel: i => { const b = D.burndown[i.dataIndex]; return b.closed ? "Done: " + b.closed.replace("|", ", ") : ""; }}}},
+      scales: {x: {type: "linear", min: 0, max: 10, ticks: {stepSize: 1, color: css("--ink")}, title: {display: true, text: "Día hábil (19–30 oct 2026, escenario)", color: css("--muted")}, grid: {color: css("--line")}},
+               y: {min: 0, max: 16, ticks: {color: css("--ink")}, title: {display: true, text: "Puntos pendientes", color: css("--muted")}, grid: {color: css("--line")}}}}),
+    plugins: [bandPlugin]});
+}
+$("daily").innerHTML = D.daily.map(d => `<li><span class="d">D${d.day}</span><span class="t t-${d.event_type.split(" ")[0]}">${esc(d.event_type)}${d.item ? " · " + esc(d.item) : ""}</span><span class="e">${esc(d.entry)}</span></li>`).join("");
+
+// ---------- Tablero
+$("snap").textContent = D.meta.generated;
+const cols = [["backlog", "Backlog", "#6B7280", "Priorizado por el PO"], ["ready", "Ready", "#2A9D8F", "Cumple la DoR"], ["in-progress", "In Progress", "#C98516", "WIP máx. 3"],
+  ["blocked", "Blocked", "#C8553D", "Causa y dueño escritos; escalar en 24 h"], ["review", "Review", "#1F3A5F", "PR + CI + revisión de un par"], ["done", "Done", "#006B75", "PR fusionado y DoD completa"]];
+const byIssue = {};
+D.github.forEach(g => { (byIssue[g.issue] = byIssue[g.issue] || {id: g.id, col: g.board_column, url: g.issue_url, prs: []}).prs.push(g); });
+$("kanban").innerHTML = cols.map(([k, name, color, rule]) => `<div class="col"><h4 style="background:${color}">${name}</h4><div class="rule">${rule}</div>` +
+  Object.entries(byIssue).filter(([n, v]) => v.col === k).map(([n, v]) => `<div class="ticket"><b><a href="${v.url}">#${n}</a> ${esc(v.id)}</b>` +
+    v.prs.filter(p => p.pr).map(p => `<div class="meta"><a href="${p.pr_url}">PR #${p.pr}</a> · CI ${esc((p.ci || "—").toLowerCase())} · ${p.merge_sha ? "merge " + p.merge_sha : p.approved_by ? "aprobado por " + esc(p.approved_by) : "aprobación pendiente"}</div>`).join("") + "</div>").join("") + "</div>").join("");
+
+// ---------- Piloto interactivo
+const SIM = {
+  mora: {curve: D.delinquency_curve, op: P.cutoff_delinquency_threshold, cost: P.cutoff_delinquency_threshold, listL: "clientes del segmento andino en la lista semanal", target: null,
+    note: `Umbral operativo ${nf(P.cutoff_delinquency_threshold, 2)}: máximo beneficio neto con la matriz de costos del escenario (beneficio por acierto COP 360.000, contacto COP 25.000).`},
+  churn: {curve: D.churn_curve, op: P.cutoff_operating_threshold, cost: P.cutoff_cost_only_threshold, listL: "clientes preferenciales del segmento andino para retención", target: 0.60,
+    note: `Umbral operativo ${nf(P.cutoff_operating_threshold, 2)}: el mayor beneficio entre los umbrales con recall ≥ 0,60 (O2). El máximo beneficio sin restricción está en ${nf(P.cutoff_cost_only_threshold, 2)}.`},
+};
+let model = "mora", simChart = null;
+function idxOf(curve, v) { let best = 0; curve.forEach((c, i) => { if (Math.abs(c.cut - v) < Math.abs(curve[best].cut - v)) best = i; }); return best; }
+function update() {
+  const s = SIM[model], c = s.curve[+$("cut").value];
+  $("cutv").textContent = nf(c.cut, 2);
+  $("rRecall").textContent = nf(c.recall, 3); $("rPrec").textContent = nf(c.precision, 3); $("rBen").textContent = nf(c.benefit, 2);
+  $("rList").textContent = c.listed.toLocaleString("es-CO");
+  $("rListL").textContent = s.listL;
+  const meets = s.target == null ? null : c.recall >= s.target;
+  $("verdict").innerHTML = s.target == null ? "" : meets ? `<span style="color:var(--teal);font-weight:600">Cumple O2 (recall ≥ 0,60).</span>` : `<span class="warn">No cumple O2: el recall queda por debajo de 0,60.</span>`;
+  simChart.options.plugins.vline.lines = [{v: c.cut, color: css("--ink"), label: "umbral " + nf(c.cut, 2), w: 2},
+    {v: s.op, color: css("--teal"), label: "operativo", dash: [4, 3], dy: 16}].concat(s.cost !== s.op ? [{v: s.cost, color: css("--red"), label: "máx. beneficio", dash: [4, 3], dy: 32}] : []);
+  simChart.update();
+}
+function setModel(m) {
+  model = m; document.querySelectorAll(".tabs .tab").forEach(t => t.setAttribute("aria-selected", t.dataset.model === m));
+  const s = SIM[m]; $("cut").max = s.curve.length - 1; $("cut").value = idxOf(s.curve, s.op); $("cutnote").textContent = s.note;
+  if (simChart) simChart.destroy();
+  simChart = new Chart($("cSim"), {type: "line", data: {datasets: [
+    {label: "Recall", data: s.curve.map(c => ({x: c.cut, y: c.recall})), borderColor: css("--navy"), pointRadius: 0, yAxisID: "y"},
+    {label: "Precisión", data: s.curve.map(c => ({x: c.cut, y: c.precision})), borderColor: css("--gray"), borderDash: [4, 3], pointRadius: 0, yAxisID: "y"},
+    {label: "Beneficio neto (COP M)", data: s.curve.map(c => ({x: c.cut, y: c.benefit})), borderColor: css("--amber"), pointRadius: 0, yAxisID: "y2"}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink")}}, vline: {lines: []}},
+      scales: {x: {type: "linear", min: s.curve[0].cut, max: s.curve[s.curve.length - 1].cut, title: {display: true, text: "Umbral de probabilidad", color: css("--muted")}, ticks: {color: css("--ink")}, grid: {color: css("--line")}},
+               y: {min: 0, max: 1, title: {display: true, text: "Recall / precisión", color: css("--muted")}, ticks: {color: css("--ink")}, grid: {color: css("--line")}},
+               y2: {position: "right", title: {display: true, text: "COP millones", color: css("--muted")}, ticks: {color: css("--ink")}, grid: {display: false}}}}),
+    plugins: [vlinePlugin]});
+  update();
+}
+document.querySelectorAll(".tabs .tab").forEach(t => t.addEventListener("click", () => setModel(t.dataset.model)));
+$("cut").addEventListener("input", update);
+$("goOp").addEventListener("click", () => { $("cut").value = idxOf(SIM[model].curve, SIM[model].op); update(); });
+$("goCost").addEventListener("click", () => { $("cut").value = idxOf(SIM[model].curve, SIM[model].cost); update(); });
+$("pilotkpis").innerHTML = [
+  ["teal", nf(P.auc_out_of_time_default_60d, 4), "AUC fuera de tiempo, mora a 60 días"],
+  ["", `${K.ew_flagged} de ${K.ew_total.toLocaleString("es-CO")}`, "clientes del segmento andino en la lista semanal de Cobranza (clave seudonimizada, sin datos personales)"],
+  ["amber", nf(P.recall_at_operating_threshold, 4), `recall de churn al umbral operativo ${nf(P.cutoff_operating_threshold, 2)}. Cumplir O2 cuesta COP ${nf((P.net_benefit_cop_at_cost_only_threshold - P.net_benefit_cop_at_operating_threshold) / 1e6, 2)} M frente al máximo beneficio: lo decide Finanzas`],
+].map(([c, v, l]) => `<div class="card kpi ${c}"><div class="v">${v}</div><div class="l">${l} <span class="chip pro">Prototipo</span></div></div>`).join("");
+
+// ---------- Monitoreo
+function drawMon() {
+  const W = D.monitoring.map(r => "Sem " + r.week);
+  chart("cPsi", {type: "bar", data: {labels: W, datasets: [
+    {label: "PSI de la variable con mayor cambio", data: D.monitoring.map(r => r.psi_top_variable), backgroundColor: css("--line")},
+    {label: "PSI del score", type: "line", data: D.monitoring.map(r => r.psi_score), borderColor: css("--navy"), pointRadius: 4},
+    {label: "Alerta 0,25", type: "line", data: W.map(() => 0.25), borderColor: css("--red"), borderDash: [4, 3], pointRadius: 0},
+    {label: "Vigilar 0,10", type: "line", data: W.map(() => 0.10), borderColor: css("--amber"), borderDash: [4, 3], pointRadius: 0}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink"), boxWidth: 12}}, tooltip: {callbacks: {afterLabel: i => i.datasetIndex === 0 ? D.monitoring[i.dataIndex].top_variable : ""}}}})});
+  chart("cAuc", {type: "line", data: {labels: W, datasets: [
+    {label: "AUC 30 d", data: D.monitoring.map(r => r.auc_30d), borderColor: css("--navy"), pointRadius: D.monitoring.map(r => r.retraining_flag ? 8 : 4),
+     pointBackgroundColor: D.monitoring.map(r => r.retraining_flag ? css("--red") : css("--navy"))},
+    {label: "Base − 0,05", data: W.map(() => D.monitoring[0].auc_baseline - 0.05), borderColor: css("--red"), borderDash: [4, 3], pointRadius: 0}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink")}}, tooltip: {callbacks: {afterLabel: i => D.monitoring[i.dataIndex].retraining_flag ? "Reentrenar" : ""}}},
+      scales: {x: {ticks: {color: css("--ink")}, grid: {color: css("--line")}}, y: {min: 0.55, max: 0.85, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
+}
+
+// ---------- Balance
+$("balsub").innerHTML = `Desviación acumulada = (gasto acum. − base acum.) / base acum. Al cierre de S2: COP ${nf(K.s2_actual)} M frente a ${nf(K.s2_base)} M (dato histórico del Corte 2). Pronóstico al iniciar S6: ${nf(K.eac_s6)} M. Cierre: ${nf(K.actual_total)} M frente a ${nf(K.base_total)} M (${pct(K.cost_dev)}). La reserva de COP ${nf(K.reserve)} M no se asigna a ningún sprint y no se liberó.`;
+function drawBud() {
+  const L = ["Inicio"].concat(D.budget_sprint.map(b => b.sprint));
+  const base = [0].concat(D.budget_sprint.map(b => b.cum_base)), act = [0].concat(D.budget_sprint.map(b => b.cum_actual));
+  chart("cBud", {type: "line", data: {labels: L, datasets: [
+    {label: "Tolerancia +5 %", data: base.map(v => v * 1.05), borderColor: "transparent", backgroundColor: "rgba(42,157,143,.13)", fill: "+1", pointRadius: 0},
+    {label: "Tolerancia −5 %", data: base.map(v => v * 0.95), borderColor: "transparent", pointRadius: 0},
+    {label: "Base aprobada acumulada", data: base, borderColor: css("--gray"), borderDash: [6, 4], pointRadius: 2},
+    {label: "Gasto acumulado", data: act, borderColor: css("--navy"), borderWidth: 3, pointRadius: 4},
+    {label: `Autorizado ${nf(K.authorized, 0)} M (con reserva)`, data: L.map(() => K.authorized), borderColor: css("--red"), pointRadius: 0, borderWidth: 1.5}]},
+    options: baseOpts({plugins: {legend: {labels: {color: css("--ink"), boxWidth: 12, filter: i => !i.text.startsWith("Tolerancia −")}}},
+      scales: {x: {ticks: {color: css("--ink")}, grid: {color: css("--line")}}, y: {min: 0, max: 200, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
+}
+$("tItems").innerHTML = "<tr><th>Rubro</th><th class='n'>Base</th><th class='n'>Gasto</th><th class='n'>Desv.</th></tr>" + D.budget_item.map(b =>
+  `<tr><td>${esc(b.item)}</td><td class="n">${nf(b.base)}</td><td class="n">${nf(b.actual)}</td><td class="n">${pct(b.deviation, 1)}</td></tr>`).join("") +
+  `<tr><td>Reserva de contingencia</td><td class="n">${nf(K.reserve)}</td><td class="n">0,0</td><td class="n">no liberada</td></tr>` +
+  `<tr><td><b>Total sin reserva</b></td><td class="n"><b>${nf(K.base_total)}</b></td><td class="n"><b>${nf(K.actual_total)}</b></td><td class="n"><b>${pct(K.cost_dev)}</b></td></tr>`;
+$("tMs").innerHTML = "<tr><th>Hito</th><th>Nombre</th><th class='n'>Base</th><th class='n'>Escenario</th><th class='n'>Desv.</th><th>Condición</th><th>Evidencia</th></tr>" + D.milestones.map(m =>
+  `<tr><td><b>${m.id}</b></td><td>${esc(m.milestone)}</td><td class="n">sem ${m.base_week}</td><td class="n">sem ${m.scenario_week}</td>
+   <td class="n">${m.deviation > 0 ? `<span class="chip real">+${m.deviation}</span>` : '<span class="chip ok">0</span>'}</td><td>${esc(m.condition)}</td><td class="note">${esc(m.evidence)}</td></tr>`).join("");
+
+// ---------- Retro
+$("tRetro").innerHTML = "<tr><th>De</th><th>Acción</th><th>Resp.</th><th>Seguimiento</th><th>Estado</th></tr>" + D.retro.map(r =>
+  `<tr><td>${r.sprint}</td><td>${esc(r.action)}</td><td>${esc(r.owner)}</td><td>${esc(r.follow_up)}</td><td>${esc(r.state)}</td></tr>`).join("");
+
+// ---------- Aceptación
+function drawAcc(f) {
+  const rows = D.acceptance.filter(a => f === "all" || (f === "obj" && a.scope === "Objetivo") || (f === "pend" && /pendiente|falta/i.test(a.real_state)));
+  $("tAcc").innerHTML = "<tr><th>Ítem</th><th>Criterio</th><th>Escenario / prototipo</th><th>Estado real</th><th>Quién lo resuelve</th></tr>" + rows.map(a =>
+    `<tr><td><b>${esc(a.item)}</b></td><td>${esc(a.criterion)}</td><td>${esc(a.scenario_state)}</td><td>${/pendiente|falta/i.test(a.real_state) ? '<span class="chip real">' + esc(a.real_state) + "</span>" : esc(a.real_state)}</td><td>${esc(a.who_resolves)}</td></tr>`).join("");
+}
+document.querySelectorAll(".filters .tab").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".filters .tab").forEach(x => x.setAttribute("aria-selected", x === b)); drawAcc(b.dataset.f); }));
+drawAcc("all");
+
+// ---------- Descargas y pie
+const desc = {"Informe_Final_FinBank_GrupoX.pdf": "Informe Final de Gestión (PDF)", "Presentacion_FinBank_GrupoX.pdf": "Presentación de sustentación (PDF)",
+  "Presentacion_FinBank_GrupoX.pptx": "Presentación editable con notas del orador (PPTX)", "Guion_Sustentacion.md": "Guion por integrante, demo y preguntas (Markdown)"};
+$("dl").innerHTML = D.downloads.map(f => `<div class="dl"><span>${desc[f] || f}</span><a class="btn" href="files/${f}" download>Descargar</a></div>`).join("") +
+  `<div class="dl"><span>Código, pruebas, datos de evidencia y fuentes editables</span><a class="btn" href="${D.meta.repo}">GitHub</a></div>`;
+$("foot").innerHTML = `DataForge Consulting · Proyecto académico GMAC (Escuela Colombiana de Ingeniería Julio Garavito), Corte 3 · FinBank S.A. es el cliente del caso de estudio.<br>
+  Página generada con <code>scripts/build_site.py</code> desde los CSV de <code>docs/corte3/data</code> y el código del repositorio (commit ${esc(D.meta.sha)}, ${esc(D.meta.generated)}).
+  Las métricas de los modelos son del prototipo con datos sintéticos. Ningún acto simulado (Review, firmas, aprobación de Finanzas) es una aceptación real.`;
+
+// ---------- Charts and theme
+function drawAll() { charts.forEach(([, , c]) => c.destroy()); charts.length = 0; drawVel(); drawBurn(); drawMon(); drawBud(); setModel(model); }
+function applyTheme(t) { if (t) document.documentElement.setAttribute("data-theme", t); else document.documentElement.removeAttribute("data-theme"); drawAll(); }
+let saved = null; try { saved = localStorage.getItem("c3-theme"); } catch (e) {}
+if (saved) document.documentElement.setAttribute("data-theme", saved);
+$("theme").addEventListener("click", () => {
+  const dark = document.documentElement.getAttribute("data-theme") ? document.documentElement.getAttribute("data-theme") === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = dark ? "light" : "dark"; try { localStorage.setItem("c3-theme", next); } catch (e) {} applyTheme(next);
+});
+drawAll();
+</script>
+</body>
+</html>
