@@ -73,17 +73,37 @@ def _observed(table, target: np.ndarray):
     return {k: v[mask] for k, v in table.items()}, target[mask]
 
 
-def run_pilot(n_clients: int = 5000, n_preferential: int = 4000,
-              salt: str | None = None) -> PilotResult:
-    # Delinquency model at 30 days (O1). The 60 day target is scored with the same model.
+@dataclass
+class DelinquencyModel:
+    encoder: FeatureEncoder
+    model: LogisticModel
+    threshold: float
+    variables: list[str]
+    development_scores: np.ndarray
+    development_target: np.ndarray
+
+    def score(self, table) -> np.ndarray:
+        return self.model.predict_proba(self.encoder.transform(table))
+
+
+def fit_delinquency_model(n_clients: int = 5000) -> DelinquencyModel:
+    """Delinquency model at 30 days (O1), fitted on the development cohort."""
     dev = generate_sample(n_clients, seed=DEVELOPMENT_SEED)
-    oot = generate_sample(n_clients, seed=OUT_OF_TIME_SEED)
     encoder, kept = _delinquency_encoder(dev)
-    dev_targets = delinquency_targets(dev[DPD_COLUMN])
-    dev_obs, y_dev = _observed(dev, dev_targets["default_30d"])
+    dev_obs, y_dev = _observed(dev, delinquency_targets(dev[DPD_COLUMN])["default_30d"])
     model = LogisticModel(penalty=1.0).fit(encoder.transform(dev_obs), y_dev)
     p_dev = model.predict_proba(encoder.transform(dev_obs))
     threshold = best_threshold(y_dev, p_dev, DELINQUENCY_COSTS)
+    return DelinquencyModel(encoder, model, threshold, kept, p_dev, y_dev)
+
+
+def run_pilot(n_clients: int = 5000, n_preferential: int = 4000,
+              salt: str | None = None) -> PilotResult:
+    # The 60 day target is scored with the same 30 day model.
+    fitted = fit_delinquency_model(n_clients)
+    encoder, model, threshold, kept = fitted.encoder, fitted.model, fitted.threshold, fitted.variables
+    y_dev = fitted.development_target
+    oot = generate_sample(n_clients, seed=OUT_OF_TIME_SEED)
 
     metrics = []
     oot_targets = delinquency_targets(oot[DPD_COLUMN])
