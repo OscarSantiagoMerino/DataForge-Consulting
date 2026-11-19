@@ -9,7 +9,7 @@ Two controls, both from the monitoring plan in the proposal:
 """
 import numpy as np
 
-from finbank.models import auc
+from finbank.models import auc, recall_precision
 from finbank.sample import generate_sample
 from finbank.schema import DPD_COLUMN
 from finbank.targets import delinquency_targets
@@ -65,6 +65,9 @@ def simulate_weeks(fitted, weeks: int = 6, shift_from: int = 4, n_clients: int =
     reference = generate_sample(5000, seed=2026)
     reference_scores = fitted.development_scores
     baseline_auc = auc(fitted.development_target, reference_scores)
+    baseline_recall, _ = recall_precision(
+        fitted.development_target, reference_scores, fitted.threshold
+    )
     numeric = [n for n in fitted.encoder.numeric]
     rows = []
     for week in range(1, weeks + 1):
@@ -78,6 +81,7 @@ def simulate_weeks(fitted, weeks: int = 6, shift_from: int = 4, n_clients: int =
             target[noisy] = (rng.random(int(noisy.sum())) < np.nanmean(target)).astype(float)
         scores = fitted.score(table)
         mask = ~np.isnan(target)
+        weekly_recall, _ = recall_precision(target[mask], scores[mask], fitted.threshold)
         variable_psi = {n: psi(reference[n], table[n]) for n in numeric}
         top = max(variable_psi, key=variable_psi.get)
         score_psi = psi(reference_scores, scores)
@@ -89,11 +93,17 @@ def simulate_weeks(fitted, weeks: int = 6, shift_from: int = 4, n_clients: int =
             "top_variable": top,
             "psi_top_variable": round(variable_psi[top], 4),
             "psi_top_variable_status": psi_status(variable_psi[top]),
-            "auc_30d": round(auc(target[mask], scores[mask]), 4),
-            "auc_baseline": round(baseline_auc, 4),
+            "auc_30d": auc(target[mask], scores[mask]),
+            "auc_baseline": baseline_auc,
+            "recall_30d": weekly_recall,
+            "recall_baseline": baseline_recall,
         })
-    flags = retraining_flags([r["auc_30d"] for r in rows], baseline_auc)
-    for row, flag in zip(rows, flags):
-        row["auc_drop"] = round(row["auc_baseline"] - row["auc_30d"], 4)
-        row["retraining_flag"] = flag
+    auc_flags = retraining_flags([r["auc_30d"] for r in rows], baseline_auc)
+    recall_flags = retraining_flags([r["recall_30d"] for r in rows], baseline_recall)
+    for row, auc_flag, recall_flag in zip(rows, auc_flags, recall_flags):
+        row["auc_drop"] = round(baseline_auc - row["auc_30d"], 4)
+        row["recall_drop"] = round(baseline_recall - row["recall_30d"], 4)
+        for metric in ("auc_30d", "auc_baseline", "recall_30d", "recall_baseline"):
+            row[metric] = round(row[metric], 4)
+        row["retraining_flag"] = auc_flag or recall_flag
     return rows

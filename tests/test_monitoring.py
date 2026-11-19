@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 
+from finbank import monitoring
 from finbank.monitoring import psi, psi_status, retraining_flags, simulate_weeks
 from finbank.pilot import fit_delinquency_model
 
@@ -34,6 +35,23 @@ def test_two_consecutive_drops_trigger_retraining():
 
 def test_a_drop_of_exactly_the_limit_is_tolerated():
     assert retraining_flags([0.75, 0.75], baseline=0.80) == [False, False]
+
+
+def test_two_recall_drops_trigger_retraining_with_stable_auc(monkeypatch):
+    fitted = fit_delinquency_model()
+    recall_values = iter([0.80, 0.74, 0.75, 0.74, 0.73])
+
+    def recall_at_operating_threshold(target, scores, threshold):
+        assert threshold == fitted.threshold
+        return next(recall_values), 0.20
+
+    monkeypatch.setattr(monitoring, "auc", lambda target, scores: 0.80)
+    monkeypatch.setattr(monitoring, "recall_precision", recall_at_operating_threshold)
+    rows = simulate_weeks(fitted, weeks=4)
+
+    assert [row["recall_baseline"] for row in rows] == [0.80] * 4
+    assert [row["recall_drop"] for row in rows] == [0.06, 0.05, 0.06, 0.07]
+    assert [row["retraining_flag"] for row in rows] == [False, False, False, True]
 
 
 @pytest.fixture(scope="module")
