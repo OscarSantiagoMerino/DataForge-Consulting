@@ -79,9 +79,10 @@ def main() -> None:
         "# Tablero del Corte 3 (vista reproducible)",
         "",
         f"Generado desde GitHub con `python scripts/github_snapshot.py` el {stamp}.",
-        "La cuenta no tiene el permiso `project` del token, así que el tablero se lleva con "
-        "etiquetas `estado:*` sobre las issues y el milestone "
-        f"[Corte 3 · S6](https://github.com/{REPO}/milestone/1).",
+        "Esta vista usa las etiquetas `estado:*` de las issues del milestone "
+        f"[Corte 3 · S6](https://github.com/{REPO}/milestone/1). "
+        "Las tarjetas del [Project de FinBank](https://github.com/users/OscarSantiagoMerino/projects/1) "
+        "se actualizan en GitHub Projects.",
         "",
         "**Reglas de movimiento.** Backlog → Ready cuando cumple la Definition of Ready "
         "(criterios, estimación, responsable de negocio, sin dependencia externa pendiente). "
