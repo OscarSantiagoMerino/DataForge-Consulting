@@ -19,12 +19,14 @@ def main(output_dir: Path) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = simulate_weeks(fit_delinquency_model())
     print(f"PSI: < {PSI_WATCH} stable, {PSI_WATCH}-{PSI_ALERT} watch, >= {PSI_ALERT} alert. "
-          f"Retraining: AUC down more than {MAX_DROP} for 2 consecutive weeks.")
-    print("week  psi_score  status    top variable (psi)              auc_30d  drop    retrain")
+          f"Retraining: AUC or recall down more than {MAX_DROP} for 2 consecutive weeks.")
+    print("week  psi_score  status    top variable (psi)              auc_30d  drop     recall_30d  drop     retrain")
     for r in rows:
         print(f"{r['week']:>4}  {r['psi_score']:>9}  {r['psi_score_status']:<8}  "
               f"{r['top_variable'] + ' (' + str(r['psi_top_variable']) + ')':<30}  "
-              f"{r['auc_30d']:>7}  {r['auc_drop']:>6}  {'YES' if r['retraining_flag'] else 'no'}")
+              f"{r['auc_30d']:>7.4f}  {r['auc_drop']:>7.4f}  "
+              f"{r['recall_30d']:>10.4f}  {r['recall_drop']:>7.4f}  "
+              f"{'YES' if r['retraining_flag'] else 'no'}")
     path = output_dir / "monitoring_report.csv"
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]), lineterminator="\n")

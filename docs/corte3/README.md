@@ -2,14 +2,14 @@
 
 Proyecto GMAC-FB-2026-01 · DataForge Consulting · Entrega académica: 18-nov-2026 · Sustentación: 20-nov-2026 (30 min + 5 de preguntas).
 
-`GrupoX` es un marcador que se reemplaza cuando se confirme el número de grupo.
+Entregables del Grupo 1.
 
 ## Entregables
 
 | Entregable | Archivo | Fuente editable |
 |---|---|---|
-| Informe Final de Gestión (PDF) | [Informe_Final_FinBank_GrupoX.pdf](Informe_Final_FinBank_GrupoX.pdf) | [informe/Informe_Final_FinBank_GrupoX.tex](informe/Informe_Final_FinBank_GrupoX.tex) + tablas en `informe/generated/` |
-| Presentación de sustentación (PDF) | [Presentacion_FinBank_GrupoX.pdf](Presentacion_FinBank_GrupoX.pdf) | [Presentacion_FinBank_GrupoX.pptx](Presentacion_FinBank_GrupoX.pptx), con notas del orador |
+| Informe Final de Gestión (PDF) | [Informe_Final_FinBank_Grupo1.pdf](Informe_Final_FinBank_Grupo1.pdf) | [informe/Informe_Final_FinBank_Grupo1.tex](informe/Informe_Final_FinBank_Grupo1.tex) + tablas en `informe/generated/` |
+| Presentación de sustentación (PDF) | [Presentacion_FinBank_Grupo1.pdf](Presentacion_FinBank_Grupo1.pdf) | [Presentacion_FinBank_Grupo1.pptx](Presentacion_FinBank_Grupo1.pptx), con notas del orador |
 | Guion por integrante, demo y preguntas | [Guion_Sustentacion.md](Guion_Sustentacion.md) | `scripts/corte3_slides.py` (misma especificación que el PPTX) |
 | Runbook del piloto (S6-03) | [RUNBOOK.md](RUNBOOK.md) | — |
 | Paquete de transferencia (S6-04) | [TRANSFERENCIA.md](TRANSFERENCIA.md) | — |

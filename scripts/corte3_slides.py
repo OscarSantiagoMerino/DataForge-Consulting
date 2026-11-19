@@ -12,7 +12,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from pptx.util import Emu, Inches, Pt
 
-from corte3_data import COLORS, FIGURES, RESERVE, es, pct
+from corte3_data import COLORS, FIGURES, GROUP_NUMBER, RESERVE, es, pct
 
 TOTAL_MINUTES = 30
 QA_MINUTES = 5
@@ -152,7 +152,7 @@ def s_cover(s, m, ev):
         ("Oscar Santiago Merino Suárez · Scrum Master", {"size": 16, "color": WHITE}),
     ])
     text(s, Inches(1.05), Inches(6.75), Inches(11.5), Inches(0.4),
-         "GMAC · Corte 3 · Grupo X · Escuela Colombiana de Ingeniería Julio Garavito · 20 de noviembre de 2026",
+         f"GMAC · Corte 3 · Grupo {GROUP_NUMBER} · Escuela Colombiana de Ingeniería Julio Garavito · 20 de noviembre de 2026",
          size=12, color=rgb("#9CA3AF"))
 
 
@@ -221,7 +221,7 @@ def s_journey(s, m, ev):
     text(s, Inches(0.55), Inches(5.75), Inches(6.6), Inches(1.2), [
         (f"{m['points_done_total']} puntos en 6 sprints. Media S1–S5: {es(m['velocity_avg_s1_s5'])}.",
          {"bold": True, "size": 15, "color": NAVY}),
-        ("S1–S2 son el antecedente del Corte 2; S3–S5, la transición reconstruida; S6, el sprint final.",
+        ("De S3 a S6, solo S6 respetó la media previa. S3–S5 comprometieron 16 puntos cada uno.",
          {"size": 13, "color": GRAY}),
     ])
 
@@ -265,7 +265,7 @@ def s_story(s, m, ev):
              ("Ready", "S6-01 · 5 pts · DoR\nissue #10", TEAL),
              ("In Progress", "Pairing Rafael/Oscar\nrama c3/s6/s6-01-piloto", AMBER),
              ("Blocked", "D3–D5: ambiente de TI\nescalado en D4", RED),
-             ("Review", "PR #17 · CI verde\nrevisión pedida", NAVY),
+             ("Review", "PR #17 · CI verde\nrevisión por un par", NAVY),
              ("Done (esc.)", "D8: Cobranza valida\ndemo en la Review", rgb("#006B75"))]
     x = Inches(0.55)
     for i, (col, body, color) in enumerate(steps):
@@ -285,11 +285,11 @@ def s_story(s, m, ev):
     ], size=13.5)
     rect(s, Inches(7.0), Inches(3.6), Inches(5.8), Inches(3.1), rgb("#F7F8FA"))
     text(s, Inches(7.2), Inches(3.7), Inches(5.5), Inches(2.9), [
-        ("Lo que muestra GitHub hoy", {"bold": True, "size": 15, "color": NAVY}),
-        ("Issue #10 en Review, con comentarios de cada movimiento.", {"bullet": True}),
-        (f"PR #17: {ev['tests_passed']} pruebas y piloto en CI, en verde.", {"bullet": True}),
-        ("Aprobación pendiente de Daniel o Rafael.", {"bullet": True}),
-        ("No lo damos por integrado hasta el merge.", {"bullet": True, "color": RED}),
+        ("Evidencia en GitHub", {"bold": True, "size": 15, "color": NAVY}),
+        ("La issue #10 registra los criterios y el cierre.", {"bullet": True}),
+        ("PR #17: 33 pruebas y ejecución del piloto en CI.", {"bullet": True}),
+        ("PR #17 aprobado e integrado en main.", {"bullet": True}),
+        (f"Paquete de cierre: {ev['tests_passed']} pruebas.", {"bullet": True}),
         (f"AUC {es(pm['auc_out_of_time_default_30d'], 4)} · {m['ew_flagged']} de {m['ew_total']} "
          "clientes en la lista", {"size": 13, "color": GRAY}),
     ], size=13.5)
@@ -416,7 +416,8 @@ def s_demo(s, m, ev):
         ("1. pytest -q → todas en verde.", {"size": 14}),
         ("2. python scripts/run_pilot.py → métricas, lista y hashes.", {"size": 14}),
         ("3. Abrir early_warning_list.csv: solo clave, probabilidad, decil y acción.", {"size": 14}),
-        ("4. python scripts/run_monitoring.py → alerta en la semana 4, reentrenar en la 5.", {"size": 14}),
+        ("4. python scripts/run_monitoring.py. Semana 4: score en vigilar (0,243) y bureau_score en alerta (0,396). "
+         "Semana 5: marca de reentrenamiento.", {"size": 14}),
         ("Respaldo", {"bold": True, "size": 15, "color": RED}),
         ("Si falla la red o el equipo: esta salida es la ejecución registrada (docs/corte3/evidence/) y la "
          "diapositiva B2 muestra el monitoreo.", {"size": 13}),
@@ -426,9 +427,10 @@ def s_demo(s, m, ev):
 def s_monitoring(s, m, ev):
     picture(s, "monitoring", Inches(0.55), Inches(1.65), w=Inches(7.6))
     text(s, Inches(0.55), Inches(4.85), Inches(7.6), Inches(1.9), [
-        ("Monitoreo (S6-02): PSI estable < 0,10 · vigilar 0,10–0,25 · alerta ≥ 0,25. Reentrenar si el AUC cae "
-         "más de 0,05 durante 2 semanas seguidas.", {"size": 13}),
-        ("Una semana mala no dispara. Dos sí. Así lo prometía la propuesta.", {"size": 13, "color": GRAY}),
+        ("PSI estable < 0,10 · vigilar desde 0,10 · alerta desde 0,25.", {"size": 13}),
+        ("En la semana 4 coinciden la alerta de bureau_score y la caída del AUC.", {"size": 13}),
+        ("Se marca reentrenamiento si el AUC o el recall cae más de 0,05 frente a su base durante dos "
+         "semanas seguidas. En la demo se activa en la semana 5 por AUC.", {"size": 13, "color": GRAY}),
     ])
     rows = [["Paquete de transferencia (S6-04)", "Estado"],
             ["Tablero, backlog, DoR y DoD", "Entregado"],
@@ -477,7 +479,7 @@ def s_retro(s, m, ev):
                          "Cuenta de servicio del ambiente de piloto dentro de la DoR"], TEAL),
             ("Dejar de", ["Leer «integrado en GitHub» como «aceptado por el negocio»",
                           "Dejar los actos de cumplimiento para la Review"], RED),
-            ("Continuar", ["Compromiso ≤ velocidad media (desde S3)",
+            ("Continuar", ["Limitar el compromiso a la media previa, como en S6",
                            "Escalar en menos de 24 h y reordenar con el PO",
                            "Pruebas y PR revisado por un par en cada historia"], NAVY)]
     x = Inches(0.55)
@@ -533,20 +535,23 @@ def s_backup_github(s, m, ev):
     for g in m["github"]:
         rows.append([g["id"], f"#{g['issue']}", g["board_column"], f"#{g['pr']}" if g["pr"] else "—",
                      g["ci"].lower() or "—", g["approved_by"] or "pendiente", g["merge_sha"] or "pendiente"])
-    table(s, Inches(0.55), Inches(1.75), Inches(12.2), rows, [1, 0.8, 1.2, 0.8, 1, 1.6, 1.4], size=13,
-          row_h=Inches(0.5))
-    text(s, Inches(0.55), Inches(5.6), Inches(12.2), Inches(1.2),
+    top, row_height = Inches(1.75), Inches(0.42)
+    table(s, Inches(0.55), top, Inches(12.2), rows, [1, 0.8, 1.2, 0.8, 1, 1.6, 1.4], size=12,
+          row_h=row_height)
+    text(s, Inches(0.55), top + len(rows) * row_height + Inches(0.2), Inches(12.2), Inches(0.75),
          f"Leído de la API de GitHub con scripts/github_snapshot.py. Integración con merge commit, en orden, "
          f"después de la aprobación de un par. Commit de esta compilación: {ev['sha']}.", size=13, color=GRAY)
 
 
 def s_backup_monitor(s, m, ev):
-    rows = [["Semana", "PSI score", "Estado", "Variable (PSI)", "AUC 30 d", "Caída", "Reentrenar"]]
+    rows = [["Semana", "PSI score", "Estado", "Variable (PSI)", "AUC 30 d", "Caída AUC",
+             "Recall 30 d", "Caída recall", "Reentrenar"]]
     for r in m["monitoring"]:
         rows.append([r["week"], es(r["psi_score"], 3), r["psi_score_status"],
                      f"{r['top_variable']} ({es(r['psi_top_variable'], 3)})", es(r["auc_30d"], 3),
-                     es(r["auc_drop"], 3), "sí" if r["retraining_flag"] else "no"])
-    table(s, Inches(0.55), Inches(1.75), Inches(12.2), rows, [0.8, 1, 1, 2.6, 1, 0.8, 1], size=13,
+                     es(r["auc_drop"], 3), es(r["recall_30d"], 3), es(r["recall_drop"], 3),
+                     "sí" if r["retraining_flag"] else "no"])
+    table(s, Inches(0.55), Inches(1.75), Inches(12.2), rows, [0.8, 1, 1, 2.5, 1, 1, 1, 1.2, 1.2], size=12,
           row_h=Inches(0.5), highlight=lambda r, row: row[-1] == "sí")
     text(s, Inches(0.55), Inches(5.5), Inches(12.2), Inches(1.2),
          "Salida registrada de python scripts/run_monitoring.py (docs/corte3/evidence/monitoring.txt). "
@@ -568,9 +573,10 @@ def s_backup_budget(s, m, ev):
 # (key, title, kicker, speaker, minutes, builder, notes)
 SLIDES = [
     ("portada", "", "", "Daniel", 0.5, s_cover,
-     "Buenos días. Somos DataForge Consulting y venimos a cerrar el programa de analítica predictiva de "
-     "FinBank. En treinta minutos les mostramos qué entregamos, cuánto costó, qué falta y qué decisión "
-     "necesitamos de ustedes. Transición: empiezo por la decisión."),
+     f"Buenos días. Somos DataForge Consulting, Grupo {GROUP_NUMBER}. FinBank quiere anticipar la mora y "
+     "la cancelación de créditos para que Cobranza y Retención puedan actuar a tiempo. Presentaremos el "
+     "piloto sobre datos sintéticos y el balance de las doce semanas. Luego revisaremos qué debe ocurrir "
+     "para que FinBank pueda operar el programa. Transición: empiezo por nuestra recomendación."),
     ("decision", "La decisión que necesita FinBank hoy", "Recomendación", "Daniel", 2.0, s_decision,
      "Nuestra recomendación es cerrar con transferencia condicionada. El sprint final terminó 12 de 15 puntos. "
      "Los 3 que faltan son la firma del acta, que espera la auditoría de protección de datos. El costo cerró "
@@ -582,12 +588,13 @@ SLIDES = [
      "FinBank registraba la mora cuando el pago ya se había perdido y la cancelación cuando el cliente ya se "
      "había ido. El Charter fijó cinco objetivos medibles y una base que no se mueve: 12 semanas y 180 "
      "millones. Transición: Oscar cuenta cómo recorrimos esas doce semanas."),
-    ("trayectoria", "Seis sprints: el compromiso dejó de exceder la velocidad", "Trayectoria S1–S6", "Oscar",
+    ("trayectoria", "S6 ajustó el compromiso a la velocidad anterior", "Trayectoria S1–S6", "Oscar",
      2.0, s_journey,
      "S1 y S2 vienen del Corte 2. En S2 comprometimos 20 y cerramos 15 porque el extracto de churn dependía de "
      "una credencial de TI. De ahí salió la Definition of Ready. Por eso la credencial, que llegó el día 2 de "
      "S3, no entró a ese sprint. S4 cerró 13 porque la validación de churn necesitaba tres meses de "
-     "observación. S6 comprometió 15, la media de S1 a S5. Transición: así se veía el tablero."),
+     "observación. S3, S4 y S5 comprometieron 16 puntos frente a medias previas de 15,5, 15,7 y 15,0. "
+     "S6 comprometió 15 frente a 15,2 y cumplió el límite. Transición: así se veía el tablero."),
     ("tablero", "El tablero hace visible cada bloqueo y cada aceptación", "Gestión del flujo", "Oscar", 2.0,
      s_board,
      "Seis columnas con reglas escritas. WIP máximo de 3. Un bloqueo se escribe con su causa y se escala en "
@@ -596,8 +603,8 @@ SLIDES = [
     ("historia", "S6-01: una historia trazable de punta a punta", "Trazabilidad", "Rafael", 2.5, s_story,
      "La lista semanal nació como US-07 en el pronóstico de S3 y se convirtió en S6-01. Entró a Ready con 5 "
      "puntos y criterios Dado/Cuando/Entonces, se trabajó en pairing y se bloqueó tres días por el ambiente de "
-     "TI. Hoy está en Review: el PR 17 tiene el CI en verde y la aprobación de Daniel o mía está pendiente, "
-     "porque el autor no se aprueba a sí mismo. Transición: veamos el sprint completo."),
+     "TI. La issue #10 quedó cerrada y el PR #17 está integrado. Las 33 pruebas del PR corresponden al "
+     "piloto. La validación con datos reales queda pendiente. Transición: veamos el sprint completo."),
     ("sprint6", "Sprint 6: 15 puntos comprometidos según la velocidad demostrada", "Sprint final", "Rafael", 1.5,
      s_sprint6,
      "El objetivo era doble: el piloto operando y el paquete listo para la firma. Cinco historias. La única "
@@ -625,10 +632,11 @@ SLIDES = [
     ("demo", "Demo: del repositorio a la lista en un comando", "Demo breve", "Rafael", 2.5, s_demo,
      "Corro pytest, luego el piloto, abro la lista y corro el monitoreo. Si algo falla, esta salida es la "
      "ejecución registrada y la diapositiva B2 tiene el monitoreo. Transición: Oscar, monitoreo y transferencia."),
-    ("monitoreo", "El monitoreo avisa antes de que el modelo se degrade", "Operación y transferencia", "Oscar",
+    ("monitoreo", "El monitoreo detectó el cambio en la semana 4", "Operación y transferencia", "Oscar",
      1.5, s_monitoring,
-     "Inyectamos un cambio en la semana 4. El PSI lo detecta esa semana y la regla de dos semanas pide "
-     "reentrenar en la quinta. El paquete de transferencia está completo, salvo lo que depende de actos "
+     "En la semana 4, el score quedó en vigilar, bureau_score activó una alerta y el AUC bajó. "
+     "El control evalúa rachas independientes de AUC y recall, y en la demo marca reentrenamiento "
+     "en la semana 5 por la segunda caída de AUC. El paquete de transferencia está completo, salvo lo que depende de actos "
      "reales. Transición: Daniel, el balance."),
     ("hitos", "Hitos: el final en la semana 12; dos desplazamientos absorbidos", "Cronograma", "Daniel", 1.5,
      s_milestones,

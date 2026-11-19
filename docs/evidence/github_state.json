@@ -1,0 +1,508 @@
+{
+  "fecha_bogota": "2026-10-16",
+  "repository": "OscarSantiagoMerino/DataForge-Consulting",
+  "main_commit": "0b53f5939ccf3f8e4d1a460f3b00e37991d0e055",
+  "pull_requests": [
+    {
+      "pr": 1,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/1",
+        "number": 1,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Resumen\n- Estructura base del repositorio.\n- Workflow de integración continua.\n- Definition of Done del equipo.\n\n> PR encadenado: fusionar en orden (#1 → #7) usando **merge commit**, no squash, para que los siguientes PRs no queden con conflictos.",
+        "title": "US-04 Esqueleto del repositorio, CI y Definition of Done",
+        "base": "main",
+        "base_sha": "6d6f4bf24316ad53988506fd805cab15ea0eeb9c",
+        "head": "chore/ci-and-skeleton",
+        "head_sha": "d38a9e5ac6cdf913f6845498ff38757df341181f",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "12ce3705a52378c451edbc686263b2ef375ac03e",
+        "user": {
+          "login": "OscarSantiagoMerino",
+          "name": "OscarSantiagoMerino",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/163002192?v=4",
+          "id": 163002192
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-15T03:22:39Z",
+        "updated_at": "2026-10-15T03:31:17Z",
+        "closed_at": "2026-10-15T03:31:12Z",
+        "merged_at": "2026-10-15T03:31:12Z",
+        "commits": 1,
+        "changed_files": 5,
+        "additions": 51,
+        "deletions": 1,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/1",
+        "display_title": "US-04 Esqueleto del repositorio, CI y Definition of Done"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSXn2rg",
+            "state": "APPROVED",
+            "body": "Reviewed the repository structure, dependency files, and CI configuration. The workflow checks source compilation with Python 3.11, which is appropriate for this initial skeleton. The README documents the Definition of Done and peer review requirements. This provides a clear foundation for the upcoming data validation modules. Approved.",
+            "submitted_at": "2026-10-15T03:30:27Z",
+            "author": {
+              "login": "Ch0comilo",
+              "name": "Ch0comilo",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/170292579?u=5eaba4cddb8f35efa3bab1fb3ec4ea73e60bcf22&v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "pr": 2,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/2",
+        "number": 2,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Resumen\n- Layout (esquema) de las 22 variables candidatas.\n- Muestra sintética anonimizada con el layout acordado.\n\n> PR encadenado: fusionar en orden (#1 → #7) usando **merge commit**, no squash, para que los siguientes PRs no queden con conflictos.",
+        "title": "T-05.0 Muestra sintética anonimizada y layout de las 22 variables",
+        "base": "chore/ci-and-skeleton",
+        "base_sha": "6cc632dfff47544431cefdc7a44383deb0bb82dd",
+        "head": "feature/t050-sample-and-schema",
+        "head_sha": "b4a4245a06d22abaf6ac5c7fc4ffe63edc30543e",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "ad2a9c7417217629b17c8fda990bff3866ee201d",
+        "user": {
+          "login": "OscarSantiagoMerino",
+          "name": "OscarSantiagoMerino",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/163002192?v=4",
+          "id": 163002192
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-15T03:22:44Z",
+        "updated_at": "2026-10-15T13:24:06Z",
+        "closed_at": "2026-10-15T13:24:05Z",
+        "merged_at": "2026-10-15T13:24:05Z",
+        "commits": 2,
+        "changed_files": 2,
+        "additions": 147,
+        "deletions": 0,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/2",
+        "display_title": "T-05.0 Muestra sintética anonimizada y layout de las 22 variables"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSdcvDg",
+            "state": "APPROVED",
+            "body": "Revisado: muestra sintética y layout de las 22 variables, coherente con el diccionario acordado. Aprobado por Rafael (PO).",
+            "submitted_at": "2026-10-15T13:24:02Z",
+            "author": {
+              "login": "correoalejandro",
+              "name": "correoalejandro",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/216798900?v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "pr": 3,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/3",
+        "number": 3,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Resumen\n- Pruebas que fallan primero (TDD) para las reglas de validación.\n- Implementación: rangos, categorías, identificadores y verificación de ausencia de datos personales.\n\nCoautores: Rafael Alejandro Baracaldo Doikov, Daniel Felipe Martínez Hernández.\n\n> PR encadenado: fusionar en orden (#1 → #7) usando **merge commit**, no squash, para que los siguientes PRs no queden con conflictos.",
+        "title": "T-05.6 Reglas de validación: rangos, categorías, identificadores y sin datos personales",
+        "base": "feature/t050-sample-and-schema",
+        "base_sha": "b4a4245a06d22abaf6ac5c7fc4ffe63edc30543e",
+        "head": "feature/t056-validation-rules",
+        "head_sha": "211d6c3668000ff490287b5df8e8ddbe32a5a986",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "94d44775374b325b9091ceac5dfe86f489849184",
+        "user": {
+          "login": "OscarSantiagoMerino",
+          "name": "OscarSantiagoMerino",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/163002192?v=4",
+          "id": 163002192
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-15T03:22:49Z",
+        "updated_at": "2026-10-15T13:24:42Z",
+        "closed_at": "2026-10-15T13:24:42Z",
+        "merged_at": "2026-10-15T13:24:42Z",
+        "commits": 2,
+        "changed_files": 4,
+        "additions": 147,
+        "deletions": 1,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/3",
+        "display_title": "T-05.6 Reglas de validación: rangos, categorías, identificadores y sin datos personales"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSddPbQ",
+            "state": "APPROVED",
+            "body": "Revisado: reglas de validación (rangos, categorías, identificadores, sin datos personales) y sus pruebas. Coherente con el esquema de T-05.0. Aprobado por Rafael (PO).",
+            "submitted_at": "2026-10-15T13:24:39Z",
+            "author": {
+              "login": "correoalejandro",
+              "name": "correoalejandro",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/216798900?v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "pr": 4,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/4",
+        "number": 4,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Resumen\n- Pruebas que fallan primero para el reporte de calidad y el diccionario.\n- Reporte de calidad de datos y diccionario de variables v1.\n\n> PR encadenado: fusionar en orden (#1 → #7) usando **merge commit**, no squash, para que los siguientes PRs no queden con conflictos.",
+        "title": "T-05.1 T-05.2 Reporte de calidad y diccionario de variables v1",
+        "base": "feature/t056-validation-rules",
+        "base_sha": "211d6c3668000ff490287b5df8e8ddbe32a5a986",
+        "head": "feature/t051-quality-report",
+        "head_sha": "3087652b201f69125bbcf547995c7b5c07ad8469",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "008bd2e528782c966b3cde97254dfdcae5fed53a",
+        "user": {
+          "login": "OscarSantiagoMerino",
+          "name": "OscarSantiagoMerino",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/163002192?v=4",
+          "id": 163002192
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-15T03:22:54Z",
+        "updated_at": "2026-10-15T13:25:42Z",
+        "closed_at": "2026-10-15T13:25:42Z",
+        "merged_at": "2026-10-15T13:25:42Z",
+        "commits": 2,
+        "changed_files": 2,
+        "additions": 87,
+        "deletions": 0,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/4",
+        "display_title": "T-05.1 T-05.2 Reporte de calidad y diccionario de variables v1"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSdeEjw",
+            "state": "APPROVED",
+            "body": "Revisado: reporte de calidad y diccionario v1 (22 candidatas, 18 conservadas por completitud >=80%). Coherente con las reglas de validación de T-05.6. Aprobado por Rafael (PO).",
+            "submitted_at": "2026-10-15T13:25:39Z",
+            "author": {
+              "login": "correoalejandro",
+              "name": "correoalejandro",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/216798900?v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "pr": 5,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/5",
+        "number": 5,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Resumen\n- Prueba: se reporta una columna ausente en el extracto.\n- Refactor: una sola función valida cualquier variable, cubriendo las 22 candidatas; cada límite se escribe una sola vez.\n- La versión anterior se conserva en `docs/refactoring/validation_before.py`.\n\n> PR encadenado: fusionar en orden (#1 → #7) usando **merge commit**, no squash, para que los siguientes PRs no queden con conflictos.",
+        "title": "R-01 Las reglas de validación leen sus límites desde el esquema",
+        "base": "feature/t051-quality-report",
+        "base_sha": "3087652b201f69125bbcf547995c7b5c07ad8469",
+        "head": "refactor/r01-schema-driven-validation",
+        "head_sha": "d9d2b5287d0f9d6974956b28a5255d207884192e",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "183468cd43273fd0852ccc9a9326869eca186d32",
+        "user": {
+          "login": "OscarSantiagoMerino",
+          "name": "OscarSantiagoMerino",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/163002192?v=4",
+          "id": 163002192
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-15T03:22:58Z",
+        "updated_at": "2026-10-15T13:26:28Z",
+        "closed_at": "2026-10-15T13:26:28Z",
+        "merged_at": "2026-10-15T13:26:28Z",
+        "commits": 2,
+        "changed_files": 4,
+        "additions": 163,
+        "deletions": 76,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/5",
+        "display_title": "R-01 Las reglas de validación leen sus límites desde el esquema"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSdey3A",
+            "state": "APPROVED",
+            "body": "Revisado: refactor para que validacion y quality lean sus limites desde el esquema (antes/despues documentado en docs/refactoring). Reduce duplicacion sin cambiar comportamiento. Aprobado por Rafael (PO).",
+            "submitted_at": "2026-10-15T13:26:25Z",
+            "author": {
+              "login": "correoalejandro",
+              "name": "correoalejandro",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/216798900?v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "pr": 6,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/6",
+        "number": 6,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Resumen\n- Pruebas que fallan primero para los objetivos de mora.\n- Cálculo de los objetivos de mora a 30 y 60 días.\n- Script del pipeline del incremento del Sprint 2, ejecutado en CI.\n\nCoautor: Rafael Alejandro Baracaldo Doikov.\n\n> PR encadenado: fusionar en orden (#1 → #7) usando **merge commit**, no squash, para que los siguientes PRs no queden con conflictos.",
+        "title": "T-05.4 Variables objetivo de mora a 30 y 60 días",
+        "base": "refactor/r01-schema-driven-validation",
+        "base_sha": "d9d2b5287d0f9d6974956b28a5255d207884192e",
+        "head": "feature/t054-delinquency-targets",
+        "head_sha": "bfb6bfce00d053d2cfa2b58559f82f1ec870a50b",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "a609c08564b68cdfcb72ef561b154f0c8cab4d33",
+        "user": {
+          "login": "OscarSantiagoMerino",
+          "name": "OscarSantiagoMerino",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/163002192?v=4",
+          "id": 163002192
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-15T03:23:03Z",
+        "updated_at": "2026-10-15T13:27:18Z",
+        "closed_at": "2026-10-15T13:27:18Z",
+        "merged_at": "2026-10-15T13:27:17Z",
+        "commits": 3,
+        "changed_files": 5,
+        "additions": 149,
+        "deletions": 0,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/6",
+        "display_title": "T-05.4 Variables objetivo de mora a 30 y 60 días"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSdfe_Q",
+            "state": "APPROVED",
+            "body": "Revisado: targets de mora a 30 y 60 dias y su integracion en run_pipeline.py. Tasas sinteticas, no predictivas, consistente con el alcance del incremento. Aprobado por Rafael (PO).",
+            "submitted_at": "2026-10-15T13:27:14Z",
+            "author": {
+              "login": "correoalejandro",
+              "name": "correoalejandro",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/216798900?v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "pr": 7,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/7",
+        "number": 7,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "## Resumen\n- Reporte del sprint, guion de la Sprint Review y bitácora XP.\n- Reporte en español ampliado con la teoría del curso (C2).\n\n> PR encadenado: fusionar en orden (#1 → #7) usando **merge commit**, no squash, para que los siguientes PRs no queden con conflictos.",
+        "title": "Docs: reporte del sprint, guion de la Sprint Review y bitácora XP",
+        "base": "feature/t054-delinquency-targets",
+        "base_sha": "bfb6bfce00d053d2cfa2b58559f82f1ec870a50b",
+        "head": "docs/sprint-report-and-xp-log",
+        "head_sha": "07f0bd2fc17b47c5adf8ac8854cad08a076f54c8",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "55e7a7f0451fbf21f1933b268b747bd73c084a22",
+        "user": {
+          "login": "OscarSantiagoMerino",
+          "name": "OscarSantiagoMerino",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/163002192?v=4",
+          "id": 163002192
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-15T03:23:08Z",
+        "updated_at": "2026-10-15T13:28:10Z",
+        "closed_at": "2026-10-15T13:28:10Z",
+        "merged_at": "2026-10-15T13:28:10Z",
+        "commits": 2,
+        "changed_files": 7,
+        "additions": 753,
+        "deletions": 0,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/7",
+        "display_title": "Docs: reporte del sprint, guion de la Sprint Review y bitácora XP"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSdgO9g",
+            "state": "APPROVED",
+            "body": "Revisado: reporte de sprints, guion de Sprint Review y bitacora XP (XP_LOG.md) que documenta pairing, TDD, CI y refactor. Documentacion de cierre consistente con el incremento mezclado. Aprobado por Rafael (PO).",
+            "submitted_at": "2026-10-15T13:28:07Z",
+            "author": {
+              "login": "correoalejandro",
+              "name": "correoalejandro",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/216798900?v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    },
+    {
+      "pr": 8,
+      "info": {
+        "url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/8",
+        "number": 8,
+        "state": "closed",
+        "merged": true,
+        "mergeable": false,
+        "draft": false,
+        "body": "Consolida en main el trabajo revisado y aprobado en PR #2-#7 (T-05.0, T-05.6, T-05.1/T-05.2, R-01, T-05.4, docs/XP_LOG.md y reporte de sprints).",
+        "title": "Integrar incremento completo del Sprint 2 a main",
+        "base": "main",
+        "base_sha": "dc87002b0da02199c1146f9ec2a60a458982d569",
+        "head": "docs/sprint-report-and-xp-log",
+        "head_sha": "07f0bd2fc17b47c5adf8ac8854cad08a076f54c8",
+        "head_repo_id": 1416392223,
+        "head_repo_full_name": "OscarSantiagoMerino/DataForge-Consulting",
+        "merge_commit_sha": "0b53f5939ccf3f8e4d1a460f3b00e37991d0e055",
+        "user": {
+          "login": "correoalejandro",
+          "name": "correoalejandro",
+          "email": null,
+          "avatar_url": "https://avatars.githubusercontent.com/u/216798900?v=4",
+          "id": 216798900
+        },
+        "requested_reviewers": null,
+        "requested_team_reviewers": null,
+        "diff": null,
+        "comments": null,
+        "created_at": "2026-10-16T02:37:11Z",
+        "updated_at": "2026-10-16T03:19:25Z",
+        "closed_at": "2026-10-16T03:19:25Z",
+        "merged_at": "2026-10-16T03:19:25Z",
+        "commits": 13,
+        "changed_files": 19,
+        "additions": 1370,
+        "deletions": 1,
+        "display_url": "https://github.com/OscarSantiagoMerino/DataForge-Consulting/pull/8",
+        "display_title": "Integrar incremento completo del Sprint 2 a main"
+      },
+      "reviews": {
+        "reviews": [
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSlr_Ew",
+            "state": "APPROVED",
+            "body": "Aprobado. CI en verde e integra lo revisado en los PR #2 a #7.",
+            "submitted_at": "2026-10-16T02:50:10Z",
+            "author": {
+              "login": "OscarSantiagoMerino",
+              "name": "OscarSantiagoMerino",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/163002192?u=aa4fe26185d5f6994d5fe2bce0233d982e6a5b2d&v=4",
+              "id": null
+            }
+          },
+          {
+            "id": "PRR_kwDOVGxuH88AAAABSl4ucw",
+            "state": "APPROVED",
+            "body": "Reviewed the consolidated Sprint 2 increment, including schema-driven validation, data quality reporting, the feature dictionary, and delinquency targets. CI successfully runs the automated tests and the complete pipeline. Centralizing validation rules in the schema reduces duplication and keeps the dictionary consistent.\n\nOne documentation follow-up: please add PR #8 to the XP log as the final integration into main, distinguishing it from the individual reviews in PRs #2–#7.",
+            "submitted_at": "2026-10-16T03:19:18Z",
+            "author": {
+              "login": "Ch0comilo",
+              "name": "Ch0comilo",
+              "email": null,
+              "avatar_url": "https://avatars.githubusercontent.com/u/170292579?u=5eaba4cddb8f35efa3bab1fb3ec4ea73e60bcf22&v=4",
+              "id": null
+            }
+          }
+        ]
+      },
+      "review_threads": {
+        "review_threads": []
+      }
+    }
+  ]
+}

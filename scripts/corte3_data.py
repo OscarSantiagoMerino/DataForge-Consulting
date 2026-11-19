@@ -23,6 +23,10 @@ from finbank.pilot import (CHURN_COSTS, DEVELOPMENT_SEED, OUT_OF_TIME_SEED,  # n
 DATA = ROOT / "docs/corte3/data"
 FIGURES = ROOT / "docs/corte3/figures"
 
+GROUP_NUMBER = 1
+REPORT_NAME = f"Informe_Final_FinBank_Grupo{GROUP_NUMBER}"
+DECK_NAME = f"Presentacion_FinBank_Grupo{GROUP_NUMBER}"
+
 AUTHORIZED = 180.0  # COP millions, Charter section 6
 RESERVE = 10.8
 TOLERANCE = 0.05

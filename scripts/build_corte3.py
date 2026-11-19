@@ -32,8 +32,8 @@ OUT = ROOT / "docs/corte3"
 EVIDENCE = OUT / "evidence"
 REPORT_DIR = OUT / "informe"
 GENERATED = REPORT_DIR / "generated"
-REPORT_NAME = "Informe_Final_FinBank_GrupoX"
-DECK_NAME = "Presentacion_FinBank_GrupoX"
+REPORT_NAME = data.REPORT_NAME
+DECK_NAME = data.DECK_NAME
 
 
 # ---------------------------------------------------------------- evidence
@@ -102,6 +102,7 @@ def write_latex(m: dict, ev: dict) -> None:
     alert_week = next(r["week"] for r in mon if r["psi_top_variable_status"] == "alerta")
     flag_week = next(r["week"] for r in mon if r["retraining_flag"])
     macros = {
+        "Grupo": data.GROUP_NUMBER,
         "VelMedia": es(m["velocity_avg_s1_s5"]), "VelMediaTotal": es(m["velocity_avg_all"], 2),
         "PuntosTotal": m["points_done_total"], "SseisComp": m["s6_committed"], "SseisDone": m["s6_done"],
         "SseisPend": m["s6_committed"] - m["s6_done"], "Throughput": m["throughput"],
@@ -263,9 +264,10 @@ def write_latex(m: dict, ev: dict) -> None:
     write("tab_monitoring", table(
         [[r["week"], es(r["psi_score"], 3), tex(r["psi_score_status"]), tex(r["top_variable"]),
           es(r["psi_top_variable"], 3), es(r["auc_30d"], 3), es(r["auc_drop"], 3),
+          es(r["recall_30d"], 3), es(r["recall_drop"], 3),
           "sí" if r["retraining_flag"] else "no"] for r in mon],
-        r"r r l X r r r l", ["Sem.", "PSI score", "Estado", "Variable con mayor PSI", "PSI var.",
-                             "AUC 30 d", "Caída", "Reentrenar"], r"\footnotesize"))
+        r"r r l X r r r r r l", ["Sem.", "PSI score", "Estado", "Variable con mayor PSI", "PSI var.",
+                                "AUC 30 d", "Caída", "Recall 30 d", "Caída", "Reentrenar"], r"\footnotesize"))
 
 
 def compile_report() -> Path:

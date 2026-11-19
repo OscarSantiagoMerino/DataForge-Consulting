@@ -1,12 +1,12 @@
-# commit cccb266 (c3/s6/c3-01-sitio-web) · 2026-11-18 12:17 UTC · Python 3.11.9 · Windows 10
+# commit d861e55 (c3/s6/s6-05-cierre) · 2026-11-19 03:36 UTC · Python 3.13.5 · Windows 11
 $ python scripts/run_monitoring.py reports/c3
-PSI: < 0.1 stable, 0.1-0.25 watch, >= 0.25 alert. Retraining: AUC down more than 0.05 for 2 consecutive weeks.
-week  psi_score  status    top variable (psi)              auc_30d  drop    retrain
-   1     0.0023  estable   interest_rate (0.009)             0.769  0.0251  no
-   2     0.0025  estable   monthly_income (0.0094)          0.7954  -0.0013  no
-   3     0.0026  estable   monthly_income (0.0136)          0.7724  0.0217  no
-   4     0.2429  vigilar   bureau_score (0.3955)            0.6656  0.1285  no
-   5     0.2162  vigilar   bureau_score (0.4049)            0.6483  0.1458  YES
-   6     0.2272  vigilar   bureau_score (0.4067)            0.6487  0.1454  YES
+PSI: < 0.1 stable, 0.1-0.25 watch, >= 0.25 alert. Retraining: AUC or recall down more than 0.05 for 2 consecutive weeks.
+week  psi_score  status    top variable (psi)              auc_30d  drop     recall_30d  drop     retrain
+   1     0.0023  estable   interest_rate (0.009)            0.7690   0.0251      0.5260   0.0579  no
+   2     0.0025  estable   monthly_income (0.0094)          0.7954  -0.0014      0.5776   0.0063  no
+   3     0.0026  estable   monthly_income (0.0136)          0.7724   0.0216      0.5767   0.0073  no
+   4     0.2429  vigilar   bureau_score (0.3955)            0.6656   0.1285      0.6250  -0.0411  no
+   5     0.2162  vigilar   bureau_score (0.4049)            0.6483   0.1458      0.5564   0.0276  YES
+   6     0.2272  vigilar   bureau_score (0.4067)            0.6487   0.1454      0.5904  -0.0064  YES
 First stability alert: week 4. Retraining flag: week 5.
 Report written to reports\c3\monitoring_report.csv

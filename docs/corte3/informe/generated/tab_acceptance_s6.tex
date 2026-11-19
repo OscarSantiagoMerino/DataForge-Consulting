@@ -8,9 +8,9 @@ S6-01 & Métricas rotuladas como prototipo sintético & Cumple & pilot\_\allowbr
 S6-01 & Dos corridas idénticas & Cumple & test\_\allowbreak{}two\_\allowbreak{}runs\_\allowbreak{}give\_\allowbreak{}identical\_\allowbreak{}outputs; hashes de run\_\allowbreak{}pilot.py \\
 S6-01 & Validación de Cobranza contra el proceso operativo & Cumple (escenario S6 D8) & — \\
 S6-02 & Bandas de PSI estable / vigilar / alerta & Cumple (S6 D6) & test\_\allowbreak{}psi\_\allowbreak{}status\_\allowbreak{}bands; PR \#18 \\
-S6-02 & Reentrenamiento tras 2 semanas con caída > 0,05 & Cumple & test\_\allowbreak{}two\_\allowbreak{}consecutive\_\allowbreak{}drops\_\allowbreak{}trigger\_\allowbreak{}retraining; PR \#18 \\
-S6-02 & Detección del cambio inyectado & Cumple & monitoring\_\allowbreak{}report.csv: alerta semana 4 y marca semana 5 \\
-S6-03 & Runbook ejecutable en copia limpia & Cumple (S6 D4) & Clon limpio: 43 pruebas y 6 salidas; PR \#19 \\
+S6-02 & Reentrenamiento tras 2 semanas con caída de AUC o recall > 0,05 & Cumple & Pruebas de rachas de AUC y recall; PR \#18 \\
+S6-02 & Detección del cambio inyectado & Cumple & monitoring\_\allowbreak{}report.csv: bureau\_\allowbreak{}score en alerta en semana 4 y reentrenamiento en la 5 \\
+S6-03 & Runbook ejecutable en copia limpia & Cumple (S6 D4) & Clon limpio con 6 salidas; PR \#19 \\
 S6-03 & Acción, rol y plazo por caso & Cumple & RUNBOOK.md sección 5 \\
 S6-04 & Inventario con ubicación y responsable & Cumple & TRANSFERENCIA.md sección 1; PR \#20 \\
 S6-04 & Capacitación con registro de asistentes & Cumple (escenario S6 D8) & Plan en TRANSFERENCIA.md sección 2 \\

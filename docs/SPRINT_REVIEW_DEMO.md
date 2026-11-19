@@ -1,54 +1,46 @@
-# Sprint Review and operational demo (15 minutes)
+# Sprint Review y demostración de quince minutos
 
-Audience: FinBank sponsor (the professor). Have a terminal open in the repository root
-with the virtual environment active, and the GitHub repository open in a browser.
+La [presentación](review/Presentacion_FinBank_Corte2.pptx) y el [guion editable](review/Speech_editable.md) mantienen quince diapositivas y 900 segundos. El guion reserva 150 segundos para la demo de Rafael y 60 para preguntas.
 
-| Min | Who | What | On screen |
+## Preparación
+
+1. Instalar las dependencias del README y ejecutar `python scripts/demo_review.py --auto`.
+2. Tener abiertos los CSV de `reports/demo/`, la bitácora XP, el PR #8 y el CI de main.
+3. Ensayar con los tres integrantes y comprobar cambios de pantalla.
+4. Mantener disponible [SPRINT_REVIEW_ACCEPTANCE.md](SPRINT_REVIEW_ACCEPTANCE.md) para registrar criterios y decisiones.
+
+## Recorrido de la exposición
+
+| Tiempo | Responsable | Diapositivas | Contenido |
 |---|---|---|---|
-| 0–2 | Rafael (Product Owner) | Sprint Goals of S1 and S2, what was committed and what closed: 16 of 16 and 15 of 20 points | Report, section 2 |
-| 2–7 | Daniel | Live demo of the increment, steps below | Terminal |
-| 7–9 | Oscar (Scrum Master) | Velocity and burndown; the blocked churn extract and how it was handled at the Daily Scrum | Report, section 3 |
-| 9–11 | Oscar | XP evidence: one pairing commit, one pull request with review and green CI, refactoring R-01 before and after | GitHub, `docs/XP_LOG.md` |
-| 11–13 | Rafael | Differences in the workflow against the first term | Report, section 7 |
-| 13–15 | Daniel | Lessons learned, improvement plan, forecast for Sprint 3 and the decision asked from the sponsor | Report, sections 5 and 8 |
+| 00:00–02:10 | Daniel | 1–3 | Compromiso y continuidad del proyecto |
+| 02:10–06:30 | Rafael | 4–6 | Incremento, calidad y demo de 150 s |
+| 06:30–07:25 | Oscar | 7 | Prácticas XP y ejemplo TDD |
+| 07:25–08:20 | Rafael | 8 | Diseño simple y refactor |
+| 08:20–12:05 | Oscar | 9–12 | Capacidad, curvas conciliadas, bloqueo y retrospectivas |
+| 12:05–14:00 | Daniel | 13–15 | Integración, aceptación y propuesta S3 |
+| 14:00–15:00 | Equipo | 15 | Preguntas y decisiones |
 
-## Live demo (minutes 2 to 7)
+## Demo desde la raíz del repositorio
 
-Each step shows a backlog item that meets the Definition of Done.
+```bash
+python scripts/demo_review.py
+```
 
-1. **Tests green** (T-05.6). Run `pytest -v`. Sixteen rules pass.
-2. **A rule catches bad data.** Run the block below. The pipeline refuses a table with a
-   bureau score out of range and with a personal data column.
+El programa ejecuta las 16 pruebas, genera calidad/diccionario y comprueba el rechazo de score 1200 y columna cedula. Sus pausas permiten explicar cada paso. `--auto` elimina las pausas para preparar el entorno.
 
-   ```bash
-   python -c "import sys; sys.path.insert(0,'src'); from finbank.sample import generate_sample; from finbank.validation import validate; t=generate_sample(); t['bureau_score'][0]=1200; t['cedula']=t['age'].copy(); print(*validate(t), sep='\n')"
-   ```
+Abrir `reports/demo/quality_report.csv` y `feature_dictionary.csv`. Señalar las cuatro exclusiones y las 18 variables documentadas. Las tasas 5,85 % y 2,37 % se calculan sobre la muestra sintética.
 
-3. **Quality report, dictionary and targets** (T-05.1, T-05.2, T-05.4). Run
-   `python scripts/run_pipeline.py`. Point at: 22 candidates, 4 excluded with their
-   completeness, 18 variables in the dictionary, event rates of 5.85% and 2.37%.
-4. **The output the business validated.** Open `reports/feature_dictionary.csv`: each
-   variable has a description, valid values and a business owner.
-5. **Not done.** T-05.5, churn history extract, is not shown because it is not Done. It
-   returned to the Product Backlog.
+Si falla el entorno, abrir los [resultados de preparación](evidence/outputs/) y el [registro](evidence/demo.txt), identificados como ejecución previa. El equipo conservará las observaciones del evento en el registro de aceptación.
 
-## Lessons learned to defend
+## Evidencias que conviene mostrar
 
-- The team delivered the same 15 to 16 points in both sprints. Sprint 2 fell short because
-  20 points were committed and 5 of them depended on a credential owned by IT.
-- A blocker that exceeds a risk response has to reach the sponsor the day it appears.
-- Rules written as tests found two decisions the business had to take, on missing values
-  and on unobserved accounts, before any model was trained.
+- Coautoría: commits 211d6c3 y b3bb92e.
+- TDD: `python scripts/reproduce_tdd.py`, registros rojo/verde y prueba de loan_amount.
+- Integración: PR #8, con aprobaciones y main como destino.
+- CI: ejecución 38844935088 para 0b53f59; comprobar también los checks de cualquier revisión posterior.
+- Gestión: CSV de burndown y Dailies del caso; registro C2 en SPRINT_BACKLOG.md.
 
-## Improvement plan
+## Decisiones al cierre
 
-1. Commit at most the average velocity, 16 points in Sprint 3.
-2. Definition of Ready: an item with an ungranted external dependency does not enter a sprint.
-3. The Scrum Master escalates impediments within 24 hours.
-4. Two pairing sessions per sprint, rotating the driver.
-
-## Decision asked from the sponsor
-
-Sprint 3 takes the delinquency model (US-06, 13 points). The early warning list (US-07)
-moves to Sprint 4, which then holds 23 points against a capacity of 16, so milestone M4
-in week 8 is at risk. Options: release the IT credential this week, or accept moving M4.
+Registrar la aceptación por criterio, las observaciones del docente y los responsables de ajustes. Confirmar el foco de mora para S3 y el responsable del acceso a churn. US-06 y churn completos suman 18 puntos; la referencia de capacidad es 15–16, por lo que requieren priorización o división del alcance.
