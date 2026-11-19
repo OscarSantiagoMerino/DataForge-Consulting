@@ -358,7 +358,7 @@ def s_burndown(s, m, ev):
 
 def s_impediments(s, m, ev):
     rows = [["Impedimento", "Días", "Respuesta", "Efecto"],
-            ["S2–S3 · Credencial de TI para el extracto de churn (R1)", "9",
+            ["S2–S3 · Credencial de TI para el extracto de churn (R1)", "7 hábiles",
              "Blocked el D6, escalación el D7, reordenación del sprint. No se usaron los COP 4,2 M de la reserva",
              "M2 +3 sem., M4 +1 sem. → nace la Definition of Ready"],
             ["S6 · Ambiente de piloto sin cuenta de servicio", "3",
@@ -369,7 +369,7 @@ def s_impediments(s, m, ev):
              "3 pts pendientes; firma del acta en espera"],
             ["S6 · Pedido nuevo de Retención (US-10)", "D5", "Al Product Backlog, no al sprint",
              "Objetivo del sprint protegido"]]
-    table(s, Inches(0.55), Inches(1.75), Inches(12.2), rows, [3.4, 0.6, 4.6, 3.2], size=12.5,
+    table(s, Inches(0.55), Inches(1.75), Inches(12.2), rows, [3.3, 1.0, 4.4, 3.1], size=12.5,
           row_h=Inches(0.85))
     text(s, Inches(0.55), Inches(6.2), Inches(12.2), Inches(0.7),
          "Patrón: las causas estuvieron fuera del equipo; la respuesta siguió reglas que el equipo ya había "
@@ -647,7 +647,8 @@ SLIDES = [
      "las mostramos por separado. Transición: ¿qué nos frenó?"),
     ("impedimentos", "Los impedimentos vinieron de fuera; la respuesta, de nuestras reglas", "Impedimentos",
      "Oscar", 1.5, s_impediments,
-     "Cuatro eventos. El de TI en S2 cambió el plan del proyecto. El de S6 no movió el hito. La auditoría es "
+     "Cuatro eventos. La credencial de TI estuvo bloqueada 7 días hábiles, o 9 calendario, desde el "
+     "31 de agosto hasta el 8 de septiembre, contando ambas fechas. El bloqueo de S6 no movió el hito. La auditoría es "
      "la lección principal: llegó el último día. Transición: Rafael, los resultados."),
     ("piloto", "El piloto produce la lista semanal con un AUC de 0,80", "Resultados (prototipo)", "Rafael", 1.5,
      s_pilot,
@@ -760,8 +761,9 @@ def write_script(m: dict, path: Path) -> Path:
     lines = [
         "# Guion de sustentación · Corte 3",
         "",
-        f"Duración: **{es(total)} min de presentación + {QA_MINUTES} min de preguntas**. Coincide con la "
-        "consigna del Corte 3. Generado por "
+        f"Duración: **{es(total)} min de presentación + {QA_MINUTES} min de preguntas**. La clase del "
+        "6-nov-2026 anunció el formato de 30 + 5. La [consigna oficial](https://ciclovidasoft.my.canva.site/) "
+        "confirma la sustentación del 20 de noviembre. Generado por "
         "`scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este "
         "texto.",
         "",
