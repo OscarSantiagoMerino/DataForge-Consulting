@@ -156,49 +156,59 @@ def s_cover(s, m, ev):
          size=12, color=rgb("#9CA3AF"))
 
 
-def s_decision(s, m, ev):
-    rect(s, Inches(0.55), Inches(1.75), Inches(12.2), Inches(1.3), rgb("#E8F5F3"))
-    text(s, Inches(0.8), Inches(1.85), Inches(11.8), Inches(1.1), [
-        ("Proponemos cerrar con transferencia condicionada", {"size": 26, "bold": True, "color": NAVY}),
-        ("Los modelos, la regla de decisión y el piloto están listos. Solo falta la firma del acta, que espera "
-         "la auditoría de protección de datos.", {"size": 16}),
+def s_intro(s, m, ev):
+    kpi(s, Inches(0.55), Inches(1.75), Inches(3.9), "COP 77.000 M",
+        "en riesgo por enterarse tarde: cerca del 18 % de la cartera", RED, value_size=30)
+    kpi(s, Inches(0.55), Inches(3.35), Inches(3.9), "125.000 clientes",
+        "y una cartera de crédito de COP 420.000 millones", NAVY, value_size=30)
+    kpi(s, Inches(0.55), Inches(4.95), Inches(3.9), "12 semanas",
+        "6 sprints y COP 180 millones: las reglas del proyecto", TEAL, value_size=30)
+    text(s, Inches(4.85), Inches(1.7), Inches(8.0), Inches(1.15), [
+        ("El caso", {"bold": True, "size": 17, "color": NAVY}),
+        ("FinBank es un banco y DataForge Consulting, la consultora que contrató. Es un caso académico "
+         "simulado.", {"size": 15}),
     ])
-    w = Inches(2.9)
-    kpi(s, Inches(0.55), Inches(3.35), w, f"{m['s6_done']}/{m['s6_committed']}",
-        "puntos del Sprint 6 que cumplen la DoD", TEAL)
-    kpi(s, Inches(3.65), Inches(3.35), w, pct(m["cost_deviation"]),
-        f"desviación de costo frente a la base\n(límite 5 %, reserva intacta)", NAVY)
-    kpi(s, Inches(6.75), Inches(3.35), w, "Semana 12", "hito final a tiempo;\nM2 +3 y M4 +1 absorbidos", NAVY)
-    kpi(s, Inches(9.85), Inches(3.35), w, es(m["pilot_metrics"]["auc_out_of_time_default_30d"], 2),
-        "AUC fuera de tiempo, mora 30 d\n(prototipo sintético; meta 0,75)", AMBER)
-    text(s, Inches(0.55), Inches(5.1), Inches(12.2), Inches(1.8), [
-        ("Le pedimos tres cosas:", {"bold": True, "size": 17, "color": NAVY}),
-        ("Aceptar el cierre con la condición de la firma, sin costo adicional ni extensión.", {"bullet": True}),
-        ("Que Finanzas ratifique la regla de churn: priorizar recall ≥ 0,60 (O2) sobre el máximo beneficio (O3).",
-         {"bullet": True}),
-        ("Programar la validación con el extracto real, siguiendo el runbook.", {"bullet": True}),
-    ], size=16)
+    text(s, Inches(4.85), Inches(2.85), Inches(8.0), Inches(1.15), [
+        ("El problema", {"bold": True, "size": 17, "color": NAVY}),
+        ("El banco veía la mora cuando el pago ya se había perdido y la salida de un cliente cuando ya se "
+         "había ido.", {"size": 15}),
+    ])
+    text(s, Inches(4.85), Inches(4.0), Inches(8.0), Inches(1.45), [
+        ("Lo que nos pidió", {"bold": True, "size": 17, "color": NAVY}),
+        ("Anticipar qué clientes se van a atrasar en sus pagos.", {"bullet": True}),
+        ("Anticipar qué clientes se van a ir del banco.", {"bullet": True}),
+        ("Dejar un método de trabajo que el banco pueda seguir usando.", {"bullet": True}),
+    ], size=15)
+    rect(s, Inches(4.85), Inches(5.6), Inches(8.0), Inches(0.95), rgb("#E8F5F3"))
+    text(s, Inches(5.05), Inches(5.66), Inches(7.6), Inches(0.85), [
+        ("Hoy veremos", {"bold": True, "size": 15, "color": NAVY}),
+        ("Cómo trabajamos · qué logramos · cuánto costó · qué decisión necesitamos", {"size": 15}),
+    ])
 
 
-def s_problem(s, m, ev):
-    kpi(s, Inches(0.55), Inches(1.8), Inches(3.9), "COP 58.800 M", "exposición por mora sin alerta temprana",
-        RED, value_size=30)
-    kpi(s, Inches(0.55), Inches(3.4), Inches(3.9), "COP 18.200 M", "pérdidas por churn no anticipado",
-        RED, value_size=30)
-    kpi(s, Inches(0.55), Inches(5.0), Inches(3.9), "≈ 18 %", "de la cartera de COP 420.000 M está en juego",
-        NAVY, value_size=30)
-    rows = [["Obj.", "Compromiso del Charter", "Medida", "Sem."],
-            ["O1", "Modelo de mora a 30/60 días", "AUC ≥ 0,75 fuera de tiempo", "6"],
-            ["O2", "Modelo de churn a 3 meses", "Recall ≥ 0,60 al umbral", "8"],
-            ["O3", "Umbral de máximo beneficio", "Aprobado por Finanzas", "10"],
-            ["O4", "Transferir el marco de gestión", "Aceptación del patrocinador", "12"],
-            ["O5", "Dentro del sobre", "Desviación ≤ 5 %", "12"]]
-    table(s, Inches(4.8), Inches(1.8), Inches(8.0), rows, [0.6, 3, 2.6, 0.6], size=13, row_h=Inches(0.48))
-    text(s, Inches(4.8), Inches(5.0), Inches(8.0), Inches(1.6), [
-        ("Línea base fija: 12 semanas · 6 sprints · COP 180 M (169,2 por rubros + 10,8 de reserva).",
-         {"size": 15}),
-        ("El obstáculo no eran los datos sino la falta de un método para planear, controlar y cerrar.",
-         {"size": 15, "color": GRAY}),
+def s_decision(s, m, ev):
+    pm = m["pilot_metrics"]
+    saved = m["base_total"] - m["actual_total"]
+    hits = round(pm["auc_out_of_time_default_30d"] * 10)
+    cost = (pm["net_benefit_cop_at_cost_only_threshold"] - pm["net_benefit_cop_at_operating_threshold"]) / 1e6
+    w, h, y = Inches(2.9), Inches(1.75), Inches(1.75)
+    kpi(s, Inches(0.55), y, w, f"{m['s6_done']} de {m['s6_committed']}",
+        "puntos terminados en el último sprint. Lo pendiente depende de la firma del acta.", TEAL, h=h)
+    kpi(s, Inches(3.65), y, w, f"COP {es(saved, 1)} M",
+        f"por debajo del presupuesto. Gastamos {es(m['actual_total'], 1)} de {es(m['base_total'], 1)} "
+        "millones, sin usar la reserva.", NAVY, h=h)
+    kpi(s, Inches(6.75), y, w, "Semana 12",
+        "A tiempo. Recuperamos los dos retrasos intermedios.", NAVY, h=h)
+    kpi(s, Inches(9.85), y, w, f"{hits} de cada 10",
+        "aciertos al comparar clientes por riesgo de mora. Meta: 7,5. Prueba con datos simulados.", AMBER, h=h,
+        value_size=30)
+    rect(s, Inches(0.55), Inches(4.0), Inches(12.2), Inches(2.3), rgb("#E8F5F3"))
+    text(s, Inches(0.8), Inches(4.18), Inches(11.8), Inches(2.0), [
+        ("Necesitamos que FinBank:", {"bold": True, "size": 19, "color": NAVY}),
+        ("1.  Apruebe el cierre, sujeto a la firma del acta.", {"size": 17}),
+        ("2.  Decida si prioriza detectar al menos 6 de cada 10 clientes que se van, aunque el beneficio "
+         f"estimado baje COP {es(cost, 1)} M.", {"size": 17}),
+        ("3.  Programe la prueba del modelo con datos reales.", {"size": 17}),
     ])
 
 
@@ -227,6 +237,9 @@ def s_journey(s, m, ev):
 
 
 def s_board(s, m, ev):
+    final: dict[str, list[str]] = {}
+    for b in m["s6_backlog"]:
+        final.setdefault("Done" if b["state"] == "Done" else "Blocked", []).append(b["id"])
     cols = [("Backlog", GRAY), ("Ready", TEAL), ("In Progress", AMBER), ("Blocked", RED),
             ("Review", NAVY), ("Done", rgb("#006B75"))]
     rules = ["Priorizado por el PO; pedidos nuevos entran aquí (R6)",
@@ -238,10 +251,20 @@ def s_board(s, m, ev):
         rect(s, x, Inches(1.8), Inches(1.95), Inches(0.55), color)
         text(s, x, Inches(1.8), Inches(1.95), Inches(0.55), name, size=15, color=WHITE, bold=True,
              align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-        rect(s, x, Inches(2.35), Inches(1.95), Inches(1.45), rgb("#F7F8FA"))
-        text(s, x + Inches(0.08), Inches(2.42), Inches(1.8), Inches(1.35), rule, size=11.5)
+        rect(s, x, Inches(2.35), Inches(1.95), Inches(1.15), rgb("#F7F8FA"))
+        text(s, x + Inches(0.08), Inches(2.4), Inches(1.8), Inches(1.1), rule, size=11)
+        stories = final.get(name, [])
+        if stories:
+            chip = rect(s, x, Inches(3.58), Inches(1.95), Inches(0.62), WHITE, line=color,
+                        shape=MSO_SHAPE.ROUNDED_RECTANGLE)
+            chip.line.width = Pt(1.5)
+            label = "\n".join("  ·  ".join(stories[i:i + 2]) for i in range(0, len(stories), 2))
+            text(s, x, Inches(3.58), Inches(1.95), Inches(0.62), label, size=11.5, color=color, bold=True,
+                 align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
         x += Inches(2.05)
-    text(s, Inches(0.55), Inches(4.05), Inches(6.2), Inches(2.8), [
+    text(s, Inches(0.55), Inches(4.25), Inches(12.2), Inches(0.3),
+         "Recuadros: columna final de cada historia de S6 al cierre del sprint (escenario).", size=11, color=GRAY)
+    text(s, Inches(0.55), Inches(4.6), Inches(6.2), Inches(2.4), [
         ("Definition of Done (Charter + Corte 2)", {"bold": True, "size": 16, "color": NAVY}),
         ("Reproducible desde el repositorio", {"bullet": True}),
         ("Documentada", {"bullet": True}),
@@ -249,15 +272,15 @@ def s_board(s, m, ev):
         ("PR aprobado por un integrante distinto del autor", {"bullet": True}),
         ("Validada por el responsable de negocio", {"bullet": True}),
         ("Demostrada en la Sprint Review", {"bullet": True}),
-    ], size=14)
-    text(s, Inches(7.0), Inches(4.05), Inches(5.8), Inches(2.8), [
+    ], size=13)
+    text(s, Inches(7.0), Inches(4.6), Inches(5.8), Inches(2.4), [
         ("Dónde vive el tablero", {"bold": True, "size": 16, "color": NAVY}),
         ("Issues #10–#15 con etiquetas estado:* y milestone «Corte 3 · S6».", {"bullet": True}),
         ("Vista reproducible: TABLERO.md, generada desde la API de GitHub.", {"bullet": True}),
         ("Separamos tres cosas: integrado (GitHub), Done del escenario y aceptación real del negocio.",
          {"bullet": True}),
         ("Antecedente: Trello del Corte 1 (PMBOK + Kanban).", {"bullet": True, "color": GRAY}),
-    ], size=14)
+    ], size=13)
 
 
 def s_story(s, m, ev):
@@ -512,7 +535,7 @@ def s_close(s, m, ev):
             ["Firma del acta de entrega (O4)", "Patrocinador, tras el oficial de protección de datos"],
             ["Regla de churn: O2 sobre O3", "Finanzas"],
             ["O1 y O2 con el extracto real", "VP de Riesgo y TI (runbook, sección 6)"],
-            ["Aprobación e integración de los PR del Corte 3", "Daniel o Rafael, en los PR que no escribieron"],
+            ["Aprobación e integración de los PR de cierre abiertos", "Un integrante distinto del autor"],
             ["Validación de Cobranza y capacitación reales", "Gerencia de Cobranza · VP de Riesgo"]]
     table(s, Inches(0.55), Inches(3.1), Inches(12.2), rows, [5, 5], size=13, row_h=Inches(0.5))
     text(s, Inches(0.55), Inches(6.25), Inches(12.2), Inches(0.6),
@@ -576,18 +599,25 @@ SLIDES = [
      f"Buenos días. Somos DataForge Consulting, Grupo {GROUP_NUMBER}. FinBank quiere anticipar la mora y "
      "la cancelación de créditos para que Cobranza y Retención puedan actuar a tiempo. Presentaremos el "
      "piloto sobre datos sintéticos y el balance de las doce semanas. Luego revisaremos qué debe ocurrir "
-     "para que FinBank pueda operar el programa. Transición: empiezo por nuestra recomendación."),
-    ("decision", "La decisión que necesita FinBank hoy", "Recomendación", "Daniel", 2.0, s_decision,
-     "Nuestra recomendación es cerrar con transferencia condicionada. El sprint final terminó 12 de 15 puntos. "
-     "Los 3 que faltan son la firma del acta, que espera la auditoría de protección de datos. El costo cerró "
-     "0,12 % por debajo de la base y la reserva está intacta. El hito final llegó en la semana 12. Los modelos "
-     "cumplen las metas, pero sobre datos sintéticos: lo decimos desde ahora. Pedimos tres decisiones. "
-     "Transición: Para entender por qué importan, volvamos al problema."),
-    ("problema", "COP 77.000 millones se pierden por enterarse tarde", "Problema y alcance", "Daniel", 1.5,
-     s_problem,
-     "FinBank registraba la mora cuando el pago ya se había perdido y la cancelación cuando el cliente ya se "
-     "había ido. El Charter fijó cinco objetivos medibles y una base que no se mueve: 12 semanas y 180 "
-     "millones. Transición: Oscar cuenta cómo recorrimos esas doce semanas."),
+     "para que FinBank pueda operar el programa. Transición: empiezo por el caso."),
+    ("intro", "FinBank se enteraba tarde de sus problemas", "El caso", "Daniel", 1.5, s_intro,
+     "FinBank es un banco con 125.000 clientes y una cartera de crédito de 420.000 millones de pesos. "
+     "DataForge Consulting es la consultora que contrató; es un caso académico simulado. El problema: el banco "
+     "veía la mora cuando el pago ya se había perdido y la salida de un cliente cuando ya se había ido. Eso "
+     "pone en riesgo unos 77.000 millones, cerca del 18 % de la cartera. Nos pidió tres cosas: anticipar los "
+     "atrasos, anticipar las salidas y dejar un método de trabajo. Las reglas: 12 semanas, 6 sprints y 180 "
+     "millones. Hoy veremos cómo trabajamos, qué logramos, cuánto costó y qué decisión necesitamos. "
+     "Transición: empiezo por esa decisión."),
+    ("decision", "Recomendamos cerrar el proyecto: solo falta una firma", "La decisión", "Daniel", 2.0,
+     s_decision,
+     "Recomendamos cerrar el proyecto. Terminamos 12 de los 15 puntos del último sprint; lo que falta depende "
+     "de la firma del acta, que espera la auditoría de protección de datos. Gastamos 169,0 de 169,2 millones, "
+     "sin usar la reserva, y llegamos a tiempo a la semana 12, después de recuperar dos retrasos. El modelo de "
+     "mora acierta 8 de cada 10 veces al comparar dos clientes por riesgo, y la meta era 7,5; lo probamos con "
+     "datos simulados, no con datos reales del banco. Por eso le pedimos a FinBank tres cosas: aprobar el "
+     "cierre sujeto a la firma, decidir si prefiere detectar al menos 6 de cada 10 clientes que se van aunque "
+     "el beneficio estimado baje 8,5 millones, y programar la prueba con datos reales. "
+     "Transición: Oscar cuenta cómo trabajamos estas doce semanas."),
     ("trayectoria", "S6 ajustó el compromiso a la velocidad anterior", "Trayectoria S1–S6", "Oscar",
      2.0, s_journey,
      "S1 y S2 vienen del Corte 2. En S2 comprometimos 20 y cerramos 15 porque el extracto de churn dependía de "
@@ -730,8 +760,8 @@ def write_script(m: dict, path: Path) -> Path:
     lines = [
         "# Guion de sustentación · Corte 3",
         "",
-        f"Duración: **{es(total)} min de presentación + {QA_MINUTES} min de preguntas**. La clase del "
-        "6-nov-2026 anunció 30 + 5; hay que confirmar si la consigna publica otra duración. Generado por "
+        f"Duración: **{es(total)} min de presentación + {QA_MINUTES} min de preguntas**. Coincide con la "
+        "consigna del Corte 3. Generado por "
         "`scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este "
         "texto.",
         "",

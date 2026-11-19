@@ -1,4 +1,4 @@
-# commit 37f9c92 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:39 UTC · Python 3.13.5 · Windows 11
+# commit a2c0e37 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:56 UTC · Python 3.11.9 · Windows 10
 $ python scripts/run_pilot.py reports/c3
 1. Delinquency model: 18 variables from the feature dictionary
    delinquency auc_out_of_time_default_30d                0.7959 (target 0.75 meets)

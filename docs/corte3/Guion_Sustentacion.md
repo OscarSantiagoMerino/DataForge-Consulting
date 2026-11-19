@@ -1,12 +1,12 @@
 # Guion de sustentación · Corte 3
 
-Duración: **30,0 min de presentación + 5 min de preguntas**. La clase del 6-nov-2026 anunció 30 + 5; hay que confirmar si la consigna publica otra duración. Generado por `scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este texto.
+Duración: **30,0 min de presentación + 5 min de preguntas**. Coincide con la consigna del Corte 3. Generado por `scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este texto.
 
 | # | Diapositiva | Quién | Min | Acumulado |
 |---:|---|---|---:|---:|
 | 1 | Portada | Daniel | 0,5 | 0,5 |
-| 2 | La decisión que necesita FinBank hoy | Daniel | 2,0 | 2,5 |
-| 3 | COP 77.000 millones se pierden por enterarse tarde | Daniel | 1,5 | 4,0 |
+| 2 | FinBank se enteraba tarde de sus problemas | Daniel | 1,5 | 2,0 |
+| 3 | Recomendamos cerrar el proyecto: solo falta una firma | Daniel | 2,0 | 4,0 |
 | 4 | S6 ajustó el compromiso a la velocidad anterior | Oscar | 2,0 | 6,0 |
 | 5 | El tablero hace visible cada bloqueo y cada aceptación | Oscar | 2,0 | 8,0 |
 | 6 | S6-01: una historia trazable de punta a punta | Rafael | 2,5 | 10,5 |
@@ -32,15 +32,15 @@ Tiempo por integrante: Daniel 9,0 min, Oscar 11,0 min, Rafael 10,0 min.
 
 **1. Portada**, Daniel, 0,5 min
 
-Buenos días. Somos DataForge Consulting, Grupo 1. FinBank quiere anticipar la mora y la cancelación de créditos para que Cobranza y Retención puedan actuar a tiempo. Presentaremos el piloto sobre datos sintéticos y el balance de las doce semanas. Luego revisaremos qué debe ocurrir para que FinBank pueda operar el programa. Transición: empiezo por nuestra recomendación.
+Buenos días. Somos DataForge Consulting, Grupo 1. FinBank quiere anticipar la mora y la cancelación de créditos para que Cobranza y Retención puedan actuar a tiempo. Presentaremos el piloto sobre datos sintéticos y el balance de las doce semanas. Luego revisaremos qué debe ocurrir para que FinBank pueda operar el programa. Transición: empiezo por el caso.
 
-**2. La decisión que necesita FinBank hoy**, Daniel, 2,0 min
+**2. FinBank se enteraba tarde de sus problemas**, Daniel, 1,5 min
 
-Nuestra recomendación es cerrar con transferencia condicionada. El sprint final terminó 12 de 15 puntos. Los 3 que faltan son la firma del acta, que espera la auditoría de protección de datos. El costo cerró 0,12 % por debajo de la base y la reserva está intacta. El hito final llegó en la semana 12. Los modelos cumplen las metas, pero sobre datos sintéticos: lo decimos desde ahora. Pedimos tres decisiones. Transición: Para entender por qué importan, volvamos al problema.
+FinBank es un banco con 125.000 clientes y una cartera de crédito de 420.000 millones de pesos. DataForge Consulting es la consultora que contrató; es un caso académico simulado. El problema: el banco veía la mora cuando el pago ya se había perdido y la salida de un cliente cuando ya se había ido. Eso pone en riesgo unos 77.000 millones, cerca del 18 % de la cartera. Nos pidió tres cosas: anticipar los atrasos, anticipar las salidas y dejar un método de trabajo. Las reglas: 12 semanas, 6 sprints y 180 millones. Hoy veremos cómo trabajamos, qué logramos, cuánto costó y qué decisión necesitamos. Transición: empiezo por esa decisión.
 
-**3. COP 77.000 millones se pierden por enterarse tarde**, Daniel, 1,5 min
+**3. Recomendamos cerrar el proyecto: solo falta una firma**, Daniel, 2,0 min
 
-FinBank registraba la mora cuando el pago ya se había perdido y la cancelación cuando el cliente ya se había ido. El Charter fijó cinco objetivos medibles y una base que no se mueve: 12 semanas y 180 millones. Transición: Oscar cuenta cómo recorrimos esas doce semanas.
+Recomendamos cerrar el proyecto. Terminamos 12 de los 15 puntos del último sprint; lo que falta depende de la firma del acta, que espera la auditoría de protección de datos. Gastamos 169,0 de 169,2 millones, sin usar la reserva, y llegamos a tiempo a la semana 12, después de recuperar dos retrasos. El modelo de mora acierta 8 de cada 10 veces al comparar dos clientes por riesgo, y la meta era 7,5; lo probamos con datos simulados, no con datos reales del banco. Por eso le pedimos a FinBank tres cosas: aprobar el cierre sujeto a la firma, decidir si prefiere detectar al menos 6 de cada 10 clientes que se van aunque el beneficio estimado baje 8,5 millones, y programar la prueba con datos reales. Transición: Oscar cuenta cómo trabajamos estas doce semanas.
 
 **4. S6 ajustó el compromiso a la velocidad anterior**, Oscar, 2,0 min
 
