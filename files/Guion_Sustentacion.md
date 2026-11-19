@@ -1,13 +1,13 @@
 # Guion de sustentación · Corte 3
 
-Duración: **30,0 min de presentación + 5 min de preguntas**. La clase del 6-nov-2026 anunció 30 + 5; hay que confirmar si la consigna publica otra duración. Generado por `scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este texto.
+Duración: **30,0 min de presentación + 5 min de preguntas**. Coincide con la consigna del Corte 3. Generado por `scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este texto.
 
 | # | Diapositiva | Quién | Min | Acumulado |
 |---:|---|---|---:|---:|
 | 1 | Portada | Daniel | 0,5 | 0,5 |
-| 2 | La decisión que necesita FinBank hoy | Daniel | 2,0 | 2,5 |
-| 3 | COP 77.000 millones se pierden por enterarse tarde | Daniel | 1,5 | 4,0 |
-| 4 | Seis sprints: el compromiso dejó de exceder la velocidad | Oscar | 2,0 | 6,0 |
+| 2 | FinBank se enteraba tarde de sus problemas | Daniel | 1,5 | 2,0 |
+| 3 | Recomendamos cerrar el proyecto: solo falta una firma | Daniel | 2,0 | 4,0 |
+| 4 | S6 ajustó el compromiso a la velocidad anterior | Oscar | 2,0 | 6,0 |
 | 5 | El tablero hace visible cada bloqueo y cada aceptación | Oscar | 2,0 | 8,0 |
 | 6 | S6-01: una historia trazable de punta a punta | Rafael | 2,5 | 10,5 |
 | 7 | Sprint 6: 15 puntos comprometidos según la velocidad demostrada | Rafael | 1,5 | 12,0 |
@@ -16,7 +16,7 @@ Duración: **30,0 min de presentación + 5 min de preguntas**. La clase del 6-no
 | 10 | El piloto produce la lista semanal con un AUC de 0,80 | Rafael | 1,5 | 17,0 |
 | 11 | Churn: cumplir O2 cuesta beneficio y la decisión es de Finanzas | Rafael | 2,0 | 19,0 |
 | 12 | Demo: del repositorio a la lista en un comando | Rafael | 2,5 | 21,5 |
-| 13 | El monitoreo avisa antes de que el modelo se degrade | Oscar | 1,5 | 23,0 |
+| 13 | El monitoreo detectó el cambio en la semana 4 | Oscar | 1,5 | 23,0 |
 | 14 | Hitos: el final en la semana 12; dos desplazamientos absorbidos | Daniel | 1,5 | 24,5 |
 | 15 | Presupuesto: 169,0 frente a 169,2 millones, sin tocar la reserva | Daniel | 2,0 | 26,5 |
 | 16 | Lo que aprendimos como equipo y como líderes | Oscar | 2,0 | 28,5 |
@@ -32,19 +32,19 @@ Tiempo por integrante: Daniel 9,0 min, Oscar 11,0 min, Rafael 10,0 min.
 
 **1. Portada**, Daniel, 0,5 min
 
-Buenos días. Somos DataForge Consulting y venimos a cerrar el programa de analítica predictiva de FinBank. En treinta minutos les mostramos qué entregamos, cuánto costó, qué falta y qué decisión necesitamos de ustedes. Transición: empiezo por la decisión.
+Buenos días. Somos DataForge Consulting, Grupo 1. FinBank quiere anticipar la mora y la cancelación de créditos para que Cobranza y Retención puedan actuar a tiempo. Presentaremos el piloto sobre datos sintéticos y el balance de las doce semanas. Luego revisaremos qué debe ocurrir para que FinBank pueda operar el programa. Transición: empiezo por el caso.
 
-**2. La decisión que necesita FinBank hoy**, Daniel, 2,0 min
+**2. FinBank se enteraba tarde de sus problemas**, Daniel, 1,5 min
 
-Nuestra recomendación es cerrar con transferencia condicionada. El sprint final terminó 12 de 15 puntos. Los 3 que faltan son la firma del acta, que espera la auditoría de protección de datos. El costo cerró 0,12 % por debajo de la base y la reserva está intacta. El hito final llegó en la semana 12. Los modelos cumplen las metas, pero sobre datos sintéticos: lo decimos desde ahora. Pedimos tres decisiones. Transición: Para entender por qué importan, volvamos al problema.
+FinBank es un banco con 125.000 clientes y una cartera de crédito de 420.000 millones de pesos. DataForge Consulting es la consultora que contrató; es un caso académico simulado. El problema: el banco veía la mora cuando el pago ya se había perdido y la salida de un cliente cuando ya se había ido. Eso pone en riesgo unos 77.000 millones, cerca del 18 % de la cartera. Nos pidió tres cosas: anticipar los atrasos, anticipar las salidas y dejar un método de trabajo. Las reglas: 12 semanas, 6 sprints y 180 millones. Hoy veremos cómo trabajamos, qué logramos, cuánto costó y qué decisión necesitamos. Transición: empiezo por esa decisión.
 
-**3. COP 77.000 millones se pierden por enterarse tarde**, Daniel, 1,5 min
+**3. Recomendamos cerrar el proyecto: solo falta una firma**, Daniel, 2,0 min
 
-FinBank registraba la mora cuando el pago ya se había perdido y la cancelación cuando el cliente ya se había ido. El Charter fijó cinco objetivos medibles y una base que no se mueve: 12 semanas y 180 millones. Transición: Oscar cuenta cómo recorrimos esas doce semanas.
+Recomendamos cerrar el proyecto. Terminamos 12 de los 15 puntos del último sprint; lo que falta depende de la firma del acta, que espera la auditoría de protección de datos. Gastamos 169,0 de 169,2 millones, sin usar la reserva, y llegamos a tiempo a la semana 12, después de recuperar dos retrasos. El modelo de mora acierta 8 de cada 10 veces al comparar dos clientes por riesgo, y la meta era 7,5; lo probamos con datos simulados, no con datos reales del banco. Por eso le pedimos a FinBank tres cosas: aprobar el cierre sujeto a la firma, decidir si prefiere detectar al menos 6 de cada 10 clientes que se van aunque el beneficio estimado baje 8,5 millones, y programar la prueba con datos reales. Transición: Oscar cuenta cómo trabajamos estas doce semanas.
 
-**4. Seis sprints: el compromiso dejó de exceder la velocidad**, Oscar, 2,0 min
+**4. S6 ajustó el compromiso a la velocidad anterior**, Oscar, 2,0 min
 
-S1 y S2 vienen del Corte 2. En S2 comprometimos 20 y cerramos 15 porque el extracto de churn dependía de una credencial de TI. De ahí salió la Definition of Ready. Por eso la credencial, que llegó el día 2 de S3, no entró a ese sprint. S4 cerró 13 porque la validación de churn necesitaba tres meses de observación. S6 comprometió 15, la media de S1 a S5. Transición: así se veía el tablero.
+S1 y S2 vienen del Corte 2. En S2 comprometimos 20 y cerramos 15 porque el extracto de churn dependía de una credencial de TI. De ahí salió la Definition of Ready. Por eso la credencial, que llegó el día 2 de S3, no entró a ese sprint. S4 cerró 13 porque la validación de churn necesitaba tres meses de observación. S3, S4 y S5 comprometieron 16 puntos frente a medias previas de 15,5, 15,7 y 15,0. S6 comprometió 15 frente a 15,2 y cumplió el límite. Transición: así se veía el tablero.
 
 **5. El tablero hace visible cada bloqueo y cada aceptación**, Oscar, 2,0 min
 
@@ -52,7 +52,7 @@ Seis columnas con reglas escritas. WIP máximo de 3. Un bloqueo se escribe con s
 
 **6. S6-01: una historia trazable de punta a punta**, Rafael, 2,5 min
 
-La lista semanal nació como US-07 en el pronóstico de S3 y se convirtió en S6-01. Entró a Ready con 5 puntos y criterios Dado/Cuando/Entonces, se trabajó en pairing y se bloqueó tres días por el ambiente de TI. Hoy está en Review: el PR 17 tiene el CI en verde y la aprobación de Daniel o mía está pendiente, porque el autor no se aprueba a sí mismo. Transición: veamos el sprint completo.
+La lista semanal nació como US-07 en el pronóstico de S3 y se convirtió en S6-01. Entró a Ready con 5 puntos y criterios Dado/Cuando/Entonces, se trabajó en pairing y se bloqueó tres días por el ambiente de TI. La issue #10 quedó cerrada y el PR #17 está integrado. Las 33 pruebas del PR corresponden al piloto. La validación con datos reales queda pendiente. Transición: veamos el sprint completo.
 
 **7. Sprint 6: 15 puntos comprometidos según la velocidad demostrada**, Rafael, 1,5 min
 
@@ -78,9 +78,9 @@ El umbral que maximiza beneficio deja escapar a 6 de cada 10 clientes que se van
 
 Corro pytest, luego el piloto, abro la lista y corro el monitoreo. Si algo falla, esta salida es la ejecución registrada y la diapositiva B2 tiene el monitoreo. Transición: Oscar, monitoreo y transferencia.
 
-**13. El monitoreo avisa antes de que el modelo se degrade**, Oscar, 1,5 min
+**13. El monitoreo detectó el cambio en la semana 4**, Oscar, 1,5 min
 
-Inyectamos un cambio en la semana 4. El PSI lo detecta esa semana y la regla de dos semanas pide reentrenar en la quinta. El paquete de transferencia está completo, salvo lo que depende de actos reales. Transición: Daniel, el balance.
+En la semana 4, el score quedó en vigilar, bureau_score activó una alerta y el AUC bajó. El control evalúa rachas independientes de AUC y recall, y en la demo marca reentrenamiento en la semana 5 por la segunda caída de AUC. El paquete de transferencia está completo, salvo lo que depende de actos reales. Transición: Daniel, el balance.
 
 **14. Hitos: el final en la semana 12; dos desplazamientos absorbidos**, Daniel, 1,5 min
 
