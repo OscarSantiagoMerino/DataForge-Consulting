@@ -1,6 +1,6 @@
 # Guion de sustentación · Corte 3
 
-Duración: **30,0 min de presentación + 5 min de preguntas**. Coincide con la consigna del Corte 3. Generado por `scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este texto.
+Duración: **30,0 min de presentación + 5 min de preguntas**. La clase del 6-nov-2026 anunció el formato de 30 + 5. La [consigna oficial](https://ciclovidasoft.my.canva.site/) confirma la sustentación del 20 de noviembre. Generado por `scripts/build_corte3.py` desde la misma especificación que el PPTX: las notas del orador repiten este texto.
 
 | # | Diapositiva | Quién | Min | Acumulado |
 |---:|---|---|---:|---:|
@@ -64,7 +64,7 @@ Los puntos bajan solo cuando el ítem cumple la DoD. La curva queda plana tres d
 
 **9. Los impedimentos vinieron de fuera; la respuesta, de nuestras reglas**, Oscar, 1,5 min
 
-Cuatro eventos. El de TI en S2 cambió el plan del proyecto. El de S6 no movió el hito. La auditoría es la lección principal: llegó el último día. Transición: Rafael, los resultados.
+Cuatro eventos. La credencial de TI estuvo bloqueada 7 días hábiles, o 9 calendario, desde el 31 de agosto hasta el 8 de septiembre, contando ambas fechas. El bloqueo de S6 no movió el hito. La auditoría es la lección principal: llegó el último día. Transición: Rafael, los resultados.
 
 **10. El piloto produce la lista semanal con un AUC de 0,80**, Rafael, 1,5 min
 
