@@ -1,4 +1,4 @@
-# commit a2c0e37 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:56 UTC · Python 3.11.9 · Windows 10
+# commit c57e538 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:57 UTC · Python 3.11.9 · Windows 10
 $ python -m pytest -v
 ============================= test session starts =============================
 platform win32 -- Python 3.11.9, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\kimbo\Downloads\ProyectoGMAC\finbank-predictive-analytics\.venv\Scripts\python.exe
@@ -67,4 +67,4 @@ tests/test_validation.py::test_numeric_variable_loaded_as_text_is_reported PASSE
 tests/test_validation.py::test_personal_data_column_is_rejected PASSED   [ 98%]
 tests/test_validation.py::test_missing_column_is_reported PASSED         [100%]
 
-============================= 58 passed in 2.20s ==============================
+============================= 58 passed in 1.72s ==============================

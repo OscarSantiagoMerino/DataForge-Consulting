@@ -1,4 +1,4 @@
-# commit a2c0e37 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:56 UTC · Python 3.11.9 · Windows 10
+# commit c57e538 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:57 UTC · Python 3.11.9 · Windows 10
 $ python scripts/run_monitoring.py reports/c3
 PSI: < 0.1 stable, 0.1-0.25 watch, >= 0.25 alert. Retraining: AUC or recall down more than 0.05 for 2 consecutive weeks.
 week  psi_score  status    top variable (psi)              auc_30d  drop     recall_30d  drop     retrain
