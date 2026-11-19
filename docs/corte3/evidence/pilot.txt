@@ -1,0 +1,22 @@
+# commit c57e538 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:57 UTC · Python 3.11.9 · Windows 10
+$ python scripts/run_pilot.py reports/c3
+1. Delinquency model: 18 variables from the feature dictionary
+   delinquency auc_out_of_time_default_30d                0.7959 (target 0.75 meets)
+   delinquency auc_out_of_time_default_60d                0.7884 (target 0.75 meets)
+   churn       auc_out_of_time_churn_3m                   0.7673
+   churn       cutoff_operating_threshold                 0.13
+   churn       recall_at_operating_threshold              0.6203 (target 0.6 meets)
+   churn       precision_at_operating_threshold           0.2232
+   churn       net_benefit_cop_at_operating_threshold     11550000
+   churn       cutoff_cost_only_threshold                 0.21
+   churn       recall_at_cost_only_threshold              0.4094 (target 0.6 BELOW)
+   churn       precision_at_cost_only_threshold           0.3102
+   churn       net_benefit_cop_at_cost_only_threshold     20055000
+   delinquency cutoff_delinquency_threshold               0.09
+2. Controlled segment 'andina': 1356 credit clients, 250 on the early warning list (cut-off 0.09)
+3. Preferential clients in the segment: 1062, 319 for retention (cut-off 0.13)
+   pilot_metrics.csv: sha256 19cd25e5cea8
+   early_warning_list.csv: sha256 97127a7c9036
+   churn_list.csv: sha256 8a15a3f5519b
+Prototype results on synthetic data. FinBank validation and acceptance pending.
+Outputs written to reports\c3

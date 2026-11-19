@@ -1,0 +1,21 @@
+scope,item,criterion,scenario_state,technical_evidence,real_state,who_resolves
+Historia,S6-01,Lista semanal seudonimizada sin columnas personales,Cumple (S6 D8),test_lists_carry_no_personal_data_and_only_pseudonymous_keys; PR #17,Integrado en main,—
+Historia,S6-01,Métricas rotuladas como prototipo sintético,Cumple,pilot_metrics.csv; PR #17,Validación con datos de FinBank pendiente,VP de Riesgo y TI con el extracto real
+Historia,S6-01,Dos corridas idénticas,Cumple,test_two_runs_give_identical_outputs; hashes de run_pilot.py,Verificado en CI,—
+Historia,S6-01,Validación de Cobranza contra el proceso operativo,Cumple (escenario S6 D8),—,Pendiente: no hubo sesión real con Cobranza,Gerencia de Cobranza
+Historia,S6-02,Bandas de PSI estable / vigilar / alerta,Cumple (S6 D6),test_psi_status_bands; PR #18,Integrado en main,—
+Historia,S6-02,"Reentrenamiento tras 2 semanas con caída de AUC o recall > 0,05",Cumple,Pruebas de rachas de AUC y recall; PR #18,Integrado en main,—
+Historia,S6-02,Detección del cambio inyectado,Cumple,monitoring_report.csv: bureau_score en alerta en semana 4 y reentrenamiento en la 5,Verificado en ejecución local y CI,—
+Historia,S6-03,Runbook ejecutable en copia limpia,Cumple (S6 D4),Clon limpio con 6 salidas; PR #19,Falta ejecución por un analista de FinBank,Analista de Riesgo en la capacitación real
+Historia,S6-03,"Acción, rol y plazo por caso",Cumple,RUNBOOK.md sección 5,Integrado en main,—
+Historia,S6-04,Inventario con ubicación y responsable,Cumple,TRANSFERENCIA.md sección 1; PR #20,Integrado en main,—
+Historia,S6-04,Capacitación con registro de asistentes,Cumple (escenario S6 D8),Plan en TRANSFERENCIA.md sección 2,Pendiente: la sesión real no ocurrió,VP de Riesgo (convoca) y equipo DataForge
+Historia,S6-04,Acta firmable tras la auditoría de protección de datos,No cumple: hallazgo de la sal (S6 D10),TRANSFERENCIA.md secciones 4 y 5,Pendiente,Oficial de protección de datos y luego el patrocinador
+Historia,S6-05,"Base aprobada, gasto, pronóstico y reserva separados",Cumple (S6 D9),budget.csv; informe sección 8,Integración en main pendiente de aprobación del PR,Revisor del PR
+Historia,S6-05,Hitos M1-M6 con desviación y evidencia,Cumple,milestones.csv,Integración en main pendiente de aprobación del PR,Revisor del PR
+Objetivo,O1,"AUC ≥ 0,75 fuera de tiempo","Cumple en el prototipo: 0,7959 (30 d), 0,7884 (60 d)",pilot_metrics.csv,Pendiente con datos reales,VP de Riesgo con el extracto real
+Objetivo,O2,"Recall ≥ 0,60 al umbral operativo","Cumple en el prototipo: 0,6203 al umbral 0,13",pilot_metrics.csv,Pendiente con datos reales,VP de Riesgo y Retención
+Objetivo,O3,Matriz de costos y umbral aprobados por Finanzas,Aprobado en el escenario (Review S5),"CostMatrix en pilot.py; trade-off COP 11,55 M frente a 20,06 M",Pendiente: aprobación real de Finanzas,Finanzas
+Objetivo,O4,Aceptación del paquete de transferencia por el patrocinador,Condicionada (Review S6),TRANSFERENCIA.md,Pendiente: firma real,Patrocinador
+Objetivo,O5,Desviación de costo y cronograma ≤ 5 %,"Cumple: costo -0,12 %, hito final en la semana 12",budget.csv; milestones.csv,Cifras del escenario; sin registro contable real,Patrocinador y Finanzas
+Académico,C3-00,Dos PDF y sustentación,PDF generados en docs/corte3,build_corte3.py,Entrega 18-nov-2026 y sustentación 20-nov-2026 pendientes,Equipo DataForge por el canal académico
