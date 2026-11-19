@@ -36,7 +36,7 @@ Requisito: Python 3.11 o superior. La variable de entorno `FINBANK_PSEUDONYM_SAL
 | 1. Pruebas | `pytest -q` | Todas en verde. Si alguna falla, **no** se publican listas (sección 5, caso A). |
 | 2. Calidad del extracto | `python scripts/run_pipeline.py reports/semana` | 0 violaciones de reglas, reporte de calidad y diccionario. |
 | 3. Piloto | `python scripts/run_pilot.py reports/semana` | `early_warning_list.csv`, `churn_list.csv` y `pilot_metrics.csv`. |
-| 4. Monitoreo | `python scripts/run_monitoring.py reports/semana` | `monitoring_report.csv` con PSI, AUC y la marca de reentrenamiento. |
+| 4. Monitoreo | `python scripts/run_monitoring.py reports/semana` | `monitoring_report.csv` con PSI, AUC, recall y la marca de reentrenamiento. |
 | 5. Publicación | Copia de las dos listas a la carpeta compartida de Cobranza y de Retención | Solo las columnas `client_key`, `probability`, `decile` y `action`. |
 
 Las listas usan `client_key`, un identificador seudonimizado. La correspondencia con el cliente real se resuelve dentro de la infraestructura del banco, con la misma sal, y nunca en archivos compartidos.
@@ -47,8 +47,8 @@ Las listas usan `client_key`, un identificador seudonimizado. La correspondencia
 |---|---|---|---|
 | Estabilidad del score | `psi_score` | < 0,10 estable · 0,10–0,25 vigilar · ≥ 0,25 alerta | La población que se puntúa se parece a la de desarrollo. |
 | Estabilidad por variable | `top_variable`, `psi_top_variable` | Mismas bandas | Indica qué variable explica el cambio. |
-| Desempeño | `auc_30d`, `auc_drop` | Caída > 0,05 frente a la base | Se mide cuando maduran los 30 días de la cohorte. |
-| Reentrenamiento | `retraining_flag` | 2 semanas consecutivas con caída > 0,05 | Marca de la propuesta (diapositiva 4). |
+| Desempeño | `auc_30d`, `auc_drop`, `recall_30d`, `recall_drop` | Caída > 0,05 frente a la base de cada métrica | Se mide cuando maduran los 30 días de la cohorte. El recall usa el umbral operativo. |
+| Reentrenamiento | `retraining_flag` | 2 semanas consecutivas con caída > 0,05 en AUC o recall | Cada métrica lleva su propia racha. |
 | Volumen de la lista | Filas con acción distinta de «seguimiento normal» | ±30 % frente al promedio de 4 semanas | Un salto suele indicar un problema de extracto antes que un cambio de riesgo. |
 
 ## 5. Qué hacer ante cada caso

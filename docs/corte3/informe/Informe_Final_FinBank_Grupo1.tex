@@ -57,7 +57,7 @@ Cliente & FinBank S.A., Vicepresidencia de Riesgo y Analítica \\
 Código del proyecto & GMAC-FB-2026-01 \\
 Cierre del escenario & Sprint 6, semanas 11--12 (19--30 de octubre de 2026) \\
 Entrega académica & 18 de noviembre de 2026 · Sustentación: 20 de noviembre de 2026 \\
-Grupo & Grupo X (número por confirmar) \\
+Grupo & Grupo \Grupo{} \\
 \end{tabular}
 
 \vspace{1.2cm}
@@ -82,6 +82,12 @@ Los actos de aceptación reales (firma del patrocinador, Finanzas, oficial de pr
 \vspace{0.4cm}
 {\small Escuela Colombiana de Ingeniería Julio Garavito · Gestión de Métodos Ágiles y Clásicos (GMAC) · Corte 3}
 \end{titlepage}
+
+\section*{Introducción}
+
+FinBank necesita anticipar la mora y la cancelación de créditos para que Cobranza y Retención puedan intervenir a tiempo. El Charter encargó a DataForge Consulting desarrollar dos modelos predictivos e incorporar su uso a un marco de gestión que el banco pueda sostener después de la transferencia.
+
+Este informe documenta el cierre académico del programa. Reconstruye los seis sprints, compara el cronograma y el gasto con la línea base y presenta un piloto reproducible con datos sintéticos. Los resultados técnicos respaldan la recomendación de cierre condicionado. La validación con datos de FinBank y la firma del acta de entrega siguen pendientes.
 
 % ------------------------------------------------------------------ 1
 \section{Resumen ejecutivo}
@@ -155,14 +161,14 @@ En la Review del día 10 \rot{Simulación C3} se demostraron el piloto (lista se
 
 \textbf{Tablero.} El token de GitHub de la cuenta no tiene el permiso de \emph{Projects}, así que el tablero del Corte 3 se lleva con etiquetas \texttt{estado:*} sobre las issues (Backlog, Ready, In Progress, Blocked, Review, Done), el milestone \emph{Corte 3 · S6} y una vista reproducible (\texttt{docs/corte3/TABLERO.md}) que genera \texttt{scripts/github\_snapshot.py} desde la API. Reglas: Ready exige la DoR; In Progress tiene WIP máximo de 3; Blocked exige la causa y el responsable en un comentario y escalación en 24 horas; Review empieza al abrir el PR con CI; Done exige el PR fusionado y la DoD completa. El Trello del Corte 1 es el antecedente histórico.
 
-\textbf{Flujo en GitHub} \rot{Verificable}. Cada historia tiene una issue, una rama \texttt{c3/s6/<id>-<tema>} y un PR con alcance, pruebas y criterios. Los PR forman una cadena y deben integrarse en orden con \emph{merge commit}, la regla del Corte 2. El CI corre las pruebas, el pipeline, el piloto y el monitoreo en cada push. La aprobación de cada PR corresponde a un integrante distinto del autor, y las revisiones ya se pidieron. Al generar este informe ningún PR del Corte 3 tenía aprobación ni merge, como muestra la tabla. Esos estados se actualizan con \texttt{github\_snapshot.py} y no se dan por hechos.
+\textbf{Flujo en GitHub} \rot{Verificable}. Cada historia tiene una issue, una rama \texttt{c3/s6/<id>-<tema>} y un PR con alcance, pruebas y criterios. Los PR forman una cadena y se integran en orden con \emph{merge commit}. El CI corre las pruebas, el pipeline, el piloto y el monitoreo en cada push. GitHub exige una aprobación de un integrante distinto del autor y de quien hizo la última actualización de la rama. La tabla muestra el estado al tomar la captura con \texttt{github\_snapshot.py}.
 
 \begin{table}[h]
 \caption{Bitácora de GitHub del Corte 3 (leída de la API al generar el informe)}\label{tab:gh}
 \input{generated/tab_github.tex}
 \end{table}
 
-El PR \#9 del Corte 2 sigue abierto y sin aprobación. Se conserva como antecedente. La cadena del Corte 3 parte de \texttt{main} y no modifica los archivos de ese PR (\texttt{README.md} y los documentos de \texttt{docs/}), salvo dos líneas añadidas al final de \texttt{ci.yml} que no se solapan con su cambio.
+El PR \#9 del Corte 2 quedó aprobado e integrado en \texttt{main}. La cadena del Corte 3 incorpora esa base y añade al CI la ejecución del piloto y del monitoreo.
 
 % ------------------------------------------------------------------ 6
 \section{Velocidad, burndown y métricas de flujo}
@@ -249,6 +255,8 @@ En el segmento controlado (región andina), la lista semanal de alerta temprana 
 \caption{Izquierda: el umbral de máximo beneficio (\CorteCosto) incumple O2; el umbral operativo (\CorteOp) lo cumple a cambio de COP \BenefDif{} M de beneficio neto. Derecha: el monitoreo detecta el cambio inyectado en la semana \SemAlerta{} (PSI de bureau\_score \PSIbureau) y marca reentrenamiento en la semana \SemReentreno{} (AUC \AUCsemReentreno{} frente a la base \AUCbase).}
 \end{figure}
 
+En la semana \SemAlerta{} el PSI del score global estuvo en vigilar (0,243). La variable \texttt{bureau\_score} activó la alerta (0,396), y esa semana también cayó el AUC. El informe semanal registra AUC y recall al umbral operativo. La marca de reentrenamiento se activa cuando una de las dos métricas cae más de 0,05 frente a su base durante dos semanas consecutivas. En la simulación se activó por AUC.
+
 % ------------------------------------------------------------------ 10
 \section{Retrospectiva, lecciones y acciones}
 
@@ -259,7 +267,7 @@ En el segmento controlado (región andina), la lista semanal de alerta temprana 
 
 \textbf{Liderazgo y coordinación.}
 \begin{itemize}
-\item \textbf{Comprometer lo que se ha demostrado.} El exceso de compromiso de S2 (20 frente a 16) no se repitió. Desde S3 el compromiso se ató a la velocidad media y la variación entre sprints bajó.
+\item \textbf{Ajustar el compromiso a la velocidad previa.} S3, S4 y S5 comprometieron 16 puntos cada uno frente a medias previas de 15,5, 15,7 y 15,0. S6 fue el único de esos cuatro sprints que respetó la regla: comprometió 15 puntos frente a una media de \VelMedia{}.
 \item \textbf{Escalar no es fallar.} Las dos escalaciones se hicieron en menos de 24 horas y protegieron el hito. El patrocinador conoció el problema antes de que se convirtiera en desviación.
 \item \textbf{Separar el Done técnico de la aceptación del negocio.} El tablero de GitHub mide integración. El registro de aceptación mide lo que el cliente firmó. Mezclarlos habría mostrado un 100\,\% falso.
 \item \textbf{El cumplimiento también tiene calendario.} La auditoría de protección de datos debió pedirse en la Planning de S6. Es la principal lección para el próximo proyecto.
@@ -278,7 +286,7 @@ En el segmento controlado (región andina), la lista semanal de alerta temprana 
 \item Firma del acta de entrega: el patrocinador, después de la auditoría del oficial de protección de datos.
 \item Aprobación de la regla de decisión de churn (prioridad de O2 sobre O3): Finanzas.
 \item Validación de O1 y O2 con el extracto real de FinBank: VP de Riesgo y TI, siguiendo la sección 6 del runbook.
-\item Aprobación e integración de los PR \#16--\#21: Daniel Martínez o Rafael Baracaldo, cada uno en los PR que no escribió.
+\item Aprobación e integración de los PR de cierre que figuren abiertos en el tablero.
 \item Sustentación académica del 20 de noviembre de 2026: el equipo. Este informe no la da por realizada.
 \end{enumerate}
 
@@ -292,7 +300,6 @@ En el segmento controlado (región andina), la lista semanal de alerta temprana 
 \item \textbf{Roles.} El Charter nombra a Rafael como analista de negocio y a Oscar como facilitador Scrum. Desde el Corte 2, en Scrum, son Product Owner y Scrum Master. Daniel conserva el reporte formal al patrocinador.
 \item \textbf{Datos sintéticos.} Las métricas de los modelos son del prototipo. El enunciado prohíbe inventar AUC o recall, así que no se reporta ninguna cifra de modelo que no produzca el código.
 \item \textbf{Consigna.} El sitio oficial del Corte 3 incrusta la consigna en un recurso de Canva que no se pudo descargar en esta preparación. Los requisitos se tomaron de la comprobación previa (dos PDF para el 18 de noviembre y sustentación formal el 20) y de la clase grabada del 6 de noviembre (30 minutos de presentación y 5 de preguntas). El equipo debe contrastarlos con la consigna completa.
-\item \textbf{Número de grupo.} No está confirmado, así que se usa el marcador \emph{GrupoX} en los nombres de archivo.
 \end{itemize}
 
 % ------------------------------------------------------------------ anexos
@@ -331,7 +338,7 @@ Salidas de ejecución & \texttt{docs/corte3/evidence/} (pruebas, pipeline, pilot
 Tablero reproducible & \texttt{docs/corte3/TABLERO.md}; issues \href{https://github.com/OscarSantiagoMerino/DataForge-Consulting/issues?q=label\%3AC3}{label:C3} \\
 Pull requests del Corte 3 & \href{https://github.com/OscarSantiagoMerino/DataForge-Consulting/pulls?q=label\%3AC3}{PR con label:C3} \\
 Runbook y transferencia & \texttt{docs/corte3/RUNBOOK.md}, \texttt{docs/corte3/TRANSFERENCIA.md} \\
-Presentación y guion & \texttt{docs/corte3/Presentacion\_FinBank\_GrupoX.pdf/.pptx}, \texttt{docs/corte3/Guion\_Sustentacion.md} \\
+Presentación y guion & \texttt{docs/corte3/Presentacion\_FinBank\_Grupo\Grupo{}.pdf/.pptx}, \texttt{docs/corte3/Guion\_Sustentacion.md} \\
 Índice navegable & \texttt{docs/corte3/README.md} \\
 \bottomrule
 \end{tabularx}
