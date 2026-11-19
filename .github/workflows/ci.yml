@@ -20,3 +20,4 @@ jobs:
       - run: pytest -v
       - run: python scripts/run_pipeline.py
       - run: python scripts/run_pilot.py
+      - run: python scripts/run_monitoring.py
