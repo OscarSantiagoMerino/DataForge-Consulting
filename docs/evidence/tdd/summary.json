@@ -1,0 +1,18 @@
+[
+  {
+    "phase": "red",
+    "commit": "c90a3258b3fbc296b8ca0ae5b875eaf603b86492",
+    "exit_code": 1,
+    "expected_exit_code": 1,
+    "verified": true,
+    "log": "red.txt"
+  },
+  {
+    "phase": "green",
+    "commit": "d9d2b5287d0f9d6974956b28a5255d207884192e",
+    "exit_code": 0,
+    "expected_exit_code": 0,
+    "verified": true,
+    "log": "green.txt"
+  }
+]

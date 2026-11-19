@@ -1,0 +1,10 @@
+1. Sample loaded and validated: 5,000 clients, 0 rule violations
+2. Quality report: 22 candidate variables, 4 excluded below 80% completeness
+     - digital_channel_share: 54.7%
+     - education_level: 65.3%
+     - dependents: 72.1%
+     - housing_type: 60.9%
+3. Feature dictionary v1: 18 variables ready for business validation
+4. Target default_30d: event rate 5.85%
+4. Target default_60d: event rate 2.37%
+Outputs written to docs\evidence\outputs

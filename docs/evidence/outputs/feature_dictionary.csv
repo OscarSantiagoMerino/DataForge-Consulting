@@ -1,0 +1,19 @@
+variable,description,type,valid_values,completeness,business_owner
+age,"Age of the client at origination, in years",numeric,"[18, 90]",1.0,Risk and Analytics
+monthly_income,"Verified monthly income, COP",numeric,"[0, inf]",0.9722,Risk and Analytics
+employment_months,Months in current employment,numeric,"[0, 600]",0.94,Risk and Analytics
+employment_type,Type of employment contract,categorical,employee | self_employed | pensioner | other,1.0,Risk and Analytics
+region,Region of the originating branch,categorical,bogota | andina | caribe | pacifica | orinoquia,1.0,Collections
+product_type,Credit product,categorical,consumer | credit_card | vehicle | payroll_loan,1.0,Risk and Analytics
+loan_amount,"Amount disbursed, COP",numeric,"[0, inf]",1.0,Risk and Analytics
+loan_term_months,"Contractual term, in months",numeric,"[1, 120]",1.0,Risk and Analytics
+interest_rate,"Annual effective rate, as a fraction",numeric,"[0, 0.6]",1.0,Risk and Analytics
+installment_to_income,Monthly installment over monthly income,numeric,"[0, 1.5]",1.0,Risk and Analytics
+bureau_score,Credit bureau score at origination,numeric,"[150, 950]",0.9598,Risk and Analytics
+open_credit_lines,Open credit lines in the bureau,numeric,"[0, 60]",1.0,Risk and Analytics
+bureau_inquiries_6m,Bureau inquiries in the last 6 months,numeric,"[0, 50]",1.0,Risk and Analytics
+prior_delinquencies_24m,Delinquency events in the last 24 months,numeric,"[0, 24]",1.0,Collections
+credit_utilization,Used share of revolving credit limits,numeric,"[0, 1]",0.923,Risk and Analytics
+months_as_client,Months since the first product with FinBank,numeric,"[0, 600]",1.0,Risk and Analytics
+savings_balance,"Average savings balance, last 3 months, COP",numeric,"[0, inf]",0.948,Risk and Analytics
+has_payroll_deposit,1 if salary is deposited at FinBank,numeric,"[0, 1]",1.0,Collections
