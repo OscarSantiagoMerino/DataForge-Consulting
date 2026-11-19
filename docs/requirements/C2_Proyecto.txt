@@ -1,0 +1,135 @@
+FinBank S.A. - Entregables Corte 2: Scrum + XP (GMAC)
+ECI • GMAC
+Gestión, Metodologías Ágiles y Capstone
+Ingeniería Estadística • Escuela Colombiana de Ingeniería Julio Garavito
+Sprints 1 y 2
+Corte 2 (30%) • Scrum + XP
+Fase de Ejecución: Sinergia Scrum (Gestión de Flujo) + XP (Calidad Técnica)
+Ejecución Ágil del Proyecto Predictivo FinBank
+Una vez aprobada la licitación en el Corte 1, la firma consultora pasa de la planificación a la
+ejecución incremental
+. En este segundo tercio (30%), el equipo implementa el marco
+Scrum
+para coordinar eventos y métricas de velocidad, fusionado con
+Extreme Programming (XP)
+para asegurar rigor técnico mediante programación en parejas, validaciones automatizadas y diseño simple.
+RITMO DE ENTREGA
+2 Sprints
+Ciclos cerrados y medidos.
+MÉTRICAS CLAVE
+Velocity & Burndown
+Control de capacidad real.
+PRÁCTICAS XP
+4 Prácticas
+Pairing, TDD, CI y Refactoring.
+DEMOSTRACIÓN
+Sprint Review
+Incremento ante FinBank.
+1. Marco Scrum + XP en FinBank
+2. Las 4 Prácticas XP Exigidas
+3. Entregables Oficiales (Corte 2)
+ARQUITECTURA DE TRABAJO (CORTE 2)
+Peso evaluativo: 30%
+¿Cómo se articulan Scrum y XP en un Proyecto Estadístico?
+Scrum
+proporciona el
+marco de gestión y gobierno
+(organización en Sprints, ceremonias de sincronización y métricas de velocidad de entrega), mientras que
+Extreme Programming (XP)
+proporciona las
+prácticas técnicas y de ingeniería
+para garantizar que el trabajo analítico sea reproducible, colaborativo, modular y libre de errores silenciosos.
+El Eje Scrum (Gestión de Flujo)
+Proceso & Equipo
+•
+Ejecución de 2 Sprints formales:
+Cada ciclo con backlog priorizado, compromiso de puntos y cierre.
+•
+Eventos de sincronización:
+Bitácora breve de Daily Scrums (qué se hizo, qué se hará, impedimentos).
+•
+Métricas de control:
+Cálculo de
+Velocity
+del equipo y seguimiento de curva
+Burndown Chart
+.
+•
+Retrospectiva del Sprint:
+Análisis de mejoras operacionales (Start, Stop, Continue).
+El Eje XP (Prácticas de Calidad)
+Rigor Técnico
+•
+Pair Programming / Pairing:
+Trabajo en parejas para diseñar flujos de análisis y validar supuestos.
+•
+TDD (Pruebas de Calidad / Validación):
+Pruebas unitarias de integridad de reglas antes de dar una tarea por lista.
+•
+Continuous Integration & Propiedad Colectiva:
+Repositorio Git centralizado con ramas y revisiones formales.
+•
+Diseño Simple & Refactoring:
+Simplificación del pipeline y eliminación de deuda técnica organizativa.
+CONSIGNA DEL CLIENTE (FINBANK S.A.)
+"Apreciada firma consultora: en el Corte 1 aprobamos su Project Charter y su Backlog. Para este Corte 2, la junta no tolerará trabajo desarticulado de último minuto. Exigimos ver
+evidencia real de cómo corrieron sus dos primeros Sprints
+, cómo midieron su ritmo mediante gráficos Burndown, y cómo aplicaron prácticas de ingeniería XP para que el código y los procesos analíticos no dependan de una sola persona."
+Adaptación de Extreme Programming (XP) para Equipos Estadísticos
+Microcurrículo GMAC (RA2)
+Para que los estudiantes de Ingeniería Estadística apliquen XP sin sobrecargas teóricas, cada firma consultora implementará obligatoriamente estas cuatro prácticas puntuales durante los Sprints 1 y 2:
+01. Pair Programming & Modeling
+Colaboración
+Trabajo en Parejas (Piloto y Copiloto)
+Los integrantes trabajan en parejas turnando roles: mientras uno estructura la tarea (guion de validación, pipeline o documentación), el otro revisa en tiempo real la coherencia lógica y de negocio.
+Evidencia requerida:
+Registro de al menos dos sesiones de pairing con foto/captura o commits co-autorados (`Co-authored-by:`) en el repositorio Git.
+02. Test-Driven Development (TDD)
+Cero Defectos
+Validaciones y Pruebas Unitarias de Reglas
+Antes de dar por completado un módulo de gestión o procesamiento, se diseñan las pruebas de control de fallos (e.g., comprobación de valores nulos, coherencia de rangos de score de riesgo crediticio o tipos de variables).
+Evidencia requerida:
+Script de validación o batería de pruebas unitarias (mínimo 3 pruebas automatizadas) con reporte de ejecución exitosa.
+03. Integración Continua & Propiedad Colectiva
+Trazabilidad
+Repositorio Centralizado & Pull Requests
+Ningún entregable reside en computadores personales de forma aislada. Todo el equipo tiene propiedad colectiva del trabajo mediante ramas (`feature branches`) y aprobación obligatoria por un par mediante Pull Requests.
+Evidencia requerida:
+Historial de Git/GitHub visible con Pull Requests revisados, aprobados y mezclados a la rama principal (`main`).
+04. Simple Design & Refactoring
+Eficiencia
+Diseño Simple y Reducción de Deuda Técnica
+Implementar la solución más sencilla que cumpla con los requerimientos de FinBank sin complejidades innecesarias. Refactorizar código y documentación para mantener claridad y legibilidad.
+Evidencia requerida:
+Muestra de un cambio de refactorización documentado (versión antes vs. después simplificada) en la bitácora técnica.
+Verificador de Entregables del Corte 2 (30%)
+Comprueba el cumplimiento de los 3 productos formales exigidos para la evaluación.
+Progreso
+0 / 6
+PRODUCTO A
+PDF (3-4 PÁGS) • 40%
+Reporte de Sprints y Métricas Ágiles
+Documento ejecutivo con el cierre de los Sprints 1 y 2 (
+Reporte_Sprints_Corte2.pdf
+).
+Cálculo de Velocidad (estimada vs real) y Burndown
+Bitácora de Dailies y Acta de Retrospectiva
+PRODUCTO B
+REPO + BITÁCORA • 30%
+Bitácora de Prácticas XP y Repositorio
+Enlace público al repositorio GitHub del equipo con el cumplimiento de las 4 prácticas de calidad técnica.
+Evidencia de Pairing y Pull Requests revisados
+Tests unitarios automatizados y refactorización
+PRODUCTO C
+DEMO • 30%
+Sprint Review & Demo Operacional
+Sustentación de 15 minutos en vivo demostrando el incremento de producto ante FinBank (docente).
+Demostración de historias que cumplen el Definition of Done
+Defensa de lecciones aprendidas y plan de mejora
+Distribución de Calificación del Corte 2 (30% de la Nota Definitiva):
+Reporte de Métricas Scrum (40%)
+Velocidad, Burndown, Dailies y Retrospectiva
+Bitácora y Repositorio XP (30%)
+Pairing, TDD, Git Flow y Refactorización
+Sprint Review en Vivo (30%)
+Incremento de valor y cumplimiento de DoD

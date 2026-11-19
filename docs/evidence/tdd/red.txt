@@ -1,0 +1,19 @@
+...........F                                                             [100%]
+================================== FAILURES ===================================
+_______________________ test_missing_column_is_reported _______________________
+
+sample = {'age': array([39., 55., 32., ..., 74., 65., 68.]), 'bureau_inquiries_6m': array([0., 0., 0., ..., 2., 1., 2.]), 'bure... 'client_id': array(['C000001', 'C000002', 'C000003', ..., 'C001998', 'C001999',
+       'C002000'], dtype=object), ...}
+
+    def test_missing_column_is_reported(sample):
+        del sample["loan_amount"]
+>       assert validate(sample) == [Violation("missing_column", "loan_amount", 0)]
+E       AssertionError: assert [] == [Violation(ru...unt', rows=0)]
+E
+E         Right contains one more item: Violation(rule='missing_column', column='loan_amount', rows=0)
+E         Use -v to get more diff
+
+tests\test_validation.py:49: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_validation.py::test_missing_column_is_reported - AssertionE...
+1 failed, 11 passed in 0.13s
