@@ -29,8 +29,8 @@ from finbank.targets import delinquency_targets  # noqa: E402
 ROOT = data.ROOT
 TEMPLATE = ROOT / "site/index.html"
 DOCS = ROOT / "docs/corte3"
-DOWNLOADS = ["Informe_Final_FinBank_GrupoX.pdf", "Presentacion_FinBank_GrupoX.pdf",
-             "Presentacion_FinBank_GrupoX.pptx", "Guion_Sustentacion.md"]
+DOWNLOADS = [f"{data.REPORT_NAME}.pdf", f"{data.DECK_NAME}.pdf",
+             f"{data.DECK_NAME}.pptx", "Guion_Sustentacion.md"]
 REPO = "https://github.com/OscarSantiagoMerino/DataForge-Consulting"
 
 
@@ -116,7 +116,11 @@ def payload() -> dict:
 def build(out: Path) -> Path:
     out.mkdir(parents=True, exist_ok=True)
     blob = json.dumps(payload(), ensure_ascii=False, default=float).replace("</", "<\\/")
-    html = TEMPLATE.read_text(encoding="utf-8").replace("/*__DATA__*/null", blob)
+    html = (TEMPLATE.read_text(encoding="utf-8")
+            .replace("__REPORT_NAME__", data.REPORT_NAME)
+            .replace("__DECK_NAME__", data.DECK_NAME)
+            .replace("__GROUP_NUMBER__", str(data.GROUP_NUMBER))
+            .replace("/*__DATA__*/null", blob))
     (out / "index.html").write_text(html, encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")
     files = out / "files"

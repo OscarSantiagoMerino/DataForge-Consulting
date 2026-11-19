@@ -109,13 +109,13 @@ footer{margin-top:50px;background:var(--surface);border-top:1px solid var(--line
 <header class="hero">
   <button class="themebtn" id="theme" type="button" aria-label="Cambiar tema">◐ Tema</button>
   <div class="wrap">
-    <div class="eyebrow">DataForge Consulting · FinBank S.A. · GMAC-FB-2026-01 · Corte 3</div>
+    <div class="eyebrow">DataForge Consulting · FinBank S.A. · GMAC-FB-2026-01 · Corte 3 · Grupo __GROUP_NUMBER__</div>
     <h1>Cierre del Programa de Analítica Predictiva</h1>
-    <p class="lead">Mora temprana y churn de crédito: qué entregamos en 12 semanas, cuánto costó frente al Charter y qué decisión necesita FinBank.</p>
+    <p class="lead">FinBank busca anticipar la mora y la cancelación de créditos para actuar a tiempo. Consulta el piloto sobre datos sintéticos y el balance de las doce semanas frente al Charter.</p>
     <div class="team">Daniel Felipe Martínez Hernández · Líder de proyecto &nbsp;|&nbsp; Rafael Alejandro Baracaldo Doikov · Product Owner &nbsp;|&nbsp; Oscar Santiago Merino Suárez · Scrum Master</div>
     <div class="btns">
-      <a class="btn" href="files/Informe_Final_FinBank_GrupoX.pdf">Informe Final (PDF)</a>
-      <a class="btn" href="files/Presentacion_FinBank_GrupoX.pdf">Presentación (PDF)</a>
+      <a class="btn" href="files/__REPORT_NAME__.pdf">Informe Final (PDF)</a>
+      <a class="btn" href="files/__DECK_NAME__.pdf">Presentación (PDF)</a>
       <a class="btn ghost" id="repolink" href="#">Repositorio en GitHub</a>
     </div>
   </div>
@@ -138,7 +138,7 @@ footer{margin-top:50px;background:var(--surface);border-top:1px solid var(--line
 
 <section id="recorrido">
   <h2>Recorrido S1–S6</h2>
-  <p class="sub">Seis sprints de dos semanas. S1–S2 son el antecedente del Corte 2, S3–S5 la transición reconstruida y S6 el sprint final. Desde S3 el compromiso no supera la velocidad media.</p>
+  <p class="sub">Seis sprints de dos semanas. S3, S4 y S5 comprometieron 16 puntos cada uno, por encima de sus medias previas de 15,5, 15,7 y 15,0. S6 ajustó el compromiso a 15 puntos frente a una media de 15,2.</p>
   <div class="grid g2">
     <div class="card"><h3>Velocidad: compromiso frente a terminado</h3><div class="chart"><canvas id="cVel"></canvas></div></div>
     <div class="card scroll"><h3>Objetivo de cada sprint</h3><table class="tbl" id="tSprints"></table></div>
@@ -193,11 +193,11 @@ footer{margin-top:50px;background:var(--surface);border-top:1px solid var(--line
 </section>
 
 <section id="monitoreo">
-  <h2>Monitoreo: avisa antes de que el modelo se degrade</h2>
-  <p class="sub">PSI: estable &lt; 0,10 · vigilar 0,10–0,25 · alerta ≥ 0,25. Hay que reentrenar si el AUC cae más de 0,05 durante 2 semanas seguidas. Seis semanas sintéticas con un cambio inyectado desde la semana 4. <span class="chip pro">Prototipo</span></p>
+  <h2>Monitoreo semanal de estabilidad y desempeño</h2>
+  <p class="sub">En la semana 4, el score quedó en vigilar (PSI 0,243), bureau_score activó una alerta (0,396) y el AUC cayó. La marca de reentrenamiento se activa si el AUC o el recall cae más de 0,05 frente a su base durante dos semanas consecutivas. En la demo se activó por AUC en la semana 5. <span class="chip pro">Prototipo</span></p>
   <div class="grid g2">
     <div class="card"><h3>Estabilidad (PSI)</h3><div class="chart"><canvas id="cPsi"></canvas></div></div>
-    <div class="card"><h3>Desempeño (AUC a 30 días)</h3><div class="chart"><canvas id="cAuc"></canvas></div></div>
+    <div class="card"><h3>Desempeño (AUC y recall a 30 días)</h3><div class="chart"><canvas id="cAuc"></canvas></div></div>
   </div>
 </section>
 
@@ -366,9 +366,11 @@ function drawMon() {
   chart("cAuc", {type: "line", data: {labels: W, datasets: [
     {label: "AUC 30 d", data: D.monitoring.map(r => r.auc_30d), borderColor: css("--navy"), pointRadius: D.monitoring.map(r => r.retraining_flag ? 8 : 4),
      pointBackgroundColor: D.monitoring.map(r => r.retraining_flag ? css("--red") : css("--navy"))},
-    {label: "Base − 0,05", data: W.map(() => D.monitoring[0].auc_baseline - 0.05), borderColor: css("--red"), borderDash: [4, 3], pointRadius: 0}]},
+    {label: "Recall 30 d", data: D.monitoring.map(r => r.recall_30d), borderColor: css("--teal"), pointRadius: 4},
+    {label: "Base AUC − 0,05", data: W.map(() => D.monitoring[0].auc_baseline - 0.05), borderColor: css("--navy"), borderDash: [4, 3], pointRadius: 0},
+    {label: "Base recall − 0,05", data: W.map(() => D.monitoring[0].recall_baseline - 0.05), borderColor: css("--teal"), borderDash: [4, 3], pointRadius: 0}]},
     options: baseOpts({plugins: {legend: {labels: {color: css("--ink")}}, tooltip: {callbacks: {afterLabel: i => D.monitoring[i.dataIndex].retraining_flag ? "Reentrenar" : ""}}},
-      scales: {x: {ticks: {color: css("--ink")}, grid: {color: css("--line")}}, y: {min: 0.55, max: 0.85, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
+      scales: {x: {ticks: {color: css("--ink")}, grid: {color: css("--line")}}, y: {suggestedMin: 0.5, suggestedMax: 0.85, ticks: {color: css("--ink")}, grid: {color: css("--line")}}}})});
 }
 
 // ---------- Balance
@@ -408,8 +410,8 @@ document.querySelectorAll(".filters .tab").forEach(b => b.addEventListener("clic
 drawAcc("all");
 
 // ---------- Descargas y pie
-const desc = {"Informe_Final_FinBank_GrupoX.pdf": "Informe Final de Gestión (PDF)", "Presentacion_FinBank_GrupoX.pdf": "Presentación de sustentación (PDF)",
-  "Presentacion_FinBank_GrupoX.pptx": "Presentación editable con notas del orador (PPTX)", "Guion_Sustentacion.md": "Guion por integrante, demo y preguntas (Markdown)"};
+const desc = {"__REPORT_NAME__.pdf": "Informe Final de Gestión (PDF)", "__DECK_NAME__.pdf": "Presentación de sustentación (PDF)",
+  "__DECK_NAME__.pptx": "Presentación editable con notas del orador (PPTX)", "Guion_Sustentacion.md": "Guion por integrante, demo y preguntas (Markdown)"};
 $("dl").innerHTML = D.downloads.map(f => `<div class="dl"><span>${desc[f] || f}</span><a class="btn" href="files/${f}" download>Descargar</a></div>`).join("") +
   `<div class="dl"><span>Código, pruebas, datos de evidencia y fuentes editables</span><a class="btn" href="${D.meta.repo}">GitHub</a></div>`;
 $("foot").innerHTML = `DataForge Consulting · Proyecto académico GMAC (Escuela Colombiana de Ingeniería Julio Garavito), Corte 3 · FinBank S.A. es el cliente del caso de estudio.<br>
