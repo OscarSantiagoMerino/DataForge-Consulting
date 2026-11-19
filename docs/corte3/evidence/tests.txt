@@ -1,9 +1,9 @@
-# commit d861e55 (c3/s6/s6-05-cierre) · 2026-11-19 03:36 UTC · Python 3.13.5 · Windows 11
+# commit 37f9c92 (c3/s6/c3-01-sitio-web) · 2026-11-19 03:39 UTC · Python 3.13.5 · Windows 11
 $ python -m pytest -v
 ============================= test session starts =============================
 platform win32 -- Python 3.13.5, pytest-8.3.4, pluggy-1.5.0 -- C:\Users\danie\anaconda3\python.exe
 cachedir: .pytest_cache
-rootdir: C:\Users\danie\Downloads\todo\FinBank-cierre
+rootdir: C:\Users\danie\Downloads\todo\FinBank-cierre\reports\pr23-worktree
 configfile: pyproject.toml
 testpaths: tests
 plugins: anyio-4.7.0
@@ -68,4 +68,4 @@ tests/test_validation.py::test_numeric_variable_loaded_as_text_is_reported PASSE
 tests/test_validation.py::test_personal_data_column_is_rejected PASSED   [ 98%]
 tests/test_validation.py::test_missing_column_is_reported PASSED         [100%]
 
-============================= 58 passed in 0.67s ==============================
+============================= 58 passed in 0.80s ==============================
